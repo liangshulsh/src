@@ -1,0 +1,43 @@
+﻿<?xml version="1.0"?>
+<Assembly>
+  <Namespace Name="Client">
+    <Type Name="ClientForm">
+      <Method Sig="instance void .ctor()">
+        <Demand>
+          <PermissionSet version="1" class="System.Security.PermissionSet">
+            <IPermission version="1" class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+            <IPermission version="1" class="System.Security.Permissions.ReflectionPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+            <IPermission version="1" class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Flags="UnmanagedCode, ControlEvidence, RemotingConfiguration" />
+            <IPermission Window="AllWindows" version="1" class="System.Security.Permissions.UIPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+            <IPermission version="1" class="System.Security.Permissions.KeyContainerPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+          </PermissionSet>
+        </Demand>
+        <Sandbox>
+          <PermissionSet version="1" class="System.Security.PermissionSet">
+            <IPermission version="1" class="System.Security.Permissions.FileIOPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+            <IPermission version="1" class="System.Security.Permissions.ReflectionPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+            <IPermission version="1" class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Flags="UnmanagedCode, ControlEvidence, RemotingConfiguration" />
+            <IPermission Window="AllWindows" version="1" class="System.Security.Permissions.UIPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+            <IPermission version="1" class="System.Security.Permissions.KeyContainerPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+          </PermissionSet>
+        </Sandbox>
+      </Method>
+      <Method Sig="instance void MessageReceivedHandler(string )">
+        <Demand>
+          <PermissionSet version="1" class="System.Security.PermissionSet">
+            <IPermission version="1" class="System.Security.Permissions.ReflectionPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+            <IPermission version="1" class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Flags="UnmanagedCode, ControlEvidence" />
+            <IPermission version="1" class="System.Security.Permissions.KeyContainerPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+          </PermissionSet>
+        </Demand>
+        <Sandbox>
+          <PermissionSet version="1" class="System.Security.PermissionSet">
+            <IPermission version="1" class="System.Security.Permissions.ReflectionPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+            <IPermission version="1" class="System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Flags="UnmanagedCode, ControlEvidence" />
+            <IPermission version="1" class="System.Security.Permissions.KeyContainerPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" Unrestricted="true" />
+          </PermissionSet>
+        </Sandbox>
+      </Method>
+    </Type>
+  </Namespace>
+</Assembly>

@@ -1,0 +1,17 @@
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\bin\Debug\Subscribe.exe
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\bin\Debug\Subscribe.pdb
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\bin\Debug\FakeTicker.dll
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\bin\Debug\Publisher.dll
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\bin\Debug\Subscriber.dll
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\bin\Debug\FakeTicker.pdb
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\bin\Debug\Publisher.pdb
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\bin\Debug\Subscriber.pdb
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\obj\Debug\PublishSubscribe.SubscribeClient.resources
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\obj\Debug\ResGen.read.1.tlog
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\obj\Debug\ResGen.write.1.tlog
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\obj\Debug\Subscribe.exe
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\obj\Debug\Subscribe.pdb
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\liang\Desktop\PublishSubscribe\Subscribe\bin\Debug\Subscribe.exe.config

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Ai">
+</Property><Property Name="Solution File" Value="D:\Development\Ai\Ai.sln">
+</Property><Property Name="Date" Value="2014年3月22日">
+</Property><Property Name="Time" Value="18:47">
+</Property></Properties><Event ErrorLevel="0" Project="Renderer" Source="Ai\Renderer.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Renderer" Source="Ai\Renderer.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Test" Source="Test\Test.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Test" Source="Test\Test.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Control" Source="Control\Control.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Control" Source="Control\Control.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Common" Source="Common\Common.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Common" Source="Common\Common.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Reporting.Core" Source="Reporting.Core\Reporting.Core.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Reporting.Core" Source="Reporting.Core\Reporting.Core.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="Ai.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="Ai.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Renderer" Source="Ai\Renderer.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Test" Source="Test\Test.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Control" Source="Control\Control.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Common" Source="Common\Common.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Reporting.Core" Source="Reporting.Core\Reporting.Core.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

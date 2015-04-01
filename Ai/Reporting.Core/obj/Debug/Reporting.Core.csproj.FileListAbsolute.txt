@@ -1,0 +1,9 @@
+E:\work\CS2008\Ai\Reporting.Core\bin\Debug\Ai.Reporting.Core.dll
+E:\work\CS2008\Ai\Reporting.Core\bin\Debug\Ai.Reporting.Core.pdb
+E:\work\CS2008\Ai\Reporting.Core\obj\Debug\ResolveAssemblyReference.cache
+E:\work\CS2008\Ai\Reporting.Core\obj\Debug\Ai.Reporting.Core.dll
+E:\work\CS2008\Ai\Reporting.Core\obj\Debug\Ai.Reporting.Core.pdb
+D:\Development\Ai\Reporting.Core\bin\Debug\Ai.Reporting.Core.dll
+D:\Development\Ai\Reporting.Core\bin\Debug\Ai.Reporting.Core.pdb
+D:\Development\Ai\Reporting.Core\obj\Debug\Ai.Reporting.Core.dll
+D:\Development\Ai\Reporting.Core\obj\Debug\Ai.Reporting.Core.pdb

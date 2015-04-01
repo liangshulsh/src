@@ -1,0 +1,54 @@
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\obj\Debug\ResolveAssemblyReference.cache
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\obj\Debug\Test.Form1.resources
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\obj\Debug\Test.Properties.Resources.resources
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\obj\Debug\Test.csproj.GenerateResource.Cache
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\bin\Debug\Test.exe
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\bin\Debug\Test.pdb
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\bin\Debug\Ai.Control.dll
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\bin\Debug\Ai.Renderer.dll
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\bin\Debug\Ai.Control.pdb
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\bin\Debug\Ai.Renderer.pdb
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\obj\Debug\Test.exe
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\obj\Debug\Test.pdb
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Test\obj\Debug\Test.Form2.resources
+D:\work\CS2008\Ai\Test\obj\Debug\Test.exe
+D:\work\CS2008\Ai\Test\obj\Debug\Test.pdb
+D:\work\CS2008\Ai\Test\bin\Debug\Test.exe
+D:\work\CS2008\Ai\Test\bin\Debug\Test.pdb
+D:\work\CS2008\Ai\Test\bin\Debug\Ai.Control.dll
+D:\work\CS2008\Ai\Test\bin\Debug\Ai.Renderer.dll
+D:\work\CS2008\Ai\Test\bin\Debug\Ai.Control.pdb
+D:\work\CS2008\Ai\Test\bin\Debug\Ai.Renderer.pdb
+D:\work\CS2008\Ai\Test\obj\Debug\ResolveAssemblyReference.cache
+D:\work\CS2008\Ai\Test\obj\Debug\Test.Form1.resources
+D:\work\CS2008\Ai\Test\obj\Debug\Test.Form2.resources
+D:\work\CS2008\Ai\Test\obj\Debug\Test.Properties.Resources.resources
+D:\work\CS2008\Ai\Test\obj\Debug\Test.csproj.GenerateResource.Cache
+F:\work\CS2008\Ai\Test\obj\Debug\Test.exe
+F:\work\CS2008\Ai\Test\obj\Debug\Test.pdb
+E:\work\CS2008\Ai\Test\obj\Debug\Test.exe
+E:\work\CS2008\Ai\Test\obj\Debug\Test.pdb
+E:\work\CS2008\Ai\Test\bin\Debug\Test.exe
+E:\work\CS2008\Ai\Test\bin\Debug\Test.pdb
+E:\work\CS2008\Ai\Test\bin\Debug\Ai.Control.dll
+E:\work\CS2008\Ai\Test\bin\Debug\Ai.Renderer.dll
+E:\work\CS2008\Ai\Test\bin\Debug\Ai.Control.pdb
+E:\work\CS2008\Ai\Test\bin\Debug\Ai.Renderer.pdb
+E:\work\CS2008\Ai\Test\obj\Debug\ResolveAssemblyReference.cache
+E:\work\CS2008\Ai\Test\obj\Debug\Test.Form1.resources
+E:\work\CS2008\Ai\Test\obj\Debug\Test.Form2.resources
+E:\work\CS2008\Ai\Test\obj\Debug\Test.Properties.Resources.resources
+E:\work\CS2008\Ai\Test\obj\Debug\Test.csproj.GenerateResource.Cache
+D:\Development\Ai\Test\obj\Debug\Test.exe
+D:\Development\Ai\Test\obj\Debug\Test.pdb
+D:\Development\Ai\Test\bin\Debug\Test.exe
+D:\Development\Ai\Test\bin\Debug\Test.pdb
+D:\Development\Ai\Test\bin\Debug\Ai.Control.dll
+D:\Development\Ai\Test\bin\Debug\Ai.Renderer.dll
+D:\Development\Ai\Test\bin\Debug\Ai.Renderer.pdb
+D:\Development\Ai\Test\bin\Debug\Ai.Control.pdb
+D:\Development\Ai\Test\obj\Debug\Test.csprojResolveAssemblyReference.cache
+D:\Development\Ai\Test\obj\Debug\Test.Form1.resources
+D:\Development\Ai\Test\obj\Debug\Test.Form2.resources
+D:\Development\Ai\Test\obj\Debug\Test.Properties.Resources.resources
+D:\Development\Ai\Test\obj\Debug\Test.csproj.GenerateResource.Cache

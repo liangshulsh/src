@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="PublishSubscribe">
+</Property><Property Name="Solution File" Value="C:\Users\liang\Desktop\PublishSubscribe\PublishSubscribe.sln">
+</Property><Property Name="User Options File" Value="C:\Users\liang\Desktop\PublishSubscribe\PublishSubscribe.suo">
+</Property><Property Name="Date" Value="2014年1月26日">
+</Property><Property Name="Time" Value="16:34">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="PublishSubscribe.sln" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\PublishSubscribe.sln">
+</Event><Event ErrorLevel="0" Project="" Source="PublishSubscribe.suo" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\PublishSubscribe.suo">
+</Event><Event ErrorLevel="0" Project="Publish" Source="Publish\Publish.csproj" Description="Project file successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Publish\Publish.csproj">
+</Event><Event ErrorLevel="0" Project="Publish" Source="Publish\Publish.csproj.user" Description="Project user file successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Publish\Publish.csproj.user">
+</Event><Event ErrorLevel="0" Project="Publish" Source="Publish\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Publish\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="Publish" Source="Publish\Publish.cs" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Publish\Publish.cs">
+</Event><Event ErrorLevel="0" Project="Publish" Source="Publish\App.ico" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Publish\App.ico">
+</Event><Event ErrorLevel="0" Project="Publish" Source="Publish\Publish.resx" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Publish\Publish.resx">
+</Event><Event ErrorLevel="1" Project="Publish" Source="Publish\Publish.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="Publish" Source="Publish\Publish.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Publish" Source="Publish\Publish.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Subscribe" Source="Subscribe\Subscribe.csproj" Description="Project file successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Subscribe\Subscribe.csproj">
+</Event><Event ErrorLevel="0" Project="Subscribe" Source="Subscribe\Subscribe.csproj.user" Description="Project user file successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Subscribe\Subscribe.csproj.user">
+</Event><Event ErrorLevel="0" Project="Subscribe" Source="Subscribe\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Subscribe\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="Subscribe" Source="Subscribe\Subscribe.cs" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Subscribe\Subscribe.cs">
+</Event><Event ErrorLevel="0" Project="Subscribe" Source="Subscribe\App.ico" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Subscribe\App.ico">
+</Event><Event ErrorLevel="0" Project="Subscribe" Source="Subscribe\Subscribe.resx" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Subscribe\Subscribe.resx">
+</Event><Event ErrorLevel="1" Project="Subscribe" Source="Subscribe\Subscribe.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="Subscribe" Source="Subscribe\Subscribe.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Subscribe" Source="Subscribe\Subscribe.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Publisher" Source="Publisher\Publisher.csproj" Description="Project file successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Publisher\Publisher.csproj">
+</Event><Event ErrorLevel="0" Project="Publisher" Source="Publisher\Publisher.csproj.user" Description="Project user file successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Publisher\Publisher.csproj.user">
+</Event><Event ErrorLevel="0" Project="Publisher" Source="Publisher\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Publisher\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="Publisher" Source="Publisher\Publisher.cs" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Publisher\Publisher.cs">
+</Event><Event ErrorLevel="1" Project="Publisher" Source="Publisher\Publisher.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="Publisher" Source="Publisher\Publisher.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Publisher" Source="Publisher\Publisher.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Subscriber" Source="Subscriber\Subscriber.csproj" Description="Project file successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Subscriber\Subscriber.csproj">
+</Event><Event ErrorLevel="0" Project="Subscriber" Source="Subscriber\Subscriber.csproj.user" Description="Project user file successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Subscriber\Subscriber.csproj.user">
+</Event><Event ErrorLevel="0" Project="Subscriber" Source="Subscriber\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Subscriber\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="Subscriber" Source="Subscriber\Subscriber.cs" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\Subscriber\Subscriber.cs">
+</Event><Event ErrorLevel="1" Project="Subscriber" Source="Subscriber\Subscriber.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="Subscriber" Source="Subscriber\Subscriber.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Subscriber" Source="Subscriber\Subscriber.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="FakeTicker" Source="FakeTicker\FakeTicker.csproj" Description="Project file successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\FakeTicker\FakeTicker.csproj">
+</Event><Event ErrorLevel="0" Project="FakeTicker" Source="FakeTicker\FakeTicker.csproj.user" Description="Project user file successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\FakeTicker\FakeTicker.csproj.user">
+</Event><Event ErrorLevel="0" Project="FakeTicker" Source="FakeTicker\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\FakeTicker\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="FakeTicker" Source="FakeTicker\FakeTicker.cs" Description="File successfully backed up as C:\Users\liang\Desktop\PublishSubscribe\Backup\FakeTicker\FakeTicker.cs">
+</Event><Event ErrorLevel="1" Project="FakeTicker" Source="FakeTicker\FakeTicker.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="FakeTicker" Source="FakeTicker\FakeTicker.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="FakeTicker" Source="FakeTicker\FakeTicker.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="PublishSubscribe.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="PublishSubscribe.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Publish" Source="Publish\Publish.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Subscribe" Source="Subscribe\Subscribe.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Publisher" Source="Publisher\Publisher.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Subscriber" Source="Subscriber\Subscriber.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="FakeTicker" Source="FakeTicker\FakeTicker.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

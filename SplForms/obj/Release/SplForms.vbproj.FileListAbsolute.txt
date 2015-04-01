@@ -1,0 +1,5 @@
+D:\Development\SplForms\bin\SplForms.exe
+D:\Development\SplForms\obj\Release\SplForms.frmSplForm.resources
+D:\Development\SplForms\obj\Release\SplForms.vbproj.GenerateResource.Cache
+D:\Development\SplForms\obj\Release\SplForms.exe
+D:\Development\SplForms\obj\Release\SplForms.xml

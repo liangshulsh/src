@@ -1,0 +1,8 @@
+D:\Development\WindowsTest\WindowsTest\bin\Debug\WindowsTest.exe
+D:\Development\WindowsTest\WindowsTest\bin\Debug\WindowsTest.pdb
+D:\Development\WindowsTest\WindowsTest\obj\x86\Debug\WindowsTest.Form1.resources
+D:\Development\WindowsTest\WindowsTest\obj\x86\Debug\WindowsTest.Properties.Resources.resources
+D:\Development\WindowsTest\WindowsTest\obj\x86\Debug\WindowsTest.csproj.GenerateResource.Cache
+D:\Development\WindowsTest\WindowsTest\obj\x86\Debug\WindowsTest.exe
+D:\Development\WindowsTest\WindowsTest\obj\x86\Debug\WindowsTest.pdb
+D:\Development\WindowsTest\WindowsTest\obj\x86\Debug\WindowsTest.csprojResolveAssemblyReference.cache

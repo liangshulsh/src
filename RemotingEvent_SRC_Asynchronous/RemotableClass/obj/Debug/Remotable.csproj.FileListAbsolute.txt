@@ -1,0 +1,9 @@
+C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\RemotableClass\bin\Debug\Remotable.dll
+C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\RemotableClass\bin\Debug\Remotable.pdb
+C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\RemotableClass\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\RemotableClass\obj\Debug\Remotable.dll
+C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\RemotableClass\obj\Debug\Remotable.pdb
+D:\Development\RemotingEvent_SRC_Asynchronous\RemotableClass\bin\Debug\Remotable.dll
+D:\Development\RemotingEvent_SRC_Asynchronous\RemotableClass\bin\Debug\Remotable.pdb
+D:\Development\RemotingEvent_SRC_Asynchronous\RemotableClass\obj\Debug\Remotable.dll
+D:\Development\RemotingEvent_SRC_Asynchronous\RemotableClass\obj\Debug\Remotable.pdb

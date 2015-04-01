@@ -1,0 +1,13 @@
+D:\Development\Skywolf\Skywolf\bin\Release\Skywolf.dll
+D:\Development\Skywolf\Skywolf\bin\Release\Skywolf.pdb
+D:\Development\Skywolf\Skywolf\bin\Release\Skywolf.dll.manifest
+D:\Development\Skywolf\Skywolf\bin\Release\Skywolf.vsto
+D:\Development\Skywolf\Skywolf\bin\Release\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+D:\Development\Skywolf\Skywolf\bin\Release\Microsoft.Office.Tools.Common.v4.0.Utilities.xml
+D:\Development\Skywolf\Skywolf\obj\Release\ResolveAssemblyReference.cache
+D:\Development\Skywolf\Skywolf\obj\Release\Skywolf.Properties.Resources.resources
+D:\Development\Skywolf\Skywolf\obj\Release\Skywolf.SkywolfRibbon.resources
+D:\Development\Skywolf\Skywolf\obj\Release\GenerateResource.read.1.tlog
+D:\Development\Skywolf\Skywolf\obj\Release\GenerateResource.write.1.tlog
+D:\Development\Skywolf\Skywolf\obj\Release\Skywolf.dll
+D:\Development\Skywolf\Skywolf\obj\Release\Skywolf.pdb

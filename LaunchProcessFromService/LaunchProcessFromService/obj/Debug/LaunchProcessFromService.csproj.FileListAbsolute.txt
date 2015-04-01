@@ -1,0 +1,7 @@
+D:\Development\LaunchProcessFromService\LaunchProcessFromService\bin\Debug\LaunchProcessFromService.exe
+D:\Development\LaunchProcessFromService\LaunchProcessFromService\bin\Debug\LaunchProcessFromService.pdb
+D:\Development\LaunchProcessFromService\LaunchProcessFromService\bin\Debug\AsproLock.pdb
+D:\Development\LaunchProcessFromService\LaunchProcessFromService\bin\Debug\AsproLock.xml
+D:\Development\LaunchProcessFromService\LaunchProcessFromService\obj\Debug\LaunchProcessFromService.csprojResolveAssemblyReference.cache
+D:\Development\LaunchProcessFromService\LaunchProcessFromService\obj\Debug\LaunchProcessFromService.exe
+D:\Development\LaunchProcessFromService\LaunchProcessFromService\obj\Debug\LaunchProcessFromService.pdb

@@ -1,0 +1,4 @@
+D:\Development\RouletteStrategyTest\RouletteStrategyTest\bin\Debug\RouletteStrategyTest.exe
+D:\Development\RouletteStrategyTest\RouletteStrategyTest\bin\Debug\RouletteStrategyTest.pdb
+D:\Development\RouletteStrategyTest\RouletteStrategyTest\obj\x86\Debug\RouletteStrategyTest.exe
+D:\Development\RouletteStrategyTest\RouletteStrategyTest\obj\x86\Debug\RouletteStrategyTest.pdb

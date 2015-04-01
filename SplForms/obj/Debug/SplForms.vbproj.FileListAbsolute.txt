@@ -1,0 +1,8 @@
+D:\Development\SplForms\bin\SplForms.exe
+D:\Development\SplForms\bin\SplForms.pdb
+D:\Development\SplForms\bin\SplForms.xml
+D:\Development\SplForms\obj\Debug\SplForms.frmSplForm.resources
+D:\Development\SplForms\obj\Debug\SplForms.vbproj.GenerateResource.Cache
+D:\Development\SplForms\obj\Debug\SplForms.exe
+D:\Development\SplForms\obj\Debug\SplForms.xml
+D:\Development\SplForms\obj\Debug\SplForms.pdb

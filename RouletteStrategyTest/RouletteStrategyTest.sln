@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RouletteStrategyTest", "RouletteStrategyTest\RouletteStrategyTest.csproj", "{C31C4E9F-0960-4202-AE61-F4F40942D95F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C31C4E9F-0960-4202-AE61-F4F40942D95F}.Debug|x86.ActiveCfg = Debug|x86
+		{C31C4E9F-0960-4202-AE61-F4F40942D95F}.Debug|x86.Build.0 = Debug|x86
+		{C31C4E9F-0960-4202-AE61-F4F40942D95F}.Release|x86.ActiveCfg = Release|x86
+		{C31C4E9F-0960-4202-AE61-F4F40942D95F}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

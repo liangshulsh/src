@@ -1,0 +1,32 @@
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Control\obj\Debug\ResolveAssemblyReference.cache
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Control\bin\Debug\Ai.Control.dll
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Control\bin\Debug\Ai.Control.pdb
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Control\bin\Debug\Ai.Renderer.dll
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Control\bin\Debug\Ai.Renderer.pdb
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Control\obj\Debug\Ai.Control.dll
+F:\Documents\Burhan Nitip\work\CS2008\Ai\Control\obj\Debug\Ai.Control.pdb
+D:\work\CS2008\Ai\Control\bin\Debug\Ai.Control.dll
+D:\work\CS2008\Ai\Control\bin\Debug\Ai.Control.pdb
+D:\work\CS2008\Ai\Control\bin\Debug\Ai.Renderer.dll
+D:\work\CS2008\Ai\Control\bin\Debug\Ai.Renderer.pdb
+D:\work\CS2008\Ai\Control\obj\Debug\ResolveAssemblyReference.cache
+D:\work\CS2008\Ai\Control\obj\Debug\Ai.Control.dll
+D:\work\CS2008\Ai\Control\obj\Debug\Ai.Control.pdb
+E:\work\CS2008\Ai\Control\obj\Debug\ResolveAssemblyReference.cache
+E:\work\CS2008\Ai\Control\obj\Debug\Ai.Control.dll
+E:\work\CS2008\Ai\Control\bin\Debug\Ai.Control.dll
+E:\work\CS2008\Ai\Control\bin\Debug\Ai.Control.pdb
+E:\work\CS2008\Ai\Control\bin\Debug\Ai.Renderer.dll
+E:\work\CS2008\Ai\Control\bin\Debug\Ai.Renderer.pdb
+E:\work\CS2008\Ai\Control\obj\Debug\Ai.Control.pdb
+E:\work\CS2008\Ai\Control\obj\Debug\Ai.Control.MultiColumnTree.resources
+E:\work\CS2008\Ai\Control\obj\Debug\Control.csproj.GenerateResource.Cache
+D:\Development\Ai\Control\bin\Debug\Ai.Control.dll
+D:\Development\Ai\Control\bin\Debug\Ai.Control.pdb
+D:\Development\Ai\Control\bin\Debug\Ai.Renderer.dll
+D:\Development\Ai\Control\bin\Debug\Ai.Renderer.pdb
+D:\Development\Ai\Control\obj\Debug\Control.csprojResolveAssemblyReference.cache
+D:\Development\Ai\Control\obj\Debug\Ai.Control.MultiColumnTree.resources
+D:\Development\Ai\Control\obj\Debug\Control.csproj.GenerateResource.Cache
+D:\Development\Ai\Control\obj\Debug\Ai.Control.dll
+D:\Development\Ai\Control\obj\Debug\Ai.Control.pdb

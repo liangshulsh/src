@@ -1,0 +1,13 @@
+E:\work\CS2008\Ai\Common\bin\Debug\Ai.Common.dll
+E:\work\CS2008\Ai\Common\bin\Debug\Ai.Common.pdb
+E:\work\CS2008\Ai\Common\obj\Debug\ResolveAssemblyReference.cache
+E:\work\CS2008\Ai\Common\obj\Debug\Ai.Common.dll
+E:\work\CS2008\Ai\Common\obj\Debug\Ai.Common.pdb
+E:\work\CS2008\Ai\Common\bin\Debug\Ai.Renderer.dll
+E:\work\CS2008\Ai\Common\bin\Debug\Ai.Renderer.pdb
+D:\Development\Ai\Common\bin\Debug\Ai.Common.dll
+D:\Development\Ai\Common\bin\Debug\Ai.Common.pdb
+D:\Development\Ai\Common\bin\Debug\Ai.Renderer.dll
+D:\Development\Ai\Common\bin\Debug\Ai.Renderer.pdb
+D:\Development\Ai\Common\obj\Debug\Ai.Common.dll
+D:\Development\Ai\Common\obj\Debug\Ai.Common.pdb

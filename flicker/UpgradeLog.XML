@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="flicker">
+</Property><Property Name="Solution File" Value="D:\Development\flicker\flicker.sln">
+</Property><Property Name="User Options File" Value="D:\Development\flicker\flicker.suo">
+</Property><Property Name="Date" Value="2014年4月5日">
+</Property><Property Name="Time" Value="20:21">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="flicker.sln" Description="File successfully backed up as D:\Development\flicker\flicker.sln.old">
+</Event><Event ErrorLevel="0" Project="" Source="flicker.suo" Description="File successfully backed up as D:\Development\flicker\flicker.suo.old">
+</Event><Event ErrorLevel="0" Project="flicker" Source="flicker\flicker.vcproj" Description="Converting project file 'D:\Development\flicker\flicker\flicker.vcproj'.">
+</Event><Event ErrorLevel="1" Project="flicker" Source="flicker\flicker.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="1" Project="flicker" Source="flicker\flicker.vcproj" Description="Attribute 'CopyLocalDependencies' of 'AssemblyReference' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="flicker" Source="flicker\flicker.vcproj" Description="Attribute 'UseDependenciesInBuild' of 'AssemblyReference' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="flicker" Source="flicker\flicker.vcproj" Description="Attribute 'CopyLocalDependencies' of 'AssemblyReference' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="flicker" Source="flicker\flicker.vcproj" Description="Attribute 'UseDependenciesInBuild' of 'AssemblyReference' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="flicker" Source="flicker\flicker.vcproj" Description="Attribute 'CopyLocalDependencies' of 'AssemblyReference' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="flicker" Source="flicker\flicker.vcproj" Description="Attribute 'UseDependenciesInBuild' of 'AssemblyReference' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="flicker" Source="flicker\flicker.vcproj" Description="Attribute 'CopyLocalDependencies' of 'AssemblyReference' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="flicker" Source="flicker\flicker.vcproj" Description="Attribute 'UseDependenciesInBuild' of 'AssemblyReference' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="flicker" Source="flicker\flicker.vcproj" Description="Attribute 'CopyLocalDependencies' of 'AssemblyReference' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="1" Project="flicker" Source="flicker\flicker.vcproj" Description="Attribute 'UseDependenciesInBuild' of 'AssemblyReference' is not supported in this version and has been removed during conversion.">
+</Event><Event ErrorLevel="0" Project="flicker" Source="flicker\flicker.vcproj" Description="Done converting to new project file 'D:\Development\flicker\flicker\flicker.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="flicker" Source="flicker\flicker.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="flicker.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="flicker.sln" Description="Converted">
+</Event></UpgradeLog>

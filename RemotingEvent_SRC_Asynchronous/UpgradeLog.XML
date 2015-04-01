@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="RemotingEvent">
+</Property><Property Name="Solution File" Value="C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\RemotingEvent.sln">
+</Property><Property Name="Date" Value="2014年1月26日">
+</Property><Property Name="Time" Value="23:57">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="RemotingEvent.sln" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\RemotingEvent.sln">
+</Event><Event ErrorLevel="0" Project="Remotable" Source="RemotableClass\Remotable.csproj" Description="Project file successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\RemotableClass\Remotable.csproj">
+</Event><Event ErrorLevel="0" Project="Remotable" Source="RemotableClass\RemotableClass.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\RemotableClass\RemotableClass.cs">
+</Event><Event ErrorLevel="0" Project="Remotable" Source="RemotableClass\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\RemotableClass\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="Remotable" Source="RemotableClass\WrapperClass.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\RemotableClass\WrapperClass.cs">
+</Event><Event ErrorLevel="1" Project="Remotable" Source="RemotableClass\Remotable.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="Remotable" Source="RemotableClass\Remotable.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Remotable" Source="RemotableClass\Remotable.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\Server.csproj" Description="Project file successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Server\Server.csproj">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\Form1.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Server\Form1.cs">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\Form1.Designer.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Server\Form1.Designer.cs">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\Program.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Server\Program.cs">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Server\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\Properties\Resources.Designer.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Server\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\Properties\Settings.Designer.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Server\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\App.config" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Server\App.config">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\Properties\Settings.settings" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Server\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\Form1.resx" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Server\Form1.resx">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\Properties\Resources.resx" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Server\Properties\Resources.resx">
+</Event><Event ErrorLevel="1" Project="Server" Source="Server\Server.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\Server.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Server" Source="Server\Server.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\Client.csproj" Description="Project file successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Client\Client.csproj">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\ClientForm.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Client\ClientForm.cs">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\ClientForm.Designer.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Client\ClientForm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\Program.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Client\Program.cs">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Client\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\Properties\Resources.Designer.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Client\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\Properties\Settings.Designer.cs" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Client\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\App.config" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Client\App.config">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\Properties\Settings.settings" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Client\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\ClientForm.resx" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Client\ClientForm.resx">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\Properties\Resources.resx" Description="File successfully backed up as C:\Users\liang\Desktop\RemotingEvent_SRC_Asynchronous\Backup\Client\Properties\Resources.resx">
+</Event><Event ErrorLevel="1" Project="Client" Source="Client\Client.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\Client.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Client" Source="Client\Client.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="RemotingEvent.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="RemotingEvent.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Remotable" Source="RemotableClass\Remotable.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Server" Source="Server\Server.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event><Event ErrorLevel="0" Project="Client" Source="Client\Client.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

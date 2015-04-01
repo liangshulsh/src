@@ -1,0 +1,383 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl
+END
+PrinterSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/PrinterSecurity.cs
+END
+JobObjectAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/JobObjectAccessRule.cs
+END
+WaitObjectRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/WaitObjectRights.cs
+END
+ShareAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ShareAuditRule.cs
+END
+PipeSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/PipeSecurity.cs
+END
+ThreadAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ThreadAuditRule.cs
+END
+DesktopAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/DesktopAuditRule.cs
+END
+ThreadRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ThreadRights.cs
+END
+JobObjectSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/JobObjectSecurity.cs
+END
+WindowStationRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/WindowStationRights.cs
+END
+ShareSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ShareSecurity.cs
+END
+TokenAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/TokenAccessRule.cs
+END
+DirectorySecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/DirectorySecurity.cs
+END
+FileAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/FileAuditRule.cs
+END
+TokenAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/TokenAuditRule.cs
+END
+RegistryKeyAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/RegistryKeyAuditRule.cs
+END
+FileRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/FileRights.cs
+END
+PrinterAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/PrinterAuditRule.cs
+END
+PrinterRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/PrinterRights.cs
+END
+FileMappingAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/FileMappingAccessRule.cs
+END
+ServiceAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ServiceAccessRule.cs
+END
+PipeRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/PipeRights.cs
+END
+ServiceAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ServiceAuditRule.cs
+END
+StandardRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/StandardRights.cs
+END
+JobObjectRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/JobObjectRights.cs
+END
+FileMappingSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/FileMappingSecurity.cs
+END
+DesktopAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/DesktopAccessRule.cs
+END
+ProcessAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ProcessAccessRule.cs
+END
+RegistryKeyAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/RegistryKeyAccessRule.cs
+END
+DesktopSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/DesktopSecurity.cs
+END
+TokenRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/TokenRights.cs
+END
+RegistryKeySecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/RegistryKeySecurity.cs
+END
+FileMappingAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/FileMappingAuditRule.cs
+END
+FileMappingRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/FileMappingRights.cs
+END
+ShareAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ShareAccessRule.cs
+END
+DirectoryAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/DirectoryAccessRule.cs
+END
+ServiceRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ServiceRights.cs
+END
+DirectoryAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/DirectoryAuditRule.cs
+END
+WindowStationAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/WindowStationAuditRule.cs
+END
+DesktopRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/DesktopRights.cs
+END
+ProcessRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ProcessRights.cs
+END
+RegistryKeyRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/RegistryKeyRights.cs
+END
+WaitObjectAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/WaitObjectAccessRule.cs
+END
+TokenSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/TokenSecurity.cs
+END
+PipeAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/PipeAuditRule.cs
+END
+JobObjectAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/JobObjectAuditRule.cs
+END
+ThreadAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ThreadAccessRule.cs
+END
+WindowStationAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/WindowStationAccessRule.cs
+END
+ShareRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ShareRights.cs
+END
+WaitObjectSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/WaitObjectSecurity.cs
+END
+DirectoryRights.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/DirectoryRights.cs
+END
+GenericMapping.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/GenericMapping.cs
+END
+ServiceSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ServiceSecurity.cs
+END
+FileAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/FileAccessRule.cs
+END
+PrinterAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/PrinterAccessRule.cs
+END
+ProcessAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ProcessAuditRule.cs
+END
+ThreadSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ThreadSecurity.cs
+END
+WindowStationSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/WindowStationSecurity.cs
+END
+BaseSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/BaseSecurity.cs
+END
+ProcessSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/ProcessSecurity.cs
+END
+FileSecurity.cs
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/FileSecurity.cs
+END
+PipeAccessRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/PipeAccessRule.cs
+END
+WaitObjectAuditRule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/AsproLock/!svn/ver/2/trunk/AsproLock/AccessControl/WaitObjectAuditRule.cs
+END

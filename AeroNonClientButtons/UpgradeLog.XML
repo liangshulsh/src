@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="AeroNonClientButtons">
+</Property><Property Name="Solution File" Value="D:\Development\AeroNonClientButtons\AeroNonClientButtons.sln">
+</Property><Property Name="Date" Value="2014年4月5日">
+</Property><Property Name="Time" Value="23:24">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="AeroNonClientButtons.sln" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroNonClientButtons.sln">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\AeroNonClientButtons.csproj" Description="Project file successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\AeroNonClientButtons.csproj">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\AeroNonClientButtons.csproj.user" Description="Project user file successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\AeroNonClientButtons.csproj.user">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Dwm.cs" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Dwm.cs">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\MainForm.cs" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\MainForm.cs">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\MainForm.Designer.cs" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\MainForm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\NCRenderer.cs" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\NCRenderer.cs">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Program.cs" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Program.cs">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Properties\AssemblyInfo.cs" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Properties\Resources.Designer.cs" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Properties\Settings.Designer.cs" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\WinApi.cs" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\WinApi.cs">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Properties\Settings.settings" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Resources\new16.gif" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Resources\new16.gif">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Resources\open16.gif" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Resources\open16.gif">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Resources\paste16.gif" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Resources\paste16.gif">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Resources\save16.gif" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Resources\save16.gif">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Resources\undo16.gif" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Resources\undo16.gif">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Resources\pasteall16.gif" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Resources\pasteall16.gif">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Resources\redo16.gif" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Resources\redo16.gif">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\MainForm.resx" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\MainForm.resx">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\Properties\Resources.resx" Description="File successfully backed up as D:\Development\AeroNonClientButtons\Backup\AeroOrbTest\Properties\Resources.resx">
+</Event><Event ErrorLevel="1" Project="AeroNonClientButtons" Source="AeroOrbTest\AeroNonClientButtons.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\AeroNonClientButtons.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="AeroNonClientButtons" Source="AeroOrbTest\AeroNonClientButtons.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="AeroNonClientButtons.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="AeroNonClientButtons.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="AeroNonClientButtons" Source="AeroOrbTest\AeroNonClientButtons.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

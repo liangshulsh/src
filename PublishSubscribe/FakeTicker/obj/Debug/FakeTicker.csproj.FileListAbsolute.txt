@@ -1,0 +1,5 @@
+C:\Users\liang\Desktop\PublishSubscribe\FakeTicker\bin\Debug\FakeTicker.dll
+C:\Users\liang\Desktop\PublishSubscribe\FakeTicker\bin\Debug\FakeTicker.pdb
+C:\Users\liang\Desktop\PublishSubscribe\FakeTicker\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\liang\Desktop\PublishSubscribe\FakeTicker\obj\Debug\FakeTicker.dll
+C:\Users\liang\Desktop\PublishSubscribe\FakeTicker\obj\Debug\FakeTicker.pdb

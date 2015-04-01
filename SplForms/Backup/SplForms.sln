@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SplForms", "SplForms.vbproj", "{588C7DF7-0B9B-4A69-8BB1-CF017D9B83DF}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{588C7DF7-0B9B-4A69-8BB1-CF017D9B83DF}.Debug.ActiveCfg = Debug|.NET
+		{588C7DF7-0B9B-4A69-8BB1-CF017D9B83DF}.Debug.Build.0 = Debug|.NET
+		{588C7DF7-0B9B-4A69-8BB1-CF017D9B83DF}.Release.ActiveCfg = Release|.NET
+		{588C7DF7-0B9B-4A69-8BB1-CF017D9B83DF}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

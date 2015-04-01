@@ -1,0 +1,7 @@
+C:\Users\liang\Desktop\PublishSubscribe\Subscriber\bin\Debug\Subscriber.dll
+C:\Users\liang\Desktop\PublishSubscribe\Subscriber\bin\Debug\Subscriber.pdb
+C:\Users\liang\Desktop\PublishSubscribe\Subscriber\bin\Debug\FakeTicker.dll
+C:\Users\liang\Desktop\PublishSubscribe\Subscriber\bin\Debug\FakeTicker.pdb
+C:\Users\liang\Desktop\PublishSubscribe\Subscriber\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\liang\Desktop\PublishSubscribe\Subscriber\obj\Debug\Subscriber.dll
+C:\Users\liang\Desktop\PublishSubscribe\Subscriber\obj\Debug\Subscriber.pdb
