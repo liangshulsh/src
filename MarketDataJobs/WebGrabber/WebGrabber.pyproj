@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>44e1cc03-7449-477c-8e33-0b4e8c22a28b</ProjectGuid>
-    <ProjectHome>
-    </ProjectHome>
-    <StartupFile>PriceEngine.py</StartupFile>
-    <SearchPath>..\DataUtility;..\WebGrabber</SearchPath>
+    <ProjectGuid>f116999f-ed0f-42c2-8932-f48f094c3ace</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>WebGrabberYahoo.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>PriceEngineAuto</Name>
-    <RootNamespace>MarketDataJobs</RootNamespace>
+    <Name>WebGrabber</Name>
+    <RootNamespace>WebGrabber</RootNamespace>
     <InterpreterId>Global|PythonCore|3.5</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -22,7 +22,12 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PriceEngine.py" />
+    <Compile Include="WebGrabberYahoo.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.5" />
