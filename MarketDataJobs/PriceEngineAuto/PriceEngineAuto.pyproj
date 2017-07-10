@@ -6,7 +6,7 @@
     <ProjectHome>
     </ProjectHome>
     <StartupFile>PriceEngine.py</StartupFile>
-    <SearchPath>..\DataUtility;..\WebGrabber</SearchPath>
+    <SearchPath>..\DataUtility;..\WebGrabber;DataSource</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>PriceEngineAuto</Name>
@@ -22,10 +22,28 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DataSource\DataSourceHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataSource\GoogleDataSourceHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataSource\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PriceEngine.py" />
+    <Compile Include="DataSource\YahooDataSourceHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataSource\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
