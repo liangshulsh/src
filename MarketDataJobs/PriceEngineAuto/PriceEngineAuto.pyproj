@@ -12,6 +12,10 @@
     <Name>PriceEngineAuto</Name>
     <RootNamespace>MarketDataJobs</RootNamespace>
     <InterpreterId>Global|PythonCore|3.5</InterpreterId>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments>
+    </CommandLineArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>

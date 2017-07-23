@@ -9,6 +9,34 @@ class WebGrabberYahoo(object):
     dividends = None
     splits = None
 
+    def validateAndCorrectAdjPrice(self):
+        if (self.splits is not None and 'date' in self.splits and len(self.splits['date']) > 0):
+            for idx, d in enumerate(self.splits['date']):
+                if (self.splits['numerator'][idx] is not None and self.splits['denominator'][idx] is not None):
+                    self.correctAdjPrice(self.splits['date'][idx], self.splits['numerator'][idx], self.splits['denominator'][idx])
+
+    def correctAdjPrice(self, splitdate, numerator, denominator):
+        fnumerator = float(numerator)
+        fdenominator = float(denominator)
+        factor = fdenominator / fnumerator
+        if self.historicalPrices is not None and len(self.historicalPrices['date']) > 0:
+            bTransform = False
+            for idx, date in enumerate(self.historicalPrices['date']):
+                if (not bTransform and date == splitdate and len(self.historicalPrices['date']) > (idx + 1)):
+                    beforecloseprice = float(self.historicalPrices['close'][idx+1])
+                    splitopenprice = float(self.historicalPrices['open'][idx])
+                    if (abs((beforecloseprice / splitopenprice - factor)) < abs((beforecloseprice / splitopenprice - 1))):
+                        bTransform = True
+                    else:
+                        break
+                elif (bTransform):
+                    for fld in ['open', 'close', 'high', 'low']:
+                        try:
+                            self.historicalPrices[fld][idx] = float(self.historicalPrices[fld][idx]) / factor
+                        except:
+                            pass
+
+        
     def loadHistoricalData(self,startdate, enddate, ticker):
         startTs = (startdate + datetime.timedelta(days=-1) - datetime.datetime(1970,1,1)).total_seconds()
         endTs = (enddate + datetime.timedelta(days=1) - datetime.datetime(1970,1,1)).total_seconds()
@@ -77,23 +105,56 @@ class WebGrabberYahoo(object):
                         else:
                             self.historicalPrices['date'].append(None)
 
+                        bAdjClose = False
+                        adjRatio = None
+                        if ("adjclose" in histItem):
+                            bAdjClose = True
+                            try:
+                                adjRatio = histItem['adjclose'] / histItem['close']
+                            except:
+                                pass
+
                         if ('open' in histItem):
-                            self.historicalPrices['open'].append(histItem['open'])
+                            if (bAdjClose):
+                                if (adjRatio is not None):
+                                    self.historicalPrices['open'].append(histItem['open'] * adjRatio)
+                                else:
+                                    self.historicalPrices['open'].append(None)
+                            else:
+                                self.historicalPrices['open'].append(histItem['open'])
                         else:
                             self.historicalPrices['open'].append(None)
 
                         if ('high' in histItem):
-                            self.historicalPrices['high'].append(histItem['high'])
+                            if (bAdjClose):
+                                if (adjRatio is not None):
+                                    self.historicalPrices['high'].append(histItem['high'] * adjRatio)
+                                else:
+                                    self.historicalPrices['high'].append(None)
+                            else:
+                                self.historicalPrices['high'].append(histItem['high'])
                         else:
                             self.historicalPrices['high'].append(None)
-
+                             
                         if ('low' in histItem):
-                            self.historicalPrices['low'].append(histItem['low'])
+                            if (bAdjClose):
+                                if (adjRatio is not None):
+                                    self.historicalPrices['low'].append(histItem['low'] * adjRatio)
+                                else:
+                                    self.historicalPrices['low'].append(None)
+                            else:
+                                self.historicalPrices['low'].append(histItem['low'])
                         else:
                             self.historicalPrices['low'].append(None)
 
                         if ('close' in histItem):
-                            self.historicalPrices['close'].append(histItem['close'])
+                            if (bAdjClose):
+                                if (adjRatio is not None):
+                                    self.historicalPrices['close'].append(histItem['close'] * adjRatio)
+                                else:
+                                    self.historicalPrices['close'].append(None)
+                            else:
+                                self.historicalPrices['close'].append(histItem['close'])
                         else:
                             self.historicalPrices['close'].append(None)
 
@@ -105,13 +166,18 @@ class WebGrabberYahoo(object):
                         if ('unadjclose' in histItem):
                             self.historicalPrices['unadjclose'].append(histItem['unadjclose'])
                         else:
-                            self.historicalPrices['unadjclose'].append(None)
+                            if (bAdjClose):
+                                self.historicalPrices['unadjclose'].append(histItem['close'])
+                            else:
+                                self.historicalPrices['unadjclose'].append(None)
+            self.validateAndCorrectAdjPrice()
 
 if __name__ == '__main__':
 
     yahoo = WebGrabberYahoo()
-    startdate = datetime.datetime(1900,1,1)
+    startdate = datetime.datetime(2010,11,20)
     enddate = datetime.datetime(2017,7,4)
-    ticker = 'MSFT'
+    ticker = 'XOP'
     yahoo.loadHistoricalData(startdate, enddate, ticker)
     histPrice = pd.DataFrame(yahoo.historicalPrices)
+    print(histPrice)

@@ -25,7 +25,7 @@ class YahooDataSourceHandler(DataSourceHandler.DataSourceHandler):
                         dates = [datetime.date(d.year,d.month,d.day) for d in web.historicalPrices['date']]
                         if (abs(web.historicalPrices['close'][dates.index(startdate)] - instrument.LatestAdjClosePrice) > 0.000001):
                             web = WebGrabberYahoo()
-                            startdate = instrument.IssueDate
+                            startdate = datetime.datetime(instrument.IssueDate.year, instrument.IssueDate.month, instrument.IssueDate.day)
                             self.logger.info("{0} by {1} is re-loading Adjustment prices".format(priceRule.Ticker, self.datasource))
                             web.loadHistoricalData(startdate, self.asofdate, priceRule.Ticker)
                     self.logger.info("upsert historical prices:{0} records".format(len(web.historicalPrices["date"])))

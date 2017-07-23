@@ -5,6 +5,7 @@ from MarketData import MarketData
 import pandas
 import datetime
 import logging
+import sys
 
 #x = MarketData()
 #x.open()
@@ -65,7 +66,7 @@ class PriceEngine(object):
         fh.setFormatter(formatter)
         self.logger.addHandler(fh)
 
-    def run(self):
+    def run(self, sources=None, sids=None):
         model = None
         try:
             self.logger.info("log file name:" + self.logfilename)
@@ -75,7 +76,7 @@ class PriceEngine(object):
             model = self.source["yahoo"].getMarketData()
 
             self.logger.info("Load priceing rules.")
-            priceRules = model.getPricingRulesObj(True)
+            priceRules = model.getPricingRulesObj(True, sources, sids)
             sids = [priceRule.SID for priceRule in priceRules]
 
             self.logger.info("Load stock terms.")
@@ -114,5 +115,8 @@ class PriceEngine(object):
                 model.close()
 
 if __name__ == '__main__':
-    engine = PriceEngine('refresh', datetime.datetime(2017,7,8))
+    asofdate = datetime.datetime.today()
+    if (len(sys.argv) > 1):
+        asofdate = datetime.datetime.strptime(sys.argv[1], "%Y%m%d")
+    engine = PriceEngine('refresh', asofdate)
     engine.run()

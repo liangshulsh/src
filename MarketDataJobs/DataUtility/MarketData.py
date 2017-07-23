@@ -8,10 +8,19 @@ class MarketData(DataModelBase):
     def __init__(self):
         super(MarketData, self).__init__(self.MarketDataConnectionString)
 
-    def getPricingRulesObj(self, active):
+    def getPricingRulesObj(self, active, sources = None, sids = None):
         query = "select * from [price].[vw_PricingRule]"
-        if active:
-            query += " where Active = 1"
+        if active or sources is not None or sids is not None:
+            query += " where "
+            conditions = []
+            if active:
+                conditions.append("Active = 1")
+            if sources is not None:
+                conditions.append("DataSource in (" + ",".join(["'" + s + "'" for s in sources]) + ")")
+            if sids is not None:
+                conditions.append("SID in (" + ",".join([str(s) for s in sids]) + ")")
+            query += " and ".join(conditions)
+
         return self.readObjects(query, "PricingRule")
 
     def getStockTermsObj(self, sids):
