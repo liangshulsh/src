@@ -118,5 +118,8 @@ if __name__ == '__main__':
     asofdate = datetime.datetime.today()
     if (len(sys.argv) > 1):
         asofdate = datetime.datetime.strptime(sys.argv[1], "%Y%m%d")
+    #engine = PriceEngine('full', asofdate)
+    #engine.run(sids = [200000007,200000006], sources=['yahoo'])
+
     engine = PriceEngine('refresh', asofdate)
     engine.run()

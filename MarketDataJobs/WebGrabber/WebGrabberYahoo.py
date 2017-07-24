@@ -35,6 +35,11 @@ class WebGrabberYahoo(object):
                             self.historicalPrices[fld][idx] = float(self.historicalPrices[fld][idx]) / factor
                         except:
                             pass
+                    try:
+                        self.historicalPrices['volume'][idx] = float(self.historicalPrices['volume'][idx]) * factor
+                    except:
+                        pass
+                        
 
         
     def loadHistoricalData(self,startdate, enddate, ticker):
