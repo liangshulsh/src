@@ -1,1 +1,1 @@
-__all__ = ['DataModelBase', 'MarketData']
+__all__ = ['DataModelBase', 'MarketData', 'Research']

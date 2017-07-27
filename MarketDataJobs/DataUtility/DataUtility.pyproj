@@ -25,6 +25,9 @@
     <Compile Include="MarketData.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Research.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="__init__.py">
       <SubType>Code</SubType>
     </Compile>

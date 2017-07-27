@@ -89,7 +89,7 @@ class DataModelBase(object):
                     valueStmt = []
                     for idx, style in enumerate(typeStyle):
                         if int(style) == 0:
-                            valueStmt.append("'{0}'".format(row[idx]))
+                            valueStmt.append("'{0}'".format(str(row[idx]).replace("'", " ")))
                         elif (int(style) == 1):
                             v = "{0}".format(row[idx])
                             if v == "nan":

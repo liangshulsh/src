@@ -4,6 +4,7 @@ import datetime
 import simplejson as j
 
 class WebGrabberYahoo(object):
+    sourceId = 1
     historicalPriceUrlPattern = "https://finance.yahoo.com/quote/{0}/history?period1={1}&period2={2}&interval=1d&filter=history&frequency=1d"
     historicalPrices = None
     dividends = None

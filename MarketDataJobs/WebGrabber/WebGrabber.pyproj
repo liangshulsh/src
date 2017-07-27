@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f116999f-ed0f-42c2-8932-f48f094c3ace</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>WebGrabberYahoo.py</StartupFile>
+    <StartupFile>WebGrabberNasdaq.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -23,6 +23,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="WebGrabberGoogle.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WebGrabberNasdaq.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="WebGrabberYahoo.py">

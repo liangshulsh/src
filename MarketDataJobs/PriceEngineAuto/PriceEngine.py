@@ -1,6 +1,7 @@
 from DataSourceHandler import DataSourceHandler
 from GoogleDataSourceHandler import GoogleDataSourceHandler
 from YahooDataSourceHandler import YahooDataSourceHandler
+from NasdaqDataSourceHandler import NasdaqDataSourceHandler
 from MarketData import MarketData
 import pandas
 import datetime
@@ -44,6 +45,7 @@ class PriceEngine(object):
         self.source = {}
         self.source["google"] = GoogleDataSourceHandler(asofdate, type, self.logger)
         self.source["yahoo"] = YahooDataSourceHandler(asofdate, type, self.logger)
+        self.source["nasdaq"] = NasdaqDataSourceHandler(asofdate, type, self.logger)
 
     def initLogger(self):
         self.logger = logging.getLogger("PriceEngine")
@@ -66,15 +68,57 @@ class PriceEngine(object):
         fh.setFormatter(formatter)
         self.logger.addHandler(fh)
 
+    def loadsecurities(self):
+        # load US Security
+
+        asofdate = datetime.datetime.today()
+        datasource = self.source["nasdaq"]
+        researchModel = datasource.getResearch()
+        datasource.loadUSSecurityList()
+
+        #newETFs = researchModel.getNewETFs(asofdate)
+        #if newETFs is not None:
+        #    self.logger.info("new ETFs: {0} records".format(len(newETFs.Index)))
+        #    rowcnt = len(newETFs.Index)
+        #    rowidx = 0
+        #    if rowcnt > 0:
+        #        for row in newETFs.values.tolist():
+        #            rowidx += 1
+        #            try:
+        #                self.logger.info("create ETF {0}|{3} ({1}/{2})".format(row['Name'], rowidx, rowcnt, row['FullName']))
+        #                self.createStock(row['Name'], row['FullName'], 'ETF', 'US', 'USD', None, None, None)
+        #            except Exception as ex:
+        #                self.logger.error(ex)
+
+        #newStocks = researchModel.getNewStocks(asofdate)
+        #if newStocks is not None:
+        #    self.logger.info("new Stocks: {0} records".format(len(newStocks.Index)))
+        #    rowcnt = len(newStocks.Index)
+        #    rowidx = 0
+        #    if rowcnt > 0:
+        #        for row in newStocks.values.tolist():
+        #            rowidx += 1
+        #            try:
+        #                self.logger.info("create Stock {0}|{3} ({1}/{2})".format(row['Name'], rowidx, rowcnt, row['FullName']))
+        #                self.createStock(row['Name'], row['FullName'], 'Stock', 'US', 'USD', 'Equity', row['Sector'], row['Industry'])
+        #            except Exception as ex:
+        #                self.logger.error(ex)
+
+    #def createStock(self, name, fullname, subtype, country, currency, assetclass, sector, industry):
+    #    datasource = self.source["nasdaq"]
+    #    marketDataModel = datasource.getMarketData()
+    #    startdate = datetime.datetime(1900,1,1)
+
+
+    #    stocks = marketDataModel.createStock(name, fullname, subtype, country, currency, issuedate, assetclass, sector, industry):
     def run(self, sources=None, sids=None):
         model = None
         try:
             self.logger.info("log file name:" + self.logfilename)
             self.logger.info("type:" + self.type)
             self.logger.info("asofdate:" + self.asofdate.strftime("%Y-%m-%d"))
-        
-            model = self.source["yahoo"].getMarketData()
 
+            model = self.source["yahoo"].getMarketData()
             self.logger.info("Load priceing rules.")
             priceRules = model.getPricingRulesObj(True, sources, sids)
             sids = [priceRule.SID for priceRule in priceRules]
@@ -122,4 +166,5 @@ if __name__ == '__main__':
     #engine.run(sids = [200000007,200000006], sources=['yahoo'])
 
     engine = PriceEngine('refresh', asofdate)
+    engine.loadsecurities()
     engine.run()

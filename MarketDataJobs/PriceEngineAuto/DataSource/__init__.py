@@ -1,2 +1,2 @@
-__all__ = ['GoogleDataSourceHandler', 'YahooDataSourceHandler', 'DataSourceHandler']
+__all__ = ['GoogleDataSourceHandler', 'YahooDataSourceHandler', 'NasdaqDataSourceHandler', 'DataSourceHandler']
 

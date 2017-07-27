@@ -1,4 +1,4 @@
-__all__ = ['WebGrabberYahoo']
+__all__ = ['WebGrabberYahoo','WebGrabberGoogle','WebGrabberNasdaq']
 
 
 

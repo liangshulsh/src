@@ -154,6 +154,68 @@ class MarketData(DataModelBase):
                     prices['Value'].append(float(pricesDict['volume'][idx]))
             self.insert(pd.DataFrame(prices), tablename)
 
+    def createStock(self, name, fullname, subtype, country, currency, issuedate, assetclass, sector, industry):
+        assetclassvalue = 'null'
+        sectorvalue = 'null'
+        industryvalue = 'null'
+
+        if assetclass is not None:
+            assetclassvalue = "'{0}'".format(assetclass)
+        if sector is not None:
+            sectorvalue = "'{0}'".format(sector)
+        if industry is not None:
+            industryvalue = "'{0}'".format(industry)
+
+        insertquery = """INSERT INTO [sec].[Stock]
+           ([Name]
+           ,[FullName]
+           ,[SubType]
+           ,[Country]
+           ,[Currency]
+           ,[IssueDate]
+           ,[AssetClass]
+           ,[Sector]
+           ,[Industry]) values ('{0}','{1}','{2}','{3}','{4}','{5}',{6},{7},{8})""".format(name, fullname, subtype, country, currency, issuedate.strftime("%Y-%m-%d"), assetclassvalue, sectorvalue, industryvalue)
+        self.execute(insertquery)
+        selectquery = """SELECT [SID]
+      ,[Name]
+      ,[FullName]
+      ,[SubType]
+      ,[Country]
+      ,[Currency]
+      ,[IssueDate]
+      ,[Usr]
+      ,[TS]
+      ,[AssetClass]
+      ,[Sector]
+      ,[Industry]
+  FROM [MarketData].[sec].[Stock]
+  where Name = '{0}'""".format(name)
+        return self.readObjects(selectquery)
+
+    def createTicker(self, sid, source, ticker):
+        insertquery = """
+            delete from [sec].[InstrumentID] where [SID] = {0} and [DataSource] = '{1}' and [IDTypeId] = 1
+            INSERT INTO [sec].[InstrumentID]
+           ([SID]
+           ,[DataSource]
+           ,[IDTypeId]
+           ,[IDValue]) values ({0},'{1}',1,'{2}'""".format(sid, source, ticker)
+        self.execute(insertquery)
+        
+    def createPricingRule(self, sid, asofdate, source, timezone, active):
+        insertquery = """
+           delete from [price].[PricingRule] where [SID] = {0} and [DataSource] = '{2}' and [TimeZone] = '{3}'
+           INSERT INTO [price].[PricingRule]
+           ([SID]
+           ,[AsOfDate]
+           ,[DataSource]
+           ,[TimeZone]
+           ,[Active])
+     VALUES
+           ({0},'{1}','{2}','{3}',{4})""".format(sid, issuedate.strftime("%Y-%m-%d"), source, timezone, active)
+        self.execute(insertquery)
+
 if __name__ == '__main__':
     a = MarketData()
     a.open()

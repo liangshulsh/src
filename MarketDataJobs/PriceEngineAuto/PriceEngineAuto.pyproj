@@ -32,6 +32,9 @@
     <Compile Include="DataSource\GoogleDataSourceHandler.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DataSource\NasdaqDataSourceHandler.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataSource\__init__.py">
       <SubType>Code</SubType>
     </Compile>

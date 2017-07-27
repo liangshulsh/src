@@ -2,6 +2,7 @@ import pandas as pd
 import pandas_datareader as web
 
 class WebGrabberGoogle(object):
+    sourceId = 2
     historicalPrices = None
 
     def loadHistoricalData(self,startdate, enddate, ticker):
