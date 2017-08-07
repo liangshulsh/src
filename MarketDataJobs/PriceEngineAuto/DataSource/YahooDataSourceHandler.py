@@ -10,11 +10,34 @@ class YahooDataSourceHandler(DataSourceHandler.DataSourceHandler):
     def __init__(self, asofdate, type, logger):
         super(YahooDataSourceHandler,self).__init__(asofdate, type, "yahoo", logger)
 
+    def getIssueDate(self, ticker):
+        try:
+            web = WebGrabberYahoo()
+            web.loadHistoricalData(datetime.datetime(1900,1,1), datetime.datetime.today(), ticker)
+            if web.historicalPrices != None:
+                return min(web.historicalPrices['date'])
+            return None
+        except Exception as ex:
+            self.logger.error(ex)
+            raise ex
+    
+    def convertNameToTicker(self, name):
+        if (name is not None and '^' not in name):
+            return name.strip().replace('.', '-').replace(' ', '.')
+        return None
+
+    def convertTickerToName(self, ticker):
+        if (ticker is not None):
+            return ticker.strip().replace('.', ' ').replace('-', '.')
+        return None
+
     def loadPrices(self, priceRule, instrument):
         try:
             if priceRule.Ticker != None:
                 self.logger.info("{0} by {1} is loading Adjustment prices".format(priceRule.Ticker, self.datasource))
-                startdate = instrument.IssueDate
+                startdate = datetime.datetime(1900,1,1)
+                if (instrument.IssueDate is not None):
+                    startdate = instrument.IssueDate
                 if (self.type == "refresh" and instrument.LatestAdjPriceDate != None):
                     startdate = instrument.LatestAdjPriceDate
                     

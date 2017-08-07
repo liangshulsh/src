@@ -24,12 +24,13 @@ class WebGrabberYahoo(object):
             bTransform = False
             for idx, date in enumerate(self.historicalPrices['date']):
                 if (not bTransform and date == splitdate and len(self.historicalPrices['date']) > (idx + 1)):
-                    beforecloseprice = float(self.historicalPrices['close'][idx+1])
-                    splitopenprice = float(self.historicalPrices['open'][idx])
-                    if (abs((beforecloseprice / splitopenprice - factor)) < abs((beforecloseprice / splitopenprice - 1))):
-                        bTransform = True
-                    else:
-                        break
+                    if (self.historicalPrices['close'][idx+1] is not None and self.historicalPrices['open'][idx] is not None):
+                        beforecloseprice = float(self.historicalPrices['close'][idx+1])
+                        splitopenprice = float(self.historicalPrices['open'][idx])
+                        if (abs((beforecloseprice / splitopenprice - factor)) < abs((beforecloseprice / splitopenprice - 1))):
+                            bTransform = True
+                        else:
+                            break
                 elif (bTransform):
                     for fld in ['open', 'close', 'high', 'low']:
                         try:
@@ -42,12 +43,19 @@ class WebGrabberYahoo(object):
                         pass
                         
 
-        
+    def requestUrl(self, url):
+        for i in range(0,3):
+            try:
+                return requests.get(url)
+            except Exception as ex:
+                if (i == 3):
+                    raise ex
+
     def loadHistoricalData(self,startdate, enddate, ticker):
         startTs = (startdate + datetime.timedelta(days=-1) - datetime.datetime(1970,1,1)).total_seconds()
         endTs = (enddate + datetime.timedelta(days=1) - datetime.datetime(1970,1,1)).total_seconds()
         url = self.historicalPriceUrlPattern.format(ticker, int(startTs), int(endTs))
-        result = requests.get(url)
+        result = self.requestUrl(url)
         if result != None and result.status_code == 200:
             histPriceIdx = result.text.find('HistoricalPriceStore')
             if (histPriceIdx > 0):
@@ -116,7 +124,8 @@ class WebGrabberYahoo(object):
                         if ("adjclose" in histItem):
                             bAdjClose = True
                             try:
-                                adjRatio = histItem['adjclose'] / histItem['close']
+                                if (histItem['adjclose'] is not None and histItem['close'] is not None):
+                                    adjRatio = histItem['adjclose'] / histItem['close']
                             except:
                                 pass
 

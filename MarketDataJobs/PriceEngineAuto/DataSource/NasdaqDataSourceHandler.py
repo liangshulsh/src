@@ -10,6 +10,12 @@ class NasdaqDataSourceHandler(DataSourceHandler.DataSourceHandler):
     def __init__(self, asofdate, type, logger):
         super(NasdaqDataSourceHandler,self).__init__(asofdate, type, "nasdaq", logger)
 
+    def convertNameToTicker(self, name):
+        return name.strip()
+
+    def convertTickerToName(self, ticker):
+        return ticker.strip()
+
     def loadUSSecurityList(self):
         try:                    
             web = WebGrabberNasdaq()

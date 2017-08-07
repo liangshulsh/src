@@ -165,6 +165,10 @@ class MarketData(DataModelBase):
             sectorvalue = "'{0}'".format(sector)
         if industry is not None:
             industryvalue = "'{0}'".format(industry)
+        
+        startdate = "null"
+        if issuedate is not None:
+            startdate = "'" + issuedate.strftime("%Y-%m-%d") + "'"
 
         insertquery = """INSERT INTO [sec].[Stock]
            ([Name]
@@ -175,7 +179,7 @@ class MarketData(DataModelBase):
            ,[IssueDate]
            ,[AssetClass]
            ,[Sector]
-           ,[Industry]) values ('{0}','{1}','{2}','{3}','{4}','{5}',{6},{7},{8})""".format(name, fullname, subtype, country, currency, issuedate.strftime("%Y-%m-%d"), assetclassvalue, sectorvalue, industryvalue)
+           ,[Industry]) values ('{0}','{1}','{2}','{3}','{4}',{5},{6},{7},{8})""".format(name, fullname, subtype, country, currency, startdate, assetclassvalue, sectorvalue, industryvalue)
         self.execute(insertquery)
         selectquery = """SELECT [SID]
       ,[Name]
@@ -191,7 +195,10 @@ class MarketData(DataModelBase):
       ,[Industry]
   FROM [MarketData].[sec].[Stock]
   where Name = '{0}'""".format(name)
-        return self.readObjects(selectquery)
+        stocks = self.readObjects(selectquery,"Stock")
+        if stocks is not None and len(stocks) > 0:
+            return stocks[0]
+        return None
 
     def createTicker(self, sid, source, ticker):
         insertquery = """
@@ -200,7 +207,7 @@ class MarketData(DataModelBase):
            ([SID]
            ,[DataSource]
            ,[IDTypeId]
-           ,[IDValue]) values ({0},'{1}',1,'{2}'""".format(sid, source, ticker)
+           ,[IDValue]) values ({0},'{1}',1,'{2}')""".format(sid, source, ticker)
         self.execute(insertquery)
         
     def createPricingRule(self, sid, asofdate, source, timezone, active):
@@ -213,7 +220,7 @@ class MarketData(DataModelBase):
            ,[TimeZone]
            ,[Active])
      VALUES
-           ({0},'{1}','{2}','{3}',{4})""".format(sid, issuedate.strftime("%Y-%m-%d"), source, timezone, active)
+           ({0},'{1}','{2}','{3}',{4})""".format(sid, asofdate.strftime("%Y-%m-%d"), source, timezone, active)
         self.execute(insertquery)
 
 if __name__ == '__main__':

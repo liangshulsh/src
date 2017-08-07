@@ -8,11 +8,23 @@ class GoogleDataSourceHandler(DataSourceHandler.DataSourceHandler):
     def __init__(self, asofdate, type, logger):
         super(GoogleDataSourceHandler, self).__init__(asofdate, type, "google", logger)
 
+    def convertNameToTicker(self, name):
+        if (name is not None and '^' not in name):
+            return name.strip()
+        return None
+
+    def convertTickerToName(self, ticker):
+        if (ticker is not None):
+            return ticker.strip()
+        return None
+
     def loadPrices(self, priceRule, instrument):
         try:
             if priceRule.Ticker != None:
                 self.logger.info("{0} by {1} is loading prices".format(priceRule.Ticker, self.datasource))
-                startdate = instrument.IssueDate
+                startdate = datetime.datetime(1900,1,1)
+                if instrument.IssueDate is not None:
+                    startdate = instrument.IssueDate
                 if (self.type == "refresh" and instrument.LatestPriceDate is not None):
                     startdate = instrument.LatestPriceDate
 
