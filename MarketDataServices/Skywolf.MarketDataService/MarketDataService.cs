@@ -17,11 +17,12 @@ namespace Skywolf.MarketDataService
 
         static MarketDataService()
         {
-            _Logger = LogManager.GetLogger(typeof(MarketDataService).Name);
+            _Logger = LogManager.GetLogger(typeof(MarketDataService));
         }
 
         public string Test(string quoteDate, string betaName)
         {
+            _Logger.Info(quoteDate + betaName);
             return "ok:" + quoteDate + betaName;
         }
     }

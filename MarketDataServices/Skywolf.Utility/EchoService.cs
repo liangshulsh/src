@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using log4net;
+using log4net.Config;
 
 namespace Skywolf.Utility
 {
@@ -21,13 +22,16 @@ namespace Skywolf.Utility
 
         public static void StartLogger()
         {
+            var logCfg = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "log4net.config");
+            XmlConfigurator.ConfigureAndWatch(logCfg);
             //CheckLog();
-            _logger = LogManager.GetLogger("Host");
+            _logger = log4net.LogManager.GetLogger(typeof(EchoService));
+
         }
 
         public static void StartLoggerNoEmail()
         {
-            _logger = LogManager.GetLogger("Host");
+            StartLogger();
         }
 
         //public static void CheckLog()

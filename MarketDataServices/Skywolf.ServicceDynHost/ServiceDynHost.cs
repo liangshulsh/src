@@ -21,8 +21,6 @@ namespace Skywolf.ServiceDynHost
 
         public static void Main()
         {
-            EchoService.StartLogger();
-            _log = EchoService.Logger;
             ServiceBase.Run(new ServiceDynHost());
         }
         
@@ -31,6 +29,9 @@ namespace Skywolf.ServiceDynHost
         {
             try
             {
+                EchoService.StartLogger();
+                _log = EchoService.Logger;
+
                 List<Type> serviceTypes = new List<Type>();
 
                 string path = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
