@@ -18,7 +18,7 @@ class PriceEngine(object):
         self.logfilename = "priceengine_{0}_{1}.log".format(datetime.datetime.today().strftime('%Y%m%d'), int(datetime.datetime.now().timestamp()))
         self.initLogger()
         self.source = {}
-        self.source["google"] = GoogleDataSourceHandler(asofdate, type, self.logger)
+        #self.source["google"] = GoogleDataSourceHandler(asofdate, type, self.logger)
         self.source["yahoo"] = YahooDataSourceHandler(asofdate, type, self.logger)
         self.source["nasdaq"] = NasdaqDataSourceHandler(asofdate, type, self.logger)
 
@@ -86,7 +86,7 @@ class PriceEngine(object):
     def createStock(self, name, fullname, subtype, country, currency, assetclass, sector, industry):
         nasdaq = self.source["nasdaq"]
         yahoo = self.source["yahoo"]
-        google = self.source["google"]
+        #google = self.source["google"]
         marketDataModel = nasdaq.getMarketData()
         issuedate = yahoo.getIssueDate(yahoo.convertNameToTicker(name))
         stock = marketDataModel.createStock(name, fullname, subtype, country, currency, issuedate, assetclass, sector, industry)
@@ -100,7 +100,7 @@ class PriceEngine(object):
             if (issuedate is None):
                 isactive = 0
             marketDataModel.createPricingRule(stock.SID, datetime.datetime.today(), "yahoo", country, isactive)
-            marketDataModel.createPricingRule(stock.SID, datetime.datetime.today(), "google", country, isactive)            
+            #marketDataModel.createPricingRule(stock.SID, datetime.datetime.today(), "google", country, isactive)            
         return stock
 
     def run(self, sources=None, sids=None):
@@ -145,9 +145,10 @@ class PriceEngine(object):
             for priceRule in priceRules:
                 if priceRule.Ticker != None:
                     try:
-                        self.logger.info("({1}/{2})load historical prices for {0}".format(priceRule.Ticker, ruleCnt, len(priceRules)))
-                        instrument = stockDict[priceRule.SID]
-                        self.source[priceRule.DataSource].loadPrices(priceRule, instrument)
+                        if priceRule.DataSource != 'google':
+                            self.logger.info("({1}/{2})load historical prices for {0}".format(priceRule.Ticker, ruleCnt, len(priceRules)))
+                            instrument = stockDict[priceRule.SID]
+                            self.source[priceRule.DataSource].loadPrices(priceRule, instrument)
                     except Exception as ex:
                         pass
                 ruleCnt = ruleCnt + 1
@@ -164,6 +165,6 @@ if __name__ == '__main__':
     #engine.run(sids = [200000007,200000006], sources=['yahoo'])
 
     engine = PriceEngine('refresh', asofdate)
-    #engine.loadsecurities()
-    #engine.createnewsecurities(asofdate)
+    engine.loadsecurities()
+    engine.createnewsecurities(asofdate)
     engine.run()
