@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skywolf.MarketDataService", "Skywolf.MarketDataService\Skywolf.MarketDataService.csproj", "{AA5BD1CA-D9C6-4CE9-8E26-D0BFAD33B6E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skywolf.ServiceDynHost", "Skywolf.ServicceDynHost\Skywolf.ServiceDynHost.csproj", "{61C972ED-CBA8-460E-AFE4-96C1F52FE55E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skywolf.Model", "Skywolf.Model\Skywolf.Model.csproj", "{EFAA60DC-DBEE-4297-A4C6-75AD8DC65262}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skywolf.Utility", "Skywolf.Utility\Skywolf.Utility.csproj", "{8A555816-5440-471D-A341-0511FB1B6CEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skywolf.Client", "Skywolf.Client\Skywolf.Client.csproj", "{17FB9E0C-FBD1-4AC0-95B8-908BF6381824}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skywolf.CommandLineHost", "Skywolf.CommandLineHost\Skywolf.CommandLineHost.csproj", "{168F7E9F-84CD-4F3E-A626-859A2E460651}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA5BD1CA-D9C6-4CE9-8E26-D0BFAD33B6E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA5BD1CA-D9C6-4CE9-8E26-D0BFAD33B6E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA5BD1CA-D9C6-4CE9-8E26-D0BFAD33B6E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA5BD1CA-D9C6-4CE9-8E26-D0BFAD33B6E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61C972ED-CBA8-460E-AFE4-96C1F52FE55E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61C972ED-CBA8-460E-AFE4-96C1F52FE55E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61C972ED-CBA8-460E-AFE4-96C1F52FE55E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61C972ED-CBA8-460E-AFE4-96C1F52FE55E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFAA60DC-DBEE-4297-A4C6-75AD8DC65262}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFAA60DC-DBEE-4297-A4C6-75AD8DC65262}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFAA60DC-DBEE-4297-A4C6-75AD8DC65262}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFAA60DC-DBEE-4297-A4C6-75AD8DC65262}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A555816-5440-471D-A341-0511FB1B6CEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A555816-5440-471D-A341-0511FB1B6CEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A555816-5440-471D-A341-0511FB1B6CEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A555816-5440-471D-A341-0511FB1B6CEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17FB9E0C-FBD1-4AC0-95B8-908BF6381824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17FB9E0C-FBD1-4AC0-95B8-908BF6381824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17FB9E0C-FBD1-4AC0-95B8-908BF6381824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17FB9E0C-FBD1-4AC0-95B8-908BF6381824}.Release|Any CPU.Build.0 = Release|Any CPU
+		{168F7E9F-84CD-4F3E-A626-859A2E460651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{168F7E9F-84CD-4F3E-A626-859A2E460651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{168F7E9F-84CD-4F3E-A626-859A2E460651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{168F7E9F-84CD-4F3E-A626-859A2E460651}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
