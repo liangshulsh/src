@@ -65,11 +65,20 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MarketDataService.cs" />
+    <Compile Include="Restful\MarketDataRfService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Skywolf.DatabaseRepository\Skywolf.DatabaseRepository.csproj">
+      <Project>{f8d28071-4042-484a-8f20-dd6bbba68e08}</Project>
+      <Name>Skywolf.DatabaseRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Skywolf.MarketDataGrabber\Skywolf.MarketDataGrabber.csproj">
+      <Project>{45b62ba2-f048-4296-8212-ea281227171b}</Project>
+      <Name>Skywolf.MarketDataGrabber</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Skywolf.Model\Skywolf.Model.csproj">
       <Project>{efaa60dc-dbee-4297-a4c6-75ad8dc65262}</Project>
       <Name>Skywolf.Model</Name>

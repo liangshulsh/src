@@ -49,13 +49,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTableExt.cs" />
     <Compile Include="EchoService.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="IEcho.cs" />
     <Compile Include="LogOperationBehavior.cs" />
     <Compile Include="LogParameterInspector.cs" />
+    <Compile Include="MathUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxy\ConnectionProxy.cs" />
     <Compile Include="Proxy\Proxy.cs" />
+    <Compile Include="TextUtility.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -44,11 +44,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\Bar.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\BarFrequency.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\CryptoTimeSeriesDataInput.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\CryptoTimeSeriesDataOutput.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\Quote.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\TimeSeriesDataInput.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\TimeSeriesDataOutput.cs" />
+    <Compile Include="Contracts\Services\Restful\IMarketDataRfService.cs" />
     <Compile Include="Contracts\Services\IMarketDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Contracts\DataContracts\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,45 +4,45 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{45B62BA2-F048-4296-8212-EA281227171B}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Skywolf.MarketDataGrabber</RootNamespace>
-    <AssemblyName>Skywolf.MarketDataGrabber</AssemblyName>
+    <ProjectGuid>{E1A31A10-B9AE-4219-AC65-AD61DF2E8D86}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MarketDataGrabberTest</RootNamespace>
+    <AssemblyName>MarketDataGrabberTest</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.7.2.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.7.2\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\packages\HtmlAgilityPack.1.7.2\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ExternalLib\log4net-2.0.8\4.5\release\log4net.dll</HintPath>
+      <HintPath>..\..\ExternalLib\log4net-2.0.8\4.5\release\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ExternalLib\ServiceStack.Text\ServiceStack.Text.dll</HintPath>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\ExternalLib\ServiceStack.Text\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,22 +52,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APIKeyManager.cs" />
-    <Compile Include="AVMarketDataGrabber.cs" />
-    <Compile Include="APIKey.cs" />
-    <Compile Include="BaseMarketDataGrabber.cs" />
-    <Compile Include="IMarketDataGrabber.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Skywolf.Model\Skywolf.Model.csproj">
+    <ProjectReference Include="..\..\Skywolf.DatabaseRepository\Skywolf.DatabaseRepository.csproj">
+      <Project>{f8d28071-4042-484a-8f20-dd6bbba68e08}</Project>
+      <Name>Skywolf.DatabaseRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Skywolf.MarketDataGrabber\Skywolf.MarketDataGrabber.csproj">
+      <Project>{45b62ba2-f048-4296-8212-ea281227171b}</Project>
+      <Name>Skywolf.MarketDataGrabber</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Skywolf.Model\Skywolf.Model.csproj">
       <Project>{efaa60dc-dbee-4297-a4c6-75ad8dc65262}</Project>
       <Name>Skywolf.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Skywolf.Utility\Skywolf.Utility.csproj">
+    <ProjectReference Include="..\..\Skywolf.Utility\Skywolf.Utility.csproj">
       <Project>{8a555816-5440-471d-a341-0511fb1b6cef}</Project>
       <Name>Skywolf.Utility</Name>
     </ProjectReference>
