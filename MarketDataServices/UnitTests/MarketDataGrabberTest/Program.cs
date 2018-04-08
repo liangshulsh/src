@@ -23,7 +23,7 @@ namespace MarketDataGrabberTest
 
         static void testHttpGet()
         {
-            BaseMarketDataGrabber marketData = new BaseMarketDataGrabber();
+            BaseMarketDataGrabber marketData = new AVMarketDataGrabber();
             string result = marketData.HttpGet("https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_WEEKLY&symbol=BTC&market=CNY&apikey=apikey=GCN17TO8N1K4JU9G&datatype=csv");
             DataTable dt = TextUtility.ConvertCSVToTable(result, "prices");
 
@@ -32,7 +32,7 @@ namespace MarketDataGrabberTest
 
         static void testHtmlGet()
         {
-            BaseMarketDataGrabber marketData = new BaseMarketDataGrabber();
+            BaseMarketDataGrabber marketData = new AVMarketDataGrabber();
             HtmlDocument doc = marketData.HtmlGet("https://www.investing.com/");
             string result = doc.ToString();
             Console.Write(result);

@@ -2,7 +2,7 @@
 using System.Data;
 using System.Text;
 
-namespace Prcm.OptimusRisk.Utility
+namespace Skywolf.Utility
 {
     public static class Extensions
     {

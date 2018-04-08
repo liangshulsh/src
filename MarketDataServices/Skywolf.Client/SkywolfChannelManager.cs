@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace Skywolf.Client
 {
-    public class OptimusChannelManager<TChannel>
+    public class SkywolfChannelManager<TChannel>
         where TChannel : class
     {
         private static readonly List<ChannelFactory<TChannel>> clientFactories = new List<ChannelFactory<TChannel>>();
@@ -23,7 +23,7 @@ namespace Skywolf.Client
         private readonly object syncRoot = new object();
         private readonly EndpointState[] epStates = new EndpointState[clientFactories.Count];
 
-        static OptimusChannelManager()
+        static SkywolfChannelManager()
         {
             var sca = typeof(TChannel).GetCustomAttributes(typeof(ServiceContractAttribute), false);
             if (sca.Length == 0)
@@ -53,7 +53,7 @@ namespace Skywolf.Client
             }
         }
 
-        public OptimusChannelManager()
+        public SkywolfChannelManager()
         {
             var ret = new List<IInterceptor>();
 
@@ -120,8 +120,8 @@ namespace Skywolf.Client
 
         private class WcfLoadBalancingInterceptor : IInterceptor
         {
-            OptimusChannelManager<TChannel> channelManager;
-            public WcfLoadBalancingInterceptor(OptimusChannelManager<TChannel> channelManager)
+            SkywolfChannelManager<TChannel> channelManager;
+            public WcfLoadBalancingInterceptor(SkywolfChannelManager<TChannel> channelManager)
             {
                 this.channelManager = channelManager;
             }
@@ -169,8 +169,8 @@ namespace Skywolf.Client
         {
             private static readonly ConcurrentDictionary<MethodBase, bool> methodRepo = new ConcurrentDictionary<MethodBase, bool>();
 
-            private OptimusChannelManager<TChannel> channelManager;
-            public WcfDisposingInterceptor(OptimusChannelManager<TChannel> channelManager)
+            private SkywolfChannelManager<TChannel> channelManager;
+            public WcfDisposingInterceptor(SkywolfChannelManager<TChannel> channelManager)
             {
                 this.channelManager = channelManager;
             }

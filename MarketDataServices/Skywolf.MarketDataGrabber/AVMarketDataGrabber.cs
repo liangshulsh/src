@@ -67,7 +67,7 @@ namespace Skywolf.MarketDataGrabber
 
         #region AV Calls
 
-        public TimeSeriesDataOutput GetTimeSeriesData(TimeSeriesDataInput input)
+        public override TimeSeriesDataOutput GetTimeSeriesData(TimeSeriesDataInput input)
         {
             if (input == null || string.IsNullOrEmpty(input.Symbol))
             {
@@ -185,7 +185,7 @@ namespace Skywolf.MarketDataGrabber
             return output;
         }
 
-        public Quote[] StockBatchQuote(IEnumerable<string> symbols)
+        public override Quote[] StockBatchQuote(IEnumerable<string> symbols)
         {
             List<string[]> batchList = new List<string[]>();
 

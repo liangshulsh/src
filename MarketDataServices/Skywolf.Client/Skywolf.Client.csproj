@@ -282,8 +282,8 @@
     <Compile Include="DynamicProxy\Tokens\TypeBuilderMethods.cs" />
     <Compile Include="DynamicProxy\Tokens\TypeMethods.cs" />
     <Compile Include="DynamicProxy\Tokens\TypeUtilMethods.cs" />
-    <Compile Include="OptimusChannelManager.cs" />
-    <Compile Include="OptimusClient.cs" />
+    <Compile Include="SkywolfChannelManager.cs" />
+    <Compile Include="SkywolfClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceFault.cs" />
   </ItemGroup>

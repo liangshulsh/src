@@ -8,17 +8,17 @@ using System.Text;
 
 namespace Skywolf.Client
 {
-    public class OptimusClient<TClient> : ClientBase<TClient>, IDisposable where TClient : class
+    public class SkywolfClient<TClient> : ClientBase<TClient>, IDisposable where TClient : class
     {
-        public OptimusClient() { }
+        public SkywolfClient() { }
 
-        public OptimusClient(string endpointConfigurationName) : base(endpointConfigurationName) { }
+        public SkywolfClient(string endpointConfigurationName) : base(endpointConfigurationName) { }
 
-        public OptimusClient(Binding binding, EndpointAddress remoteAddress) : base(binding, remoteAddress) { }
+        public SkywolfClient(Binding binding, EndpointAddress remoteAddress) : base(binding, remoteAddress) { }
 
-        public OptimusClient(InstanceContext callbackInstance) : base(callbackInstance) { }
+        public SkywolfClient(InstanceContext callbackInstance) : base(callbackInstance) { }
 
-        public OptimusClient(InstanceContext callbackInstance, Binding binding, EndpointAddress remoteAddress) : base(callbackInstance, binding, remoteAddress) { }
+        public SkywolfClient(InstanceContext callbackInstance, Binding binding, EndpointAddress remoteAddress) : base(callbackInstance, binding, remoteAddress) { }
 
         public TClient Instance
         {
@@ -48,7 +48,7 @@ namespace Skywolf.Client
 
         public static void Using(Action<TClient> action)
         {
-            using (var c = new OptimusClient<TClient>())
+            using (var c = new SkywolfClient<TClient>())
             {
                 try
                 {
@@ -70,7 +70,7 @@ namespace Skywolf.Client
 
         public static TResult Using<TResult>(Func<TClient, TResult> action)
         {
-            using (var c = new OptimusClient<TClient>())
+            using (var c = new SkywolfClient<TClient>())
             {
                 try
                 {

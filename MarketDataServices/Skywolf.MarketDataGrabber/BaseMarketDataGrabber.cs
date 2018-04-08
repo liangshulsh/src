@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections;
 using System.IO;
+using Skywolf.Contracts.DataContracts.MarketData;
 
 namespace Skywolf.MarketDataGrabber
 {
@@ -72,5 +73,8 @@ namespace Skywolf.MarketDataGrabber
 
             return null;
         }
+
+        public abstract TimeSeriesDataOutput GetTimeSeriesData(TimeSeriesDataInput input);
+        public abstract Quote[] StockBatchQuote(IEnumerable<string> symbols);
     }
 }

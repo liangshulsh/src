@@ -7,6 +7,9 @@ namespace Skywolf.Contracts.DataContracts.MarketData
     public enum BarFrequency
     {
         [EnumMember]
+        None = -1,
+
+        [EnumMember]
         Tick = 0,
 
         [EnumMember]

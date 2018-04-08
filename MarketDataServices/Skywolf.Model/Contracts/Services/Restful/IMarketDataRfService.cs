@@ -15,8 +15,8 @@ namespace Skywolf.Contracts.Services.Restful
         string GetNameFromSID(string sids);
 
         [OperationContract]
-        [WebGet(UriTemplate = "gettimeseriesdata?symbol={symbol}&frequency={frequency}&outputcount={outputcount}&isadjustedvalue={isadjustedvalue}&datasource={datasource}")]
-        string GetTimeSeriesData(string symbol, string frequency, string outputcount, string isadjustedvalue, string datasource);
+        [WebGet(UriTemplate = "gettimeseriesdata?symbol={symbol}&market={market}&frequency={frequency}&outputcount={outputcount}&isadjustedvalue={isadjustedvalue}&datasource={datasource}")]
+        string GetTimeSeriesData(string symbol, string market, string frequency, string outputcount, string isadjustedvalue, string datasource);
 
         [OperationContract]
         [WebGet(UriTemplate = "getstockbatchquote?symbols={symbols}&datasource={datasource}")]
@@ -24,11 +24,11 @@ namespace Skywolf.Contracts.Services.Restful
 
         [OperationContract]
         [WebGet(UriTemplate = "getstockhistoryprices?symbols={symbols}&frequency={frequency}&startdate={startdate}&enddate={enddate}&outputcount={outputcount}&isadjustedvalue={isadjustedvalue}&datasource={datasource}")]
-        string GetStockHistoryPrices(string symbols, string frequency, string startDate, string endDate, string outputCount, string isAdjustedValue, string datasource);
+        string GetStockHistoryPrices(string symbols, string frequency, string startdate, string enddate, string outputcount, string isadjustedvalue, string datasource);
 
         [OperationContract]
         [WebGet(UriTemplate = "getcryptohistoryprices?symbols={symbols}&market={market}&frequency={frequency}&startdate={startdate}&enddate={enddate}&outputcount={outputcount}&datasource={datasource}")]
-        string GetCryptoHistoryPrices(string symbols, string market, string frequency, string startdate, string enddate, string outputCount, string datasource);
+        string GetCryptoHistoryPrices(string symbols, string market, string frequency, string startdate, string enddate, string outputcount, string datasource);
 
         [OperationContract]
         [WebGet(UriTemplate = "va_getavailableapikey")]
@@ -36,14 +36,14 @@ namespace Skywolf.Contracts.Services.Restful
 
         [OperationContract]
         [WebGet(UriTemplate = "va_addapikeys?apikeys={apikeys}")]
-        string AV_AddAPIKeys(string apiKeys);
+        string AV_AddAPIKeys(string apikeys);
 
         [OperationContract]
         [WebGet(UriTemplate = "va_removeapikeys?apikeys={apikeys}")]
-        string AV_RemoveAPIKeys(string apiKeys);
+        string AV_RemoveAPIKeys(string apikeys);
 
         [OperationContract]
         [WebGet(UriTemplate = "va_updateapikeys?apikeys={apikeys}")]
-        string AV_UpdateAPIKeys(string apiKeys);
+        string AV_UpdateAPIKeys(string apikeys);
     }
 }

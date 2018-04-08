@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
+using System.Linq;
 
-namespace Prcm.OptimusRisk.Utility
+namespace Skywolf.Utility
 {
     public interface IColumn<T>
     {
@@ -89,6 +91,45 @@ namespace Prcm.OptimusRisk.Utility
             return t;
         }
 
+        public string CSVConvert(IEnumerable<T> data)
+        {
+            StringBuilder csvBuilder = new StringBuilder();
+            var n = cols.Count;
+            var dcols = new List<string>(n);
+            for (var i = 0; i < n; i++)
+                dcols[i] = cols[i].Name;
+
+            csvBuilder.AppendLine(string.Join(",", dcols));
+
+            if (data != null && data.Count() > 0)
+            {
+                foreach (var e in data)
+                {
+                    List<string> values = new List<string>(n);
+                    for (var i = 0; i < n; i++)
+                    {
+                        try
+                        {
+                            values[i] = cols[i].Eval(e).ToString();
+                        }
+                        catch (Exception)
+                        {
+                            values[i] = string.Empty;
+                        }
+                    }
+                    csvBuilder.AppendLine(string.Join(",", values));
+                }
+            }
+
+            return csvBuilder.ToString();
+        }
+
+        public string CSVMap(IEnumerable<T> data)
+        {
+            var t = CSVConvert(data);
+            return t;
+        }
+
         public DataTable Map(IEnumerable<T> data, string name)
         {
             var t = Convert(data);
@@ -124,6 +165,16 @@ namespace Prcm.OptimusRisk.Utility
                 conv.Add(new Column<T>(p));
 
             return conv.Map(self, name);
+        }
+
+        public static string ToCSV<T>(this IEnumerable<T> self)
+        {
+            var conv = new DataTableConversion<T>();
+
+            foreach (var p in typeof(T).GetProperties())
+                conv.Add(new Column<T>(p));
+
+            return conv.CSVMap(self);
         }
 
         private class Column<T> : IColumn<T>
