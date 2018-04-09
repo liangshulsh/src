@@ -1,4 +1,5 @@
 ﻿using Skywolf.Contracts.DataContracts.MarketData;
+using Skywolf.Contracts.DataContracts.Instrument;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -15,6 +16,9 @@ namespace Skywolf.Contracts.Services
 
         [OperationContract]
         IDictionary<long, string> GetNameFromSID(long[] SIDs);
+
+        [OperationContract]
+        PricingRule[] GetPricingRule(bool active, string datasource);
 
         [OperationContract]
         TimeSeriesDataOutput GetTimeSeriesData(TimeSeriesDataInput input, string datasource);

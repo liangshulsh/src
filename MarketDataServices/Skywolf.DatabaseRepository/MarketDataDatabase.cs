@@ -4,12 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Skywolf.Contracts.DataContracts.MarketData;
+using Skywolf.Contracts.DataContracts.Instrument;
 using System.Collections.Concurrent;
 
 namespace Skywolf.DatabaseRepository
 {
     public class MarketDataDatabase
     {
+        public PricingRule[] GetPricingRules(string datasource, bool active)
+        {
+            using (MarketDataDataContext marketData = new MarketDataDataContext())
+            {
+                return (from p in marketData.vw_PricingRules
+                        where p.Active == active && p.DataSource == datasource
+                        select new PricingRule()
+                        {
+                            Active = p.Active,
+                            AsOfDate = p.AsOfDate,
+                            DataSource = p.DataSource,
+                            SID = p.SID,
+                            Ticker = p.Ticker,
+                            TimeZone = p.TimeZone,
+                            User = p.Usr,
+                            TS = p.TS ?? DateTime.MinValue
+                        }).ToArray();
+            }
+        }
+
         public string[] VA_GetAvailableAPIKey()
         {
             using (MarketDataDataContext marketData = new MarketDataDataContext())

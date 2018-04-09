@@ -97,7 +97,7 @@ namespace Skywolf.Utility
             var n = cols.Count;
             var dcols = new List<string>(n);
             for (var i = 0; i < n; i++)
-                dcols[i] = cols[i].Name;
+                dcols.Add(cols[i].Name);
 
             csvBuilder.AppendLine(string.Join(",", dcols));
 
@@ -105,7 +105,7 @@ namespace Skywolf.Utility
             {
                 foreach (var e in data)
                 {
-                    List<string> values = new List<string>(n);
+                    string[] values = new string[n];
                     for (var i = 0; i < n; i++)
                     {
                         try

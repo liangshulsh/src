@@ -164,4 +164,16 @@
       <Column Name="Name" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="price.vw_PricingRule" Member="vw_PricingRules">
+    <Type Name="vw_PricingRule">
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="DataSource" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Ticker" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="TimeZone" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Usr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

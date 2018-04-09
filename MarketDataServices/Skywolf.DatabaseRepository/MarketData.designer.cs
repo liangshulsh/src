@@ -201,6 +201,14 @@ namespace Skywolf.DatabaseRepository
 				return this.GetTable<vw_InstrumentName>();
 			}
 		}
+		
+		public System.Data.Linq.Table<vw_PricingRule> vw_PricingRules
+		{
+			get
+			{
+				return this.GetTable<vw_PricingRule>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.APIKeyList")]
@@ -3339,6 +3347,159 @@ namespace Skywolf.DatabaseRepository
 				if ((this._Name != value))
 				{
 					this._Name = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="price.vw_PricingRule")]
+	public partial class vw_PricingRule
+	{
+		
+		private long _SID;
+		
+		private System.DateTime _AsOfDate;
+		
+		private string _DataSource;
+		
+		private string _Ticker;
+		
+		private string _TimeZone;
+		
+		private bool _Active;
+		
+		private string _Usr;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+		public vw_PricingRule()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", DbType="BigInt NOT NULL")]
+		public long SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this._SID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="Date NOT NULL")]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this._AsOfDate = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataSource", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string DataSource
+		{
+			get
+			{
+				return this._DataSource;
+			}
+			set
+			{
+				if ((this._DataSource != value))
+				{
+					this._DataSource = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ticker", DbType="VarChar(250)")]
+		public string Ticker
+		{
+			get
+			{
+				return this._Ticker;
+			}
+			set
+			{
+				if ((this._Ticker != value))
+				{
+					this._Ticker = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TimeZone", DbType="VarChar(200)")]
+		public string TimeZone
+		{
+			get
+			{
+				return this._TimeZone;
+			}
+			set
+			{
+				if ((this._TimeZone != value))
+				{
+					this._TimeZone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
+		public bool Active
+		{
+			get
+			{
+				return this._Active;
+			}
+			set
+			{
+				if ((this._Active != value))
+				{
+					this._Active = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usr", DbType="VarChar(200)")]
+		public string Usr
+		{
+			get
+			{
+				return this._Usr;
+			}
+			set
+			{
+				if ((this._Usr != value))
+				{
+					this._Usr = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this._TS = value;
 				}
 			}
 		}

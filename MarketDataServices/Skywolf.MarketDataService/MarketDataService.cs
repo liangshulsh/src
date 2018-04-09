@@ -11,6 +11,7 @@ using Skywolf.Contracts.DataContracts.MarketData;
 using Skywolf.MarketDataGrabber;
 using Skywolf.DatabaseRepository;
 using System.Collections.Generic;
+using Skywolf.Contracts.DataContracts.Instrument;
 
 namespace Skywolf.MarketDataService
 {
@@ -61,6 +62,19 @@ namespace Skywolf.MarketDataService
             try
             {
                 return new MarketDataDatabase().GetNameFromSID(SIDs);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        public PricingRule[] GetPricingRule(bool active, string datasource)
+        {
+            try
+            {
+                return new MarketDataDatabase().GetPricingRules(datasource, active);
             }
             catch (Exception ex)
             {

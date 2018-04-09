@@ -80,5 +80,11 @@
         <elementListCompartment Id="8d4c2bf8-3ff6-4ab0-91e5-9dba8c0730f0" absoluteBounds="5.14, 0.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="20ff0c2d-539b-4085-a5c5-7ad7feb4efff" isExpanded="false" absoluteBounds="5.125, 1.125, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/vw_PricingRule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d64bc5ca-4115-470c-b57f-dcc14fa2f5db" absoluteBounds="5.14, 1.585, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
