@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0A740394-6045-42E7-8CF1-DF39F457104E}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>AlphaVantageMarketDataAuto</RootNamespace>
-    <AssemblyName>AlphaVantageMarketDataAuto</AssemblyName>
+    <ProjectGuid>{F2488ED3-6838-43A5-A469-9741D9E251D4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutomationHelper</RootNamespace>
+    <AssemblyName>AutomationHelper</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,23 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BitFactory.Logging">
-      <HintPath>..\ExternalLibs\BitFactory.Logging\X86\1.5.2.0\BitFactory.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\ExternalLibs\log4net-2.0.8\4.5\release\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="Skywolf.Client">
-      <HintPath>..\ExternalLibs\Skywolf.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Skywolf.Model">
-      <HintPath>..\ExternalLibs\Skywolf.Model.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,23 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MarketDataHandler.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="ArgumentParser.cs" />
+    <Compile Include="AttachmentType.cs" />
+    <Compile Include="AutomationJob.cs" />
+    <Compile Include="SystemUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\ExternalLibs\BitFactory.Logging\X86\1.5.2.0\BitFactory.Logging.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AutomationHelper\AutomationHelper.csproj">
-      <Project>{f2488ed3-6838-43a5-a469-9741d9e251d4}</Project>
-      <Name>AutomationHelper</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

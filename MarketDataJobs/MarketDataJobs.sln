@@ -11,6 +11,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "WebGrabber", "WebGrabber\We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaVantageMarketDataAuto", "AlphaVantageMarketDataAuto\AlphaVantageMarketDataAuto.csproj", "{0A740394-6045-42E7-8CF1-DF39F457104E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationHelper", "AutomationHelper\AutomationHelper.csproj", "{F2488ED3-6838-43A5-A469-9741D9E251D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0A740394-6045-42E7-8CF1-DF39F457104E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A740394-6045-42E7-8CF1-DF39F457104E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A740394-6045-42E7-8CF1-DF39F457104E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2488ED3-6838-43A5-A469-9741D9E251D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2488ED3-6838-43A5-A469-9741D9E251D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2488ED3-6838-43A5-A469-9741D9E251D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2488ED3-6838-43A5-A469-9741D9E251D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
