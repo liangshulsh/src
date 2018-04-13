@@ -3368,6 +3368,8 @@ namespace Skywolf.DatabaseRepository
 		
 		private bool _Active;
 		
+		private int _Priority;
+		
 		private string _Usr;
 		
 		private System.Nullable<System.DateTime> _TS;
@@ -3468,6 +3470,22 @@ namespace Skywolf.DatabaseRepository
 				if ((this._Active != value))
 				{
 					this._Active = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Priority", DbType="Int NOT NULL")]
+		public int Priority
+		{
+			get
+			{
+				return this._Priority;
+			}
+			set
+			{
+				if ((this._Priority != value))
+				{
+					this._Priority = value;
 				}
 			}
 		}

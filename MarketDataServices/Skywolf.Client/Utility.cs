@@ -168,10 +168,20 @@ namespace Skywolf.Client
             return fstr;
         }
 
+        public static void SendReportMail(string[] reportFiles,
+                string emailAddress,
+                string emailSubject,
+                string emailBody)
+        {
+            //optimusprime
+            SendReportMail(reportFiles, emailAddress, "skywolfsystem@126.com", "Optimus2018", emailSubject, emailBody);
+        }
+
         public static void SendReportMail(
                 string[] reportFiles,
                 string emailAddress,
                 string fromAddress,
+                string password,
                 string emailSubject,
                 string emailBody)
         {
@@ -219,7 +229,7 @@ namespace Skywolf.Client
                 }
                 
                 client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("skywolfsystem@126.com", "optimusprime");
+                client.Credentials = new System.Net.NetworkCredential(fromAddress, password);
                 client.EnableSsl = true;
                 client.Send(smtpMsg);
             }

@@ -6,17 +6,24 @@ using System.Threading.Tasks;
 using Skywolf.Contracts.DataContracts.MarketData;
 using Skywolf.Contracts.DataContracts.Instrument;
 using System.Collections.Concurrent;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace Skywolf.DatabaseRepository
 {
     public class MarketDataDatabase
     {
+        public static readonly DateTime DB_Min_Date = new DateTime(1900, 1, 1);
+        
+        protected static object _storeLockObj = new object();
+
         public PricingRule[] GetPricingRules(string datasource, bool active)
         {
             using (MarketDataDataContext marketData = new MarketDataDataContext())
             {
                 return (from p in marketData.vw_PricingRules
                         where p.Active == active && p.DataSource == datasource
+                        orderby p.Priority descending
                         select new PricingRule()
                         {
                             Active = p.Active,
@@ -25,8 +32,9 @@ namespace Skywolf.DatabaseRepository
                             SID = p.SID,
                             Ticker = p.Ticker,
                             TimeZone = p.TimeZone,
+                            Priority = p.Priority,
                             User = p.Usr,
-                            TS = p.TS ?? DateTime.MinValue
+                            TS = p.TS
                         }).ToArray();
             }
         }
@@ -36,8 +44,8 @@ namespace Skywolf.DatabaseRepository
             using (MarketDataDataContext marketData = new MarketDataDataContext())
             {
                 return (from p in marketData.VA_APIKeyLists
-                 where p.Active
-                 select p.Key).ToArray();
+                        where p.Active
+                        select p.Key).ToArray();
             }
         }
 
@@ -121,206 +129,176 @@ namespace Skywolf.DatabaseRepository
             {
                 return false;
             }
+            
+            bars = (from p in bars
+                    where p.AsOfDate >= DB_Min_Date
+                    group p by p.AsOfDate into g
+                    select g.First()).ToArray();
 
-            using (MarketDataDataContext marketData = new MarketDataDataContext())
+            lock (_storeLockObj)
             {
-                string tableName = GetTableName(frequency, isAdjustedValue);
-                DateTime maxDate = bars.Select(p => p.AsOfDate).Max();
-                DateTime minDate = bars.Select(p => p.AsOfDate).Min();
-                marketData.ExecuteCommand(string.Format("delete from {0} where SID = {1} and AsOfDate >= '{2}' and AsOfDate <= '{3}'", tableName, SID, minDate, maxDate));
-
-                if (isAdjustedValue)
+                using (MarketDataDataContext marketData = new MarketDataDataContext())
                 {
-                    switch (frequency)
+                    string storedprocedure = AV_GetInsertStoredProcedureName(frequency, isAdjustedValue);
+                    DataTable dtPrices = AV_ConvertBarToDataTable(SID, isAdjustedValue, bars);
+
+                    if (dtPrices != null && dtPrices.Rows.Count > 0)
                     {
-                        case BarFrequency.Day1:
-                            marketData.VA_AdjPrices_D1s.InsertAllOnSubmit(bars.Select(bar => new VA_AdjPrices_D1()
-                            {
-                                AsOfDate = bar.AsOfDate,
-                                AdjClose = bar is StockBar ? (bar as StockBar).AdjClose : (double?)null,
-                                Close = bar.Close,
-                                High = bar.High,
-                                Low = bar.Low,
-                                Open = bar.Open,
-                                SID = SID,
-                                Volume = bar.Volume,
-                                DividendAmount = bar is StockBar ? (bar as StockBar).DividendAmount : (double?)null,
-                                SplitCoefficient = bar is StockBar ? (bar as StockBar).SplitCoefficient : (double?)null,
-                                TS = DateTime.UtcNow
-                            }).ToArray());
-                            break;
-                        case BarFrequency.Week1:
-                            marketData.VA_AdjPrices_W1s.InsertAllOnSubmit(bars.Select(bar => new VA_AdjPrices_W1()
-                            {
-                                AsOfDate = bar.AsOfDate,
-                                AdjClose = bar is StockBar ? (bar as StockBar).AdjClose : (double?)null,
-                                Close = bar.Close,
-                                High = bar.High,
-                                Low = bar.Low,
-                                Open = bar.Open,
-                                SID = SID,
-                                Volume = bar.Volume,
-                                DividendAmount = bar is StockBar ? (bar as StockBar).DividendAmount : (double?)null,
-                                TS = DateTime.UtcNow
-                            }).ToArray());
-                            break;
-                        case BarFrequency.Month1:
-                            marketData.VA_AdjPrices_MNs.InsertAllOnSubmit(bars.Select(bar => new VA_AdjPrices_MN()
-                            {
-                                AsOfDate = bar.AsOfDate,
-                                AdjClose = bar is StockBar ? (bar as StockBar).AdjClose : (double?)null,
-                                Close = bar.Close,
-                                High = bar.High,
-                                Low = bar.Low,
-                                Open = bar.Open,
-                                SID = SID,
-                                Volume = bar.Volume,
-                                DividendAmount = bar is StockBar ? (bar as StockBar).DividendAmount : (double?)null,
-                                TS = DateTime.UtcNow
-                            }).ToArray());
-                            break;
+                        try
+                        {
+
+                            marketData.Connection.Open();
+                            var cmd = marketData.Connection.CreateCommand();
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.CommandText = storedprocedure;
+                            cmd.CommandTimeout = 3600;
+                            cmd.Parameters.Add(new SqlParameter("@TableSR", dtPrices));
+                            cmd.ExecuteNonQuery();
+                            marketData.Connection.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
                     }
                 }
-                else
-                {
-                    switch (frequency)
-                    {
-                        case BarFrequency.Minute1:
-                            marketData.VA_Prices_M1s.InsertAllOnSubmit(bars.Select(bar => new VA_Prices_M1()
-                            {
-                                AsOfDate = bar.AsOfDate,
-                                Close = bar.Close,
-                                High = bar.High,
-                                Low = bar.Low,
-                                Open = bar.Open,
-                                SID = SID,
-                                Volume = bar.Volume,
-                                MarketCap = bar is CryptoBar ? (bar as CryptoBar).MarketCap : (decimal?)null,
-                                TS = DateTime.UtcNow
-                            }).ToArray());
-                            break;
-                        case BarFrequency.Minute5:
-                            marketData.VA_Prices_M5s.InsertAllOnSubmit(bars.Select(bar => new VA_Prices_M5()
-                            {
-                                AsOfDate = bar.AsOfDate,
-                                Close = bar.Close,
-                                High = bar.High,
-                                Low = bar.Low,
-                                Open = bar.Open,
-                                SID = SID,
-                                Volume = bar.Volume,
-                                MarketCap = bar is CryptoBar ? (bar as CryptoBar).MarketCap : (decimal?)null,
-                                TS = DateTime.UtcNow
-                            }).ToArray());
-                            break;
-                        case BarFrequency.Minute15:
-                            marketData.VA_Prices_M15s.InsertAllOnSubmit(bars.Select(bar => new VA_Prices_M15()
-                            {
-                                AsOfDate = bar.AsOfDate,
-                                Close = bar.Close,
-                                High = bar.High,
-                                Low = bar.Low,
-                                Open = bar.Open,
-                                SID = SID,
-                                Volume = bar.Volume,
-                                MarketCap = bar is CryptoBar ? (bar as CryptoBar).MarketCap : (decimal?)null,
-                                TS = DateTime.UtcNow
-                            }).ToArray());
-                            break;
-                        case BarFrequency.Minute30:
-                            marketData.VA_Prices_M30s.InsertAllOnSubmit(bars.Select(bar => new VA_Prices_M30()
-                            {
-                                AsOfDate = bar.AsOfDate,
-                                Close = bar.Close,
-                                High = bar.High,
-                                Low = bar.Low,
-                                Open = bar.Open,
-                                SID = SID,
-                                Volume = bar.Volume,
-                                MarketCap = bar is CryptoBar ? (bar as CryptoBar).MarketCap : (decimal?)null,
-                                TS = DateTime.UtcNow
-                            }).ToArray());
-                            break;
-                        case BarFrequency.Hour1:
-                            marketData.VA_Prices_H1s.InsertAllOnSubmit(bars.Select(bar => new VA_Prices_H1()
-                            {
-                                AsOfDate = bar.AsOfDate,
-                                Close = bar.Close,
-                                High = bar.High,
-                                Low = bar.Low,
-                                Open = bar.Open,
-                                SID = SID,
-                                Volume = bar.Volume,
-                                MarketCap = bar is CryptoBar ? (bar as CryptoBar).MarketCap : (decimal?)null,
-                                TS = DateTime.UtcNow
-                            }).ToArray());
-                            break;
-                        case BarFrequency.Day1:
-                            marketData.VA_Prices_D1s.InsertAllOnSubmit(bars.Select(bar => new VA_Prices_D1()
-                            {
-                                AsOfDate = bar.AsOfDate,
-                                Close = bar.Close,
-                                High = bar.High,
-                                Low = bar.Low,
-                                Open = bar.Open,
-                                SID = SID,
-                                Volume = bar.Volume,
-                                MarketCap = bar is CryptoBar ? (bar as CryptoBar).MarketCap : (decimal?)null,
-                                TS = DateTime.UtcNow
-                            }).ToArray());
-                            break;
-                        case BarFrequency.Week1:
-                            marketData.VA_Prices_W1s.InsertAllOnSubmit(bars.Select(bar => new VA_Prices_W1()
-                            {
-                                AsOfDate = bar.AsOfDate,
-                                Close = bar.Close,
-                                High = bar.High,
-                                Low = bar.Low,
-                                Open = bar.Open,
-                                SID = SID,
-                                Volume = bar.Volume,
-                                MarketCap = bar is CryptoBar ? (bar as CryptoBar).MarketCap : (decimal?)null,
-                                TS = DateTime.UtcNow
-                            }).ToArray());
-                            break;
-                        case BarFrequency.Month1:
-                            marketData.VA_Prices_MNs.InsertAllOnSubmit(bars.Select(bar => new VA_Prices_MN()
-                            {
-                                AsOfDate = bar.AsOfDate,
-                                Close = bar.Close,
-                                High = bar.High,
-                                Low = bar.Low,
-                                Open = bar.Open,
-                                SID = SID,
-                                Volume = bar.Volume,
-                                MarketCap = bar is CryptoBar ? (bar as CryptoBar).MarketCap : (decimal?)null,
-                                TS = DateTime.UtcNow
-                            }).ToArray());
-                            break;
-                    }
-                }
-
-                marketData.SubmitChanges();
             }
 
             return true;
         }
 
-        public string GetTableName(BarFrequency frequency, bool isAdjustedValue)
+        private DataTable AV_ConvertBarToDataTable(long SID, bool isAdjustedValue, Bar[] bars)
         {
-            string tableName = null;
+            if (bars == null || bars.Count() == 0)
+            {
+                return null;
+            }
+
+            DataTable prices = AV_CreateTableType(isAdjustedValue, "Prices");
+
+            foreach (Bar bar in bars)
+            {
+                DataRow row = prices.NewRow();
+                row[Constants.FIELD_SID] = SID;
+                row[Constants.FIELD_ASOFDATE] = bar.AsOfDate;
+                if (bar.Open.HasValue)
+                {
+                    row[Constants.FIELD_OPEN] = bar.Open.Value;
+                }
+
+                if (bar.High.HasValue)
+                {
+                    row[Constants.FIELD_HIGH] = bar.High.Value;
+                }
+
+                if (bar.Low.HasValue)
+                {
+                    row[Constants.FIELD_LOW] = bar.Low.Value;
+                }
+
+                if (bar.Close.HasValue)
+                {
+                    row[Constants.FIELD_CLOSE] = bar.Close.Value;
+                }
+
+                if (bar.Volume.HasValue)
+                {
+                    row[Constants.FIELD_VOLUME] = bar.Volume.Value;
+                }
+
+                if (bar.TS.HasValue)
+                {
+                    row[Constants.FIELD_TS] = bar.TS.Value;
+                }
+
+                if (isAdjustedValue)
+                {
+                    StockBar stockBar = bar as StockBar;
+                    if (stockBar != null)
+                    {
+                        if (stockBar.AdjClose.HasValue)
+                        {
+                            row[Constants.FIELD_ADJCLOSE] = stockBar.AdjClose.Value;
+                        }
+
+                        if (stockBar.DividendAmount.HasValue)
+                        {
+                            row[Constants.FIELD_DIVIDENDAMOUNT] = stockBar.DividendAmount.Value;
+                        }
+
+                        if (stockBar.SplitCoefficient.HasValue)
+                        {
+                            row[Constants.FIELD_SPLITCOEFFICIENT] = stockBar.SplitCoefficient;
+                        }
+                    }
+                }
+                else
+                {
+                    CryptoBar cryptoBar = bar as CryptoBar;
+                    if (cryptoBar != null)
+                    {
+                        if (cryptoBar.MarketCap.HasValue)
+                        {
+                            row[Constants.FIELD_MARKETCAP] = cryptoBar.MarketCap.Value;
+                        }
+                    }
+                }
+
+                prices.Rows.Add(row);
+            }
+
+            return prices;
+        }
+
+        private DataTable AV_CreateTableType(bool isAdjustedValue, string tableName)
+        {
+            DataTable prices = new DataTable(tableName);
+            if (isAdjustedValue)
+            {
+                prices.Columns.Add(Constants.FIELD_SID, typeof(long));
+                prices.Columns.Add(Constants.FIELD_ASOFDATE, typeof(DateTime));
+                prices.Columns.Add(Constants.FIELD_OPEN, typeof(double));
+                prices.Columns.Add(Constants.FIELD_HIGH, typeof(double));
+                prices.Columns.Add(Constants.FIELD_LOW, typeof(double));
+                prices.Columns.Add(Constants.FIELD_CLOSE, typeof(double));
+                prices.Columns.Add(Constants.FIELD_VOLUME, typeof(decimal));
+                prices.Columns.Add(Constants.FIELD_ADJCLOSE, typeof(double));
+                prices.Columns.Add(Constants.FIELD_DIVIDENDAMOUNT, typeof(double));
+                prices.Columns.Add(Constants.FIELD_SPLITCOEFFICIENT, typeof(double));
+                prices.Columns.Add(Constants.FIELD_TS, typeof(DateTime));
+            }
+            else
+            {
+                prices.Columns.Add(Constants.FIELD_SID, typeof(string));
+                prices.Columns.Add(Constants.FIELD_ASOFDATE, typeof(DateTime));
+                prices.Columns.Add(Constants.FIELD_OPEN, typeof(double));
+                prices.Columns.Add(Constants.FIELD_HIGH, typeof(double));
+                prices.Columns.Add(Constants.FIELD_LOW, typeof(double));
+                prices.Columns.Add(Constants.FIELD_CLOSE, typeof(double));
+                prices.Columns.Add(Constants.FIELD_VOLUME, typeof(decimal));
+                prices.Columns.Add(Constants.FIELD_MARKETCAP, typeof(decimal));
+                prices.Columns.Add(Constants.FIELD_TS, typeof(DateTime));
+
+            }
+
+            return prices;
+        }
+
+        private string AV_GetInsertStoredProcedureName(BarFrequency frequency, bool isAdjustedValue)
+        {
+            string storedProcedure = null;
             if (isAdjustedValue)
             {
                 switch (frequency)
                 {
                     case BarFrequency.Day1:
-                        tableName = "av.AdjPrices_D1";
+                        storedProcedure = "av.usp_AdjPrices_D1_InsertMany";
                         break;
                     case BarFrequency.Week1:
-                        tableName = "av.AdjPrices_W1";
+                        storedProcedure = "av.usp_AdjPrices_W1_InsertMany";
                         break;
                     case BarFrequency.Month1:
-                        tableName = "av.AdjPrices_MN";
+                        storedProcedure = "av.usp_AdjPrices_MN_InsertMany";
                         break;
                 }
             }
@@ -329,48 +307,132 @@ namespace Skywolf.DatabaseRepository
                 switch (frequency)
                 {
                     case BarFrequency.Minute1:
-                        tableName = "av.Prices_M1";
+                        storedProcedure = "av.usp_Prices_M1_InsertMany";
                         break;
                     case BarFrequency.Minute5:
-                        tableName = "av.Prices_M5";
+                        storedProcedure = "av.usp_Prices_M5_InsertMany";
                         break;
                     case BarFrequency.Minute15:
-                        tableName = "av.Prices_M15";
+                        storedProcedure = "av.usp_Prices_M15_InsertMany";
                         break;
                     case BarFrequency.Minute30:
-                        tableName = "av.Prices_M30";
+                        storedProcedure = "av.usp_Prices_M30_InsertMany";
                         break;
                     case BarFrequency.Hour1:
-                        tableName = "av.Prices_H1";
+                        storedProcedure = "av.usp_Prices_H1_InsertMany";
                         break;
                     case BarFrequency.Day1:
-                        tableName = "av.Prices_D1";
+                        storedProcedure = "av.usp_Prices_D1_InsertMany";
                         break;
                     case BarFrequency.Week1:
-                        tableName = "av.Prices_W1";
+                        storedProcedure = "av.usp_Prices_W1_InsertMany";
                         break;
                     case BarFrequency.Month1:
-                        tableName = "av.Prices_MN";
+                        storedProcedure = "av.usp_Prices_MN_InsertMany";
                         break;
                 }
             }
 
-            return tableName;
+            return storedProcedure;
         }
 
         public IDictionary<string, StockBar[]> VA_GetStockPrices(string[] symbols, BarFrequency frequency, DateTime? startDate, DateTime? endDate, int outputCount, bool isAdjustedValue)
         {
             IDictionary<string, long> tickerToSIDMap = GetSIDFromName(symbols);
-            long[] SIDs = tickerToSIDMap.Values.ToArray();
+            
+            if (tickerToSIDMap != null && tickerToSIDMap.Count > 0)
+            {
+                long[] SIDs = tickerToSIDMap.Values.ToArray();
 
+                List<long[]> batches = new List<long[]>();
+                long[] securityIDs = SIDs.Distinct().ToArray();
+                while (securityIDs.Length > 0)
+                {
+                    long[] batch = securityIDs.Take(2000).ToArray();
+                    securityIDs = securityIDs.Skip(2000).ToArray();
+                    batches.Add(batch);
+                }
+
+                ConcurrentDictionary<long, string> SIDToTickerMap = new ConcurrentDictionary<long, string>();
+                foreach (var pair in tickerToSIDMap)
+                {
+                    SIDToTickerMap[pair.Value] = pair.Key;
+                }
+
+                ConcurrentDictionary<string, StockBar[]> tickerToStockBarMap = new ConcurrentDictionary<string, StockBar[]>();
+                Parallel.ForEach(batches, new ParallelOptions() { MaxDegreeOfParallelism = batches.Count() }, batch
+                     =>
+                {
+                    IDictionary<long, StockBar[]> sidToStockBarMap = _VA_GetStockPrices(batch.ToArray(), frequency, startDate, endDate, outputCount, isAdjustedValue);
+
+                    if (sidToStockBarMap != null && sidToStockBarMap.Count > 0)
+                    {
+                        foreach (var pair in sidToStockBarMap)
+                        {
+                            tickerToStockBarMap[SIDToTickerMap[pair.Key]] = pair.Value;
+                        }
+                    }
+                });
+
+                return tickerToStockBarMap;
+            }
+
+            return null;
+        }
+
+        public IDictionary<string, CryptoBar[]> VA_GetCryptoPrices(string[] symbols, string market, BarFrequency frequency, DateTime? startDate, DateTime? endDate, int outputCount)
+        {
+            string[] tickers = symbols.Select(p => p.ToUpper() + market).ToArray();
+            IDictionary<string, long> tickerToSIDMap = GetSIDFromName(tickers);
+
+            if (tickerToSIDMap != null && tickerToSIDMap.Count > 0)
+            {
+                long[] SIDs = tickerToSIDMap.Values.ToArray();
+
+                List<long[]> batches = new List<long[]>();
+                long[] securityIDs = SIDs.Distinct().ToArray();
+                while (securityIDs.Length > 0)
+                {
+                    long[] batch = securityIDs.Take(2000).ToArray();
+                    securityIDs = securityIDs.Skip(2000).ToArray();
+                    batches.Add(batch);
+                }
+
+                ConcurrentDictionary<long, string> SIDToTickerMap = new ConcurrentDictionary<long, string>();
+                foreach (var pair in tickerToSIDMap)
+                {
+                    SIDToTickerMap[pair.Value] = pair.Key.Replace(market, string.Empty);
+                }
+
+                ConcurrentDictionary<string, CryptoBar[]> tickerToCryptoBarMap = new ConcurrentDictionary<string, CryptoBar[]>();
+                Parallel.ForEach(batches, new ParallelOptions() { MaxDegreeOfParallelism = batches.Count() }, batch
+                     =>
+                {
+                    IDictionary<long, CryptoBar[]> sidToCryptoBarMap = _VA_GetCryptoPrices(batch.ToArray(), frequency, startDate, endDate, outputCount);
+
+                    if (sidToCryptoBarMap != null && sidToCryptoBarMap.Count > 0)
+                    {
+                        foreach (var pair in sidToCryptoBarMap)
+                        {
+                            tickerToCryptoBarMap[SIDToTickerMap[pair.Key]] = pair.Value;
+                        }
+                    }
+                });
+
+                return tickerToCryptoBarMap;
+            }
+
+            return null;
+        }
+
+        private IDictionary<long, StockBar[]> _VA_GetStockPrices(long[] SIDs, BarFrequency frequency, DateTime? startDate, DateTime? endDate, int outputCount, bool isAdjustedValue)
+        {
             DateTime begin = startDate.HasValue ? startDate.Value : new DateTime(1900,1,1);
             DateTime end = endDate.HasValue ? endDate.Value : DateTime.Now.AddDays(4);
 
-            Dictionary<string, StockBar[]> stockBarResult = null;
+            Dictionary<long, StockBar[]> stockBarResult = null;
             if (SIDs != null && SIDs.Count() > 0)
             {
-                IDictionary<long, string> SIDToTickerMap = tickerToSIDMap.ToDictionary(k => k.Value, v => v.Key);
-
                 switch (frequency)
                 {
                     case BarFrequency.Minute1:
@@ -382,7 +444,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new StockBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -390,7 +452,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume
                                                   }).ToArray());
                             }
@@ -400,7 +462,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new StockBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -408,7 +470,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume
                                                   }).Take(outputCount).ToArray());
                             }
@@ -423,7 +485,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new StockBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -431,7 +493,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume
                                                   }).ToArray());
                             }
@@ -441,7 +503,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new StockBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -449,7 +511,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume
                                                   }).Take(outputCount).ToArray());
                             }
@@ -464,7 +526,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new StockBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -472,7 +534,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume
                                                   }).ToArray());
                             }
@@ -482,7 +544,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new StockBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -490,7 +552,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume
                                                   }).Take(outputCount).ToArray());
                             }
@@ -505,7 +567,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new StockBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -513,7 +575,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume
                                                   }).ToArray());
                             }
@@ -523,7 +585,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new StockBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -531,7 +593,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume
                                                   }).Take(outputCount).ToArray());
                             }
@@ -546,7 +608,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new StockBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -554,7 +616,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume
                                                   }).ToArray());
                             }
@@ -564,7 +626,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new StockBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -572,7 +634,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume
                                                   }).Take(outputCount).ToArray());
                             }
@@ -589,7 +651,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new StockBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -597,7 +659,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume,
                                                           AdjClose = p.AdjClose,
                                                           DividendAmount = p.DividendAmount,
@@ -610,7 +672,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new StockBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -618,7 +680,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume,
                                                           AdjClose = p.AdjClose,
                                                           DividendAmount = p.DividendAmount,
@@ -637,7 +699,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new StockBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -645,7 +707,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume
                                                       }).ToArray());
                                 }
@@ -655,7 +717,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new StockBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -663,7 +725,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume
                                                       }).Take(outputCount).ToArray());
                                 }
@@ -681,7 +743,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new StockBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -689,7 +751,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume,
                                                           AdjClose = p.AdjClose,
                                                           DividendAmount = p.DividendAmount
@@ -701,7 +763,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new StockBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -709,7 +771,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume,
                                                           AdjClose = p.AdjClose,
                                                           DividendAmount = p.DividendAmount
@@ -727,7 +789,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new StockBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -735,7 +797,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume
                                                       }).ToArray());
                                 }
@@ -745,7 +807,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new StockBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -753,7 +815,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume
                                                       }).Take(outputCount).ToArray());
                                 }
@@ -771,7 +833,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new StockBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -779,7 +841,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume,
                                                           AdjClose = p.AdjClose,
                                                           DividendAmount = p.DividendAmount
@@ -791,7 +853,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new StockBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -799,7 +861,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume,
                                                           AdjClose = p.AdjClose,
                                                           DividendAmount = p.DividendAmount
@@ -817,7 +879,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new StockBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -825,7 +887,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume
                                                       }).ToArray());
                                 }
@@ -835,7 +897,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new StockBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -843,7 +905,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume
                                                       }).Take(outputCount).ToArray());
                                 }
@@ -856,20 +918,14 @@ namespace Skywolf.DatabaseRepository
             return stockBarResult;
         }
 
-        public IDictionary<string, CryptoBar[]> VA_GetCryptoPrices(string[] symbols, string market, BarFrequency frequency, DateTime? startDate, DateTime? endDate, int outputCount)
+        private IDictionary<long, CryptoBar[]> _VA_GetCryptoPrices(long[] SIDs, BarFrequency frequency, DateTime? startDate, DateTime? endDate, int outputCount)
         {
-            string[] tickers = symbols.Select(p => p.ToUpper() + market).ToArray();
-            IDictionary<string, long> tickerToSIDMap = GetSIDFromName(tickers);
-            long[] SIDs = tickerToSIDMap.Values.ToArray();
-
             DateTime begin = startDate.HasValue ? startDate.Value : new DateTime(1900, 1, 1);
             DateTime end = endDate.HasValue ? endDate.Value : DateTime.Now.AddDays(4);
 
-            Dictionary<string, CryptoBar[]> cryptoBarResult = null;
+            Dictionary<long, CryptoBar[]> cryptoBarResult = null;
             if (SIDs != null && SIDs.Count() > 0)
             {
-                IDictionary<long, string> SIDToTickerMap = tickerToSIDMap.ToDictionary(k => k.Value, v => v.Key);
-
                 switch (frequency)
                 {
                     case BarFrequency.Minute1:
@@ -881,14 +937,14 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(m => new CryptoBar
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(m => new CryptoBar
                                                   {
                                                       AsOfDate = m.AsOfDate,
                                                       Close = m.Close,
                                                       High = m.High,
                                                       Low = m.Low,
                                                       Open = m.Open,
-                                                      TS = m.TS.Value,
+                                                      TS = m.TS,
                                                       Volume = m.Volume,
                                                       MarketCap = m.MarketCap
                                                   }).ToArray());
@@ -899,7 +955,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(m =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(m =>
                                                   new CryptoBar
                                                   {
                                                       AsOfDate = m.AsOfDate,
@@ -907,7 +963,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = m.High,
                                                       Low = m.Low,
                                                       Open = m.Open,
-                                                      TS = m.TS.Value,
+                                                      TS = m.TS,
                                                       Volume = m.Volume,
                                                       MarketCap = m.MarketCap
                                                   }).Take(outputCount).ToArray());
@@ -923,7 +979,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(m =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(m =>
                                                   new CryptoBar
                                                   {
                                                       AsOfDate = m.AsOfDate,
@@ -931,7 +987,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = m.High,
                                                       Low = m.Low,
                                                       Open = m.Open,
-                                                      TS = m.TS.Value,
+                                                      TS = m.TS,
                                                       Volume = m.Volume,
                                                       MarketCap = m.MarketCap
                                                   }).ToArray());
@@ -942,7 +998,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new CryptoBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -950,7 +1006,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume,
                                                       MarketCap = p.MarketCap
                                                   }).Take(outputCount).ToArray());
@@ -966,7 +1022,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new CryptoBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -974,7 +1030,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume,
                                                       MarketCap = p.MarketCap
                                                   }).ToArray());
@@ -985,7 +1041,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new CryptoBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -993,7 +1049,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume,
                                                       MarketCap = p.MarketCap
                                                   }).Take(outputCount).ToArray());
@@ -1009,7 +1065,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new CryptoBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -1017,7 +1073,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume,
                                                       MarketCap = p.MarketCap
                                                   }).ToArray());
@@ -1028,7 +1084,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new CryptoBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -1036,7 +1092,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume,
                                                       MarketCap = p.MarketCap
                                                   }).Take(outputCount).ToArray());
@@ -1052,7 +1108,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new CryptoBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -1060,7 +1116,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume,
                                                       MarketCap = p.MarketCap
                                                   }).ToArray());
@@ -1071,7 +1127,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new CryptoBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -1079,7 +1135,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume,
                                                       MarketCap = p.MarketCap
                                                   }).Take(outputCount).ToArray());
@@ -1096,7 +1152,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new CryptoBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -1104,7 +1160,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume,
                                                       MarketCap = p.MarketCap
                                                   }).ToArray());
@@ -1115,7 +1171,7 @@ namespace Skywolf.DatabaseRepository
                                                   where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                   orderby p.AsOfDate descending
                                                   group p by p.SID into g
-                                                  select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                  select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                   new CryptoBar
                                                   {
                                                       AsOfDate = p.AsOfDate,
@@ -1123,7 +1179,7 @@ namespace Skywolf.DatabaseRepository
                                                       High = p.High,
                                                       Low = p.Low,
                                                       Open = p.Open,
-                                                      TS = p.TS.Value,
+                                                      TS = p.TS,
                                                       Volume = p.Volume,
                                                       MarketCap = p.MarketCap
                                                   }).Take(outputCount).ToArray());
@@ -1140,7 +1196,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new CryptoBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -1148,7 +1204,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume,
                                                           MarketCap = p.MarketCap
                                                       }).ToArray());
@@ -1159,7 +1215,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new CryptoBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -1167,7 +1223,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume,
                                                           MarketCap = p.MarketCap
                                                       }).Take(outputCount).ToArray());
@@ -1185,7 +1241,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new CryptoBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -1193,7 +1249,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume,
                                                           MarketCap = p.MarketCap
                                                       }).ToArray());
@@ -1204,7 +1260,7 @@ namespace Skywolf.DatabaseRepository
                                                       where SIDs.Contains(p.SID) && p.AsOfDate >= begin && p.AsOfDate <= end
                                                       orderby p.AsOfDate descending
                                                       group p by p.SID into g
-                                                      select g).ToDictionary(k => SIDToTickerMap[k.Key], v => v.Select(p =>
+                                                      select g).ToDictionary(k => k.Key, v => v.Select(p =>
                                                       new CryptoBar
                                                       {
                                                           AsOfDate = p.AsOfDate,
@@ -1212,7 +1268,7 @@ namespace Skywolf.DatabaseRepository
                                                           High = p.High,
                                                           Low = p.Low,
                                                           Open = p.Open,
-                                                          TS = p.TS.Value,
+                                                          TS = p.TS,
                                                           Volume = p.Volume,
                                                           MarketCap = p.MarketCap
                                                       }).Take(outputCount).ToArray());

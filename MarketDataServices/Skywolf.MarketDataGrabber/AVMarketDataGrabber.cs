@@ -9,6 +9,7 @@ using Skywolf.Contracts.DataContracts.MarketData;
 using Skywolf.Utility;
 using System.Data;
 using log4net;
+using System.Threading;
 
 namespace Skywolf.MarketDataGrabber
 {
@@ -85,6 +86,32 @@ namespace Skywolf.MarketDataGrabber
             return null;
         }
 
+        protected static object _AVHttpGetObj = new object();
+        protected static DateTime _lastCallingTime = DateTime.MinValue;
+
+        public string AVHttpGet(string url)
+        {
+            lock (_AVHttpGetObj)
+            {
+                while ((DateTime.Now - _lastCallingTime).TotalSeconds < 1.0)
+                {
+                    Thread.Sleep(1000);
+                }
+
+                string result = HttpGet(url);
+                _lastCallingTime = DateTime.Now;
+
+                while (!string.IsNullOrEmpty(result) && result.Contains("Please consider optimizing your API call frequency."))
+                {
+                    Thread.Sleep(5000);
+                    result = HttpGet(url);
+                    _lastCallingTime = DateTime.Now;
+                }
+
+                return result;
+            }
+        }
+
         public string GetTimeSeriesDataDirect(TimeSeriesDataInput input)
         {
             if (input == null || string.IsNullOrEmpty(input.Symbol))
@@ -111,16 +138,16 @@ namespace Skywolf.MarketDataGrabber
                 switch (input.Frequency)
                 {
                     case BarFrequency.Minute5:
-                        output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_CRYPTO_DIGITAL_CURRENCY_INTRADAY, key, cryptoInput.Symbol, market)));
+                        output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_CRYPTO_DIGITAL_CURRENCY_INTRADAY, key, cryptoInput.Symbol, market)));
                         break;
                     case BarFrequency.Day1:
-                        output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_CRYPTO_DIGITAL_CURRENCY_DAILY, key, cryptoInput.Symbol, market)));
+                        output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_CRYPTO_DIGITAL_CURRENCY_DAILY, key, cryptoInput.Symbol, market)));
                         break;
                     case BarFrequency.Week1:
-                        output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_CRYPTO_DIGITAL_CURRENCY_WEEKLY, key, cryptoInput.Symbol, market)));
+                        output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_CRYPTO_DIGITAL_CURRENCY_WEEKLY, key, cryptoInput.Symbol, market)));
                         break;
                     case BarFrequency.Month1:
-                        output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_CRYPTO_DIGITAL_CURRENCY_MONTHLY, key, cryptoInput.Symbol, market)));
+                        output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_CRYPTO_DIGITAL_CURRENCY_MONTHLY, key, cryptoInput.Symbol, market)));
                         break;
                 }
             }
@@ -131,19 +158,19 @@ namespace Skywolf.MarketDataGrabber
                     switch (input.Frequency)
                     {
                         case BarFrequency.Minute1:
-                            output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_STOCK_TIME_SERIES_INTERVAL_FORMAT, key, input.Symbol, "1min", outputsize)));
+                            output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_STOCK_TIME_SERIES_INTERVAL_FORMAT, key, input.Symbol, "1min", outputsize)));
                             break;
                         case BarFrequency.Minute5:
-                            output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_STOCK_TIME_SERIES_INTERVAL_FORMAT, key, input.Symbol, "5min", outputsize)));
+                            output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_STOCK_TIME_SERIES_INTERVAL_FORMAT, key, input.Symbol, "5min", outputsize)));
                             break;
                         case BarFrequency.Minute15:
-                            output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_STOCK_TIME_SERIES_INTERVAL_FORMAT, key, input.Symbol, "15min", outputsize)));
+                            output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_STOCK_TIME_SERIES_INTERVAL_FORMAT, key, input.Symbol, "15min", outputsize)));
                             break;
                         case BarFrequency.Minute30:
-                            output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_STOCK_TIME_SERIES_INTERVAL_FORMAT, key, input.Symbol, "30min", outputsize)));
+                            output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_STOCK_TIME_SERIES_INTERVAL_FORMAT, key, input.Symbol, "30min", outputsize)));
                             break;
                         case BarFrequency.Hour1:
-                            output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_STOCK_TIME_SERIES_INTERVAL_FORMAT, key, input.Symbol, "60min", outputsize)));
+                            output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_STOCK_TIME_SERIES_INTERVAL_FORMAT, key, input.Symbol, "60min", outputsize)));
                             break;
                     }
                 }
@@ -154,13 +181,13 @@ namespace Skywolf.MarketDataGrabber
                         switch (input.Frequency)
                         {
                             case BarFrequency.Day1:
-                                output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_STOCK_TIME_SERIES_DAILY_ADJUSTED_FORMAT, key, input.Symbol, outputsize)));
+                                output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_STOCK_TIME_SERIES_DAILY_ADJUSTED_FORMAT, key, input.Symbol, outputsize)));
                                 break;
                             case BarFrequency.Week1:
-                                output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_STOCK_TIME_SERIES_WEEKLY_ADJUSTED_FORMAT, key, input.Symbol)));
+                                output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_STOCK_TIME_SERIES_WEEKLY_ADJUSTED_FORMAT, key, input.Symbol)));
                                 break;
                             case BarFrequency.Month1:
-                                output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_STOCK_TIME_SERIES_MONTHLY_ADJUSTED_FORMAT, key, input.Symbol)));
+                                output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_STOCK_TIME_SERIES_MONTHLY_ADJUSTED_FORMAT, key, input.Symbol)));
                                 break;
                         }
                     }
@@ -169,13 +196,13 @@ namespace Skywolf.MarketDataGrabber
                         switch (input.Frequency)
                         {
                             case BarFrequency.Day1:
-                                output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_STOCK_TIME_SERIES_DAILY_FORMAT, key, input.Symbol, outputsize)));
+                                output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_STOCK_TIME_SERIES_DAILY_FORMAT, key, input.Symbol, outputsize)));
                                 break;
                             case BarFrequency.Week1:
-                                output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_STOCK_TIME_SERIES_WEEKLY_FORMAT, key, input.Symbol)));
+                                output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_STOCK_TIME_SERIES_WEEKLY_FORMAT, key, input.Symbol)));
                                 break;
                             case BarFrequency.Month1:
-                                output = _keyManager.Call<string>(key => HttpGet(string.Format(AV_STOCK_TIME_SERIES_MONTHLY_FORMAT, key, input.Symbol)));
+                                output = _keyManager.Call<string>(key => AVHttpGet(string.Format(AV_STOCK_TIME_SERIES_MONTHLY_FORMAT, key, input.Symbol)));
                                 break;
                         }
                     }

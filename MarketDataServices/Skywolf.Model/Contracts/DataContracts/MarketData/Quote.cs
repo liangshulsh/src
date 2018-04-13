@@ -26,7 +26,7 @@ namespace Skywolf.Contracts.DataContracts.MarketData
         public double Volume { get; set; }
 
         [DataMember]
-        public DateTime TimeStamp { get; set; }
+        public DateTime? TimeStamp { get; set; }
 
         [DataMember]
         public string TimeZone { get; set; }

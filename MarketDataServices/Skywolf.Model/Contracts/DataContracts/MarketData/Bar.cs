@@ -27,7 +27,7 @@ namespace Skywolf.Contracts.DataContracts.MarketData
         public decimal? Volume { get; set; }
 
         [DataMember]
-        public DateTime TS { get; set; }
+        public DateTime? TS { get; set; }
     }
 
     [DataContract(Namespace = Constants.NAMESPACE)]
