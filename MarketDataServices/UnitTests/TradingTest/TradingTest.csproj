@@ -4,37 +4,42 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EFAA60DC-DBEE-4297-A4C6-75AD8DC65262}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Skywolf</RootNamespace>
-    <AssemblyName>Skywolf.Model</AssemblyName>
+    <ProjectGuid>{467602A0-D834-41F0-B8C9-9A6953ABDD92}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TradingTest</RootNamespace>
+    <AssemblyName>TradingTest</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\ExternalLib\log4net-2.0.8\4.5\release\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,20 +48,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants.cs" />
-    <Compile Include="Contracts\DataContracts\Instrument\PricingRule.cs" />
-    <Compile Include="Contracts\DataContracts\MarketData\Bar.cs" />
-    <Compile Include="Contracts\DataContracts\MarketData\BarFrequency.cs" />
-    <Compile Include="Contracts\DataContracts\MarketData\CryptoTimeSeriesDataInput.cs" />
-    <Compile Include="Contracts\DataContracts\MarketData\CryptoTimeSeriesDataOutput.cs" />
-    <Compile Include="Contracts\DataContracts\MarketData\Quote.cs" />
-    <Compile Include="Contracts\DataContracts\MarketData\TimeSeriesDataInput.cs" />
-    <Compile Include="Contracts\DataContracts\MarketData\TimeSeriesDataOutput.cs" />
-    <Compile Include="Contracts\Services\IIBTradingService.cs" />
-    <Compile Include="Contracts\Services\Restful\IMarketDataRfService.cs" />
-    <Compile Include="Contracts\Services\IMarketDataService.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Skywolf.Client\Skywolf.Client.csproj">
+      <Project>{17fb9e0c-fbd1-4ac0-95b8-908bf6381824}</Project>
+      <Name>Skywolf.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Skywolf.IBAPI\Skywolf.IBAPI.csproj">
+      <Project>{5bce5453-8a61-4337-a0f9-80be6f7cf609}</Project>
+      <Name>Skywolf.IBAPI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Skywolf.Model\Skywolf.Model.csproj">
+      <Project>{efaa60dc-dbee-4297-a4c6-75ad8dc65262}</Project>
+      <Name>Skywolf.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Skywolf.TradingService\Skywolf.TradingService.csproj">
+      <Project>{8ede0ea6-6421-43e5-be66-fd9c9e31a527}</Project>
+      <Name>Skywolf.TradingService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Skywolf.Utility\Skywolf.Utility.csproj">
+      <Project>{8a555816-5440-471d-a341-0511fb1b6cef}</Project>
+      <Name>Skywolf.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

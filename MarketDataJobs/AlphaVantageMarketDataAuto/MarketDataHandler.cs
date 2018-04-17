@@ -51,7 +51,7 @@ namespace AlphaVantageMarketDataAuto
 
             int handleCount = 0;
             _logger.LogInfo("Start retriving prices from Alpha Vantage.");
-            Parallel.ForEach(pricingRules, new ParallelOptions() { MaxDegreeOfParallelism = (keyCount > 1 ? keyCount : 1) }, pricingRule =>
+            foreach (var pricingRule in pricingRules)
             {
                 int idx;
                 lock (countObj)
@@ -132,7 +132,7 @@ namespace AlphaVantageMarketDataAuto
                 {
                     _logger.LogError(string.Format("({3}/{4}) Symbol:{0}, SID:{1}, Error:{2}", pricingRule.Ticker, pricingRule.SID, ex.Message, idx, totalSymbols));
                 }
-            });
+            };
         }
 
         public IDictionary<string, long> GetNameToSIDMap(string[] symbols)
