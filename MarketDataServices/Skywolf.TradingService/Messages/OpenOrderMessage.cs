@@ -13,6 +13,7 @@ namespace Skywolf.TradingService.Messages
         private Contract contract;
         private Order order;
         private OrderState orderState;
+        private OrderStatusMessage orderStatus;
 
         public OpenOrderMessage(int orderId, Contract contract, Order order, OrderState orderState)
         {
@@ -40,5 +41,10 @@ namespace Skywolf.TradingService.Messages
             set { orderState = value; }
         }
         
+        public OrderStatusMessage OrderStatus
+        {
+            get { return orderStatus; }
+            set { orderStatus = value; }
+        }
     }
 }

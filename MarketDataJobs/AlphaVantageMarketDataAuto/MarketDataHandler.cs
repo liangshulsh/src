@@ -27,7 +27,7 @@ namespace AlphaVantageMarketDataAuto
             _isAdjustedValue = isAdjustedValue;
         }
 
-        public void Update()
+        public void Update(int iStartFrom = 0)
         {
             //var o = RetrieveStockTimeSeriesPrices("HAE",  BarFrequency.Day1, true, -1);
             //StoreHistoryPrices(200004253, BarFrequency.Day1, true, o.Data);
@@ -45,7 +45,7 @@ namespace AlphaVantageMarketDataAuto
             int keyCount = keys.Count();
 
             _logger.LogInfo("Get latest prices.");
-            IDictionary<string, StockBar[]> stockBars = GetStockHistoryPrices(pricingRules.Select(p => p.Ticker).ToArray(), _period, _isAdjustedValue);
+            IDictionary<string, StockBar> stockBars = GetLatestStockHistoryPrices(pricingRules.Select(p => p.Ticker).ToArray(), _period, _isAdjustedValue);
 
             object countObj = new object();
 
@@ -60,19 +60,20 @@ namespace AlphaVantageMarketDataAuto
                     handleCount++;
                 }
 
+                if (idx < iStartFrom)
+                {
+                    continue;
+                }
+
                 try
                 {
                     StockBar bar = null;
 
                     if (stockBars != null && stockBars.Count > 0)
                     {
-                        StockBar[] bars = null;
-                        if (stockBars.TryGetValue(pricingRule.Ticker, out bars))
+                        if (stockBars.ContainsKey(pricingRule.Ticker))
                         {
-                            if (bars.Count() > 0)
-                            {
-                                bar = bars.OrderByDescending(p => p.AsOfDate).FirstOrDefault();
-                            }
+                            bar = stockBars[pricingRule.Ticker];
                         }
                     }
 
@@ -214,37 +215,55 @@ namespace AlphaVantageMarketDataAuto
             }
         }
 
-        public IDictionary<string, StockBar[]> GetStockHistoryPrices(string[] symbols, BarFrequency period, bool isAdjustedValue)
+        public IDictionary<string, StockBar> GetLatestStockHistoryPrices(string[] symbols, BarFrequency period, bool isAdjustedValue)
         {
-            BasicHttpBinding binding = Utility.BuildBasicHttpBinding();
-            EndpointAddress endpoint = Utility.BuildEndpointAddress("MarketDataSkywolfHttp");
+            int iCount = 0;
 
-            using (SkywolfClient<IMarketDataService> skywolf = new SkywolfClient<IMarketDataService>(binding, endpoint))
+            while (iCount < 3)
             {
-                IDictionary<string, StockBar[]> stockBars = skywolf.Instance.GetStockHistoryPrices(symbols, period, null, null, 1, isAdjustedValue, DATASOURCE);
-                if (stockBars != null && stockBars.Count > 0)
+                try
                 {
-                    ConcurrentDictionary<string, StockBar[]> dictStockBars = new ConcurrentDictionary<string, StockBar[]>();
-                    foreach (var pair in stockBars)
-                    {
-                        dictStockBars[pair.Key] = pair.Value;
-                    }
+                    BasicHttpBinding binding = Utility.BuildBasicHttpBinding();
+                    EndpointAddress endpoint = Utility.BuildEndpointAddress("MarketDataSkywolfHttp");
 
-                    return dictStockBars;
+                    using (SkywolfClient<IMarketDataService> skywolf = new SkywolfClient<IMarketDataService>(binding, endpoint))
+                    {
+                        IDictionary<string, StockBar> stockBars = skywolf.Instance.GetLatestStockHistoryPrices(symbols, period, isAdjustedValue, DATASOURCE);
+
+                        ConcurrentDictionary<string, StockBar> dictStockBars = new ConcurrentDictionary<string, StockBar>();
+
+                        if (stockBars != null && stockBars.Count > 0)
+                        {
+                            foreach (var pair in stockBars)
+                            {
+                                dictStockBars[pair.Key] = pair.Value;
+                            }
+                        }
+
+                        return dictStockBars;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (iCount == 2)
+                    {
+                        throw ex;
+                    }
+                    iCount++;
                 }
             }
 
             return null;
         }
 
-        public IDictionary<string, CryptoBar[]> GetCryptoHistoryPrices(string[] symbols, string market, BarFrequency period)
+        public IDictionary<string, CryptoBar> GetLatestCryptoHistoryPrices(string[] symbols, string market, BarFrequency period)
         {
             BasicHttpBinding binding = Utility.BuildBasicHttpBinding();
             EndpointAddress endpoint = Utility.BuildEndpointAddress("MarketDataSkywolfHttp");
 
             using (SkywolfClient<IMarketDataService> skywolf = new SkywolfClient<IMarketDataService>(binding, endpoint))
             {
-                return skywolf.Instance.GetCryptoHistoryPrices(symbols, market, period, null, null, 1, DATASOURCE);
+                return skywolf.Instance.GetLatestCryptoHistoryPrices(symbols, market, period, DATASOURCE);
             }
         }
 

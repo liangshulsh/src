@@ -201,6 +201,70 @@ namespace Skywolf.MarketDataService
             return output;
         }
 
+        public IDictionary<string, StockBar> GetLatestStockHistoryPrices(string[] symbols, BarFrequency frequency, bool isAdjustedValue, string datasource)
+        {
+            if (symbols == null || symbols.Length == 0)
+            {
+                return null;
+            }
+
+            IDictionary<string, StockBar> output = null;
+
+            try
+            {
+                if (string.IsNullOrEmpty(datasource))
+                {
+                    datasource = DATASOURCE_DEFAULT;
+                }
+
+                datasource = datasource.Trim().ToLower();
+
+                if (datasource == DATASOURCE_ALPHAVANTAGE)
+                {
+                    output = new MarketDataDatabase().VA_GetLatestStockPrices(symbols, frequency, isAdjustedValue);
+                }
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+
+            return output;
+        }
+
+        public IDictionary<string, CryptoBar> GetLatestCryptoHistoryPrices(string[] symbols, string market, BarFrequency frequency, string datasource)
+        {
+            if (symbols == null || symbols.Length == 0 || string.IsNullOrEmpty(market))
+            {
+                return null;
+            }
+
+            IDictionary<string, CryptoBar> output = null;
+
+            try
+            {
+                if (string.IsNullOrEmpty(datasource))
+                {
+                    datasource = DATASOURCE_DEFAULT;
+                }
+
+                datasource = datasource.Trim().ToLower();
+
+                if (datasource == DATASOURCE_ALPHAVANTAGE)
+                {
+                    output = new MarketDataDatabase().VA_GetLatestCryptoPrices(symbols, market, frequency);
+                }
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+
+            return output;
+        }
+
         #region Alpha Vantage Functions
         public void AV_AddAPIKeys(string[] apiKeys)
         {

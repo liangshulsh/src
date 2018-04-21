@@ -202,6 +202,63 @@ namespace Skywolf.MarketDataService.Restful
             }
         }
 
+        public string GetLatestStockHistoryPrices(string symbols, string frequency, string isadjustedvalue, string datasource)
+        {
+            try
+            {
+                string[] symbolList = symbols.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                BarFrequency freq = RestfulHelper.ConvertStringToBarFrequency(frequency);
+
+                bool isAdjusted = false;
+                if (!string.IsNullOrWhiteSpace(isadjustedvalue))
+                {
+                    if (!bool.TryParse(isadjustedvalue, out isAdjusted))
+                    {
+                        return "Error:isAdjustedValue";
+                    }
+                }
+
+                IDictionary<string, StockBar> result = new MarketDataService().GetLatestStockHistoryPrices(symbolList, freq, isAdjusted, datasource);
+
+
+                if (result != null && result.Count > 0)
+                {
+                    result.Values.ToCSV();
+                }
+
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        public string GetLatestCryptoHistoryPrices(string symbols, string market, string frequency, string datasource)
+        {
+            try
+            {
+                string[] symbolList = symbols.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                BarFrequency freq = RestfulHelper.ConvertStringToBarFrequency(frequency);
+
+                IDictionary<string, CryptoBar> result = new MarketDataService().GetLatestCryptoHistoryPrices(symbolList, market, freq, datasource);
+
+
+                if (result != null && result.Count > 0)
+                {
+                    return result.Values.ToCSV();
+                }
+
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+        
         public string GetCryptoHistoryPrices(string symbols, string market, string frequency, string startdate, string enddate, string outputcount, string datasource)
         {
             try

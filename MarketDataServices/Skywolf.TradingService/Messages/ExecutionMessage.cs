@@ -13,6 +13,7 @@ namespace Skywolf.TradingService.Messages
         private int reqId;
         private Contract contract;
         private Execution execution;
+        private CommissionReport commission;
 
         public ExecutionMessage(int reqId, Contract contract, Execution execution)
         {
@@ -39,5 +40,10 @@ namespace Skywolf.TradingService.Messages
             set { reqId = value; }
         }
 
+        public CommissionReport Commission
+        {
+            get { return commission; }
+            set { commission = value; }
+        }
     }
 }

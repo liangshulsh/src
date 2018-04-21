@@ -135,31 +135,31 @@ namespace Skywolf.DatabaseRepository
                     group p by p.AsOfDate into g
                     select g.First()).ToArray();
 
-            lock (_storeLockObj)
+            using (MarketDataDataContext marketData = new MarketDataDataContext())
             {
-                using (MarketDataDataContext marketData = new MarketDataDataContext())
+                string storedprocedure = AV_GetInsertStoredProcedureName(frequency, isAdjustedValue);
+                DataTable dtPrices = AV_ConvertBarToDataTable(SID, isAdjustedValue, bars);
+
+                if (dtPrices != null && dtPrices.Rows.Count > 0)
                 {
-                    string storedprocedure = AV_GetInsertStoredProcedureName(frequency, isAdjustedValue);
-                    DataTable dtPrices = AV_ConvertBarToDataTable(SID, isAdjustedValue, bars);
-
-                    if (dtPrices != null && dtPrices.Rows.Count > 0)
+                    try
                     {
-                        try
-                        {
 
-                            marketData.Connection.Open();
-                            var cmd = marketData.Connection.CreateCommand();
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.CommandText = storedprocedure;
-                            cmd.CommandTimeout = 3600;
-                            cmd.Parameters.Add(new SqlParameter("@TableSR", dtPrices));
-                            cmd.ExecuteNonQuery();
-                            marketData.Connection.Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            throw ex;
-                        }
+                        marketData.Connection.Open();
+                        var cmd = marketData.Connection.CreateCommand();
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.CommandText = storedprocedure;
+                        cmd.CommandTimeout = 3600;
+                        cmd.Parameters.Add(new SqlParameter("@TableSR", dtPrices));
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        marketData.Connection.Close();
                     }
                 }
             }
@@ -423,6 +423,509 @@ namespace Skywolf.DatabaseRepository
             }
 
             return null;
+        }
+
+        public IDictionary<string, StockBar> VA_GetLatestStockPrices(string[] symbols, BarFrequency frequency, bool isAdjustedValue)
+        {
+            IDictionary<string, long> tickerToSIDMap = GetSIDFromName(symbols);
+
+            if (tickerToSIDMap != null && tickerToSIDMap.Count > 0)
+            {
+                long[] SIDs = tickerToSIDMap.Values.ToArray();
+
+                List<long[]> batches = new List<long[]>();
+                long[] securityIDs = SIDs.Distinct().ToArray();
+                while (securityIDs.Length > 0)
+                {
+                    long[] batch = securityIDs.Take(2000).ToArray();
+                    securityIDs = securityIDs.Skip(2000).ToArray();
+                    batches.Add(batch);
+                }
+
+                ConcurrentDictionary<long, string> SIDToTickerMap = new ConcurrentDictionary<long, string>();
+                foreach (var pair in tickerToSIDMap)
+                {
+                    SIDToTickerMap[pair.Value] = pair.Key;
+                }
+
+                ConcurrentDictionary<string, StockBar> tickerToStockBarMap = new ConcurrentDictionary<string, StockBar>();
+                Parallel.ForEach(batches, new ParallelOptions() { MaxDegreeOfParallelism = batches.Count() }, batch
+                     =>
+                {
+                    IDictionary<long, StockBar> sidToStockBarMap = _VA_GetLatestStockPrices(batch.ToArray(), frequency, isAdjustedValue);
+
+                    if (sidToStockBarMap != null && sidToStockBarMap.Count > 0)
+                    {
+                        foreach (var pair in sidToStockBarMap)
+                        {
+                            tickerToStockBarMap[SIDToTickerMap[pair.Key]] = pair.Value;
+                        }
+                    }
+                });
+
+                return tickerToStockBarMap;
+            }
+
+            return null;
+        }
+
+        public IDictionary<string, CryptoBar> VA_GetLatestCryptoPrices(string[] symbols, string market, BarFrequency frequency)
+        {
+            string[] tickers = symbols.Select(p => p.ToUpper() + market).ToArray();
+            IDictionary<string, long> tickerToSIDMap = GetSIDFromName(tickers);
+
+            if (tickerToSIDMap != null && tickerToSIDMap.Count > 0)
+            {
+                long[] SIDs = tickerToSIDMap.Values.ToArray();
+
+                List<long[]> batches = new List<long[]>();
+                long[] securityIDs = SIDs.Distinct().ToArray();
+                while (securityIDs.Length > 0)
+                {
+                    long[] batch = securityIDs.Take(2000).ToArray();
+                    securityIDs = securityIDs.Skip(2000).ToArray();
+                    batches.Add(batch);
+                }
+
+                ConcurrentDictionary<long, string> SIDToTickerMap = new ConcurrentDictionary<long, string>();
+                foreach (var pair in tickerToSIDMap)
+                {
+                    SIDToTickerMap[pair.Value] = pair.Key.Replace(market, string.Empty);
+                }
+
+                ConcurrentDictionary<string, CryptoBar> tickerToCryptoBarMap = new ConcurrentDictionary<string, CryptoBar>();
+                Parallel.ForEach(batches, new ParallelOptions() { MaxDegreeOfParallelism = batches.Count() }, batch
+                     =>
+                {
+                    IDictionary<long, CryptoBar> sidToCryptoBarMap = _VA_GetLatestCryptoPrices(batch.ToArray(), frequency);
+
+                    if (sidToCryptoBarMap != null && sidToCryptoBarMap.Count > 0)
+                    {
+                        foreach (var pair in sidToCryptoBarMap)
+                        {
+                            tickerToCryptoBarMap[SIDToTickerMap[pair.Key]] = pair.Value;
+                        }
+                    }
+                });
+
+                return tickerToCryptoBarMap;
+            }
+
+            return null;
+        }
+
+        private IDictionary<long, StockBar> _VA_GetLatestStockPrices(long[] SIDs, BarFrequency frequency, bool isAdjustedValue)
+        {
+            Dictionary<long, StockBar> stockBarResult = null;
+            if (SIDs != null && SIDs.Count() > 0)
+            {
+                switch (frequency)
+                {
+                    case BarFrequency.Minute1:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_M1_Latests
+                                                where SIDs.Contains(p.SID)
+                                                select p).ToDictionary(k => k.SID, v =>
+                                                new StockBar
+                                                {
+                                                    AsOfDate = v.AsOfDate,
+                                                    Close = v.Close,
+                                                    High = v.High,
+                                                    Low = v.Low,
+                                                    Open = v.Open,
+                                                    TS = v.TS,
+                                                    Volume = v.Volume
+                                                });
+                        }
+                        break;
+                    case BarFrequency.Minute5:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_M5_Latests
+                                                where SIDs.Contains(p.SID)
+                                                select p).ToDictionary(k => k.SID, v => 
+                                                new StockBar
+                                                {
+                                                    AsOfDate = v.AsOfDate,
+                                                    Close = v.Close,
+                                                    High = v.High,
+                                                    Low = v.Low,
+                                                    Open = v.Open,
+                                                    TS = v.TS,
+                                                    Volume = v.Volume
+                                                });
+                        }
+                        break;
+                    case BarFrequency.Minute15:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_M15_Latests
+                                                where SIDs.Contains(p.SID)
+                                                select p).ToDictionary(k => k.SID, v =>
+                                                new StockBar
+                                                {
+                                                    AsOfDate = v.AsOfDate,
+                                                    Close = v.Close,
+                                                    High = v.High,
+                                                    Low = v.Low,
+                                                    Open = v.Open,
+                                                    TS = v.TS,
+                                                    Volume = v.Volume
+                                                });
+                        }
+                        break;
+                    case BarFrequency.Minute30:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_M30_Latests
+                                                where SIDs.Contains(p.SID)
+                                                select p).ToDictionary(k => k.SID, v => 
+                                                new StockBar
+                                                {
+                                                    AsOfDate = v.AsOfDate,
+                                                    Close = v.Close,
+                                                    High = v.High,
+                                                    Low = v.Low,
+                                                    Open = v.Open,
+                                                    TS = v.TS,
+                                                    Volume = v.Volume
+                                                });
+                        }
+                        break;
+                    case BarFrequency.Hour1:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_H1_Latests
+                                                where SIDs.Contains(p.SID)
+                                                select p).ToDictionary(k => k.SID, v =>
+                                                new StockBar
+                                                {
+                                                    AsOfDate = v.AsOfDate,
+                                                    Close = v.Close,
+                                                    High = v.High,
+                                                    Low = v.Low,
+                                                    Open = v.Open,
+                                                    TS = v.TS,
+                                                    Volume = v.Volume
+                                                });
+                        }
+                        break;
+                    case BarFrequency.Day1:
+                        if (isAdjustedValue)
+                        {
+                            using (MarketDataDataContext marketData = new MarketDataDataContext())
+                            {
+                                stockBarResult = (from p in marketData.VA_AdjPrices_D1_Latests
+                                                    where SIDs.Contains(p.SID)
+                                                    select p).ToDictionary(k => k.SID, v =>
+                                                    new StockBar
+                                                    {
+                                                        AsOfDate = v.AsOfDate,
+                                                        Close = v.Close,
+                                                        High = v.High,
+                                                        Low = v.Low,
+                                                        Open = v.Open,
+                                                        TS = v.TS,
+                                                        Volume = v.Volume,
+                                                        AdjClose = v.AdjClose,
+                                                        DividendAmount = v.DividendAmount,
+                                                        SplitCoefficient = v.SplitCoefficient
+                                                    });
+                            }
+                        }
+                        else
+                        {
+                            using (MarketDataDataContext marketData = new MarketDataDataContext())
+                            {
+                                stockBarResult = (from p in marketData.VA_Prices_D1_Latests
+                                                    where SIDs.Contains(p.SID)
+                                                    select p).ToDictionary(k => k.SID, v =>
+                                                    new StockBar
+                                                    {
+                                                        AsOfDate = v.AsOfDate,
+                                                        Close = v.Close,
+                                                        High = v.High,
+                                                        Low = v.Low,
+                                                        Open = v.Open,
+                                                        TS = v.TS,
+                                                        Volume = v.Volume
+                                                    });
+                            }
+                        }
+                        break;
+                    case BarFrequency.Week1:
+                        if (isAdjustedValue)
+                        {
+                            using (MarketDataDataContext marketData = new MarketDataDataContext())
+                            {
+                                stockBarResult = (from p in marketData.VA_AdjPrices_W1_Latests
+                                                    where SIDs.Contains(p.SID)
+                                                    select p).ToDictionary(k => k.SID, v =>
+                                                    new StockBar
+                                                    {
+                                                        AsOfDate = v.AsOfDate,
+                                                        Close = v.Close,
+                                                        High = v.High,
+                                                        Low = v.Low,
+                                                        Open = v.Open,
+                                                        TS = v.TS,
+                                                        Volume = v.Volume,
+                                                        AdjClose = v.AdjClose,
+                                                        DividendAmount = v.DividendAmount
+                                                    });
+
+                            }
+                        }
+                        else
+                        {
+                            using (MarketDataDataContext marketData = new MarketDataDataContext())
+                            {
+                                stockBarResult = (from p in marketData.VA_Prices_W1_Latests
+                                                    where SIDs.Contains(p.SID)
+                                                    select p).ToDictionary(k => k.SID, v =>
+                                                    new StockBar
+                                                    {
+                                                        AsOfDate = v.AsOfDate,
+                                                        Close = v.Close,
+                                                        High = v.High,
+                                                        Low = v.Low,
+                                                        Open = v.Open,
+                                                        TS = v.TS,
+                                                        Volume = v.Volume
+                                                    });
+                            }
+                        }
+                        break;
+                    case BarFrequency.Month1:
+                        if (isAdjustedValue)
+                        {
+                            using (MarketDataDataContext marketData = new MarketDataDataContext())
+                            {
+                                stockBarResult = (from p in marketData.VA_AdjPrices_MN_Latests
+                                                    where SIDs.Contains(p.SID)
+                                                    select p).ToDictionary(k => k.SID, v =>
+                                                    new StockBar
+                                                    {
+                                                        AsOfDate = v.AsOfDate,
+                                                        Close = v.Close,
+                                                        High = v.High,
+                                                        Low = v.Low,
+                                                        Open = v.Open,
+                                                        TS = v.TS,
+                                                        Volume = v.Volume,
+                                                        AdjClose = v.AdjClose,
+                                                        DividendAmount = v.DividendAmount
+                                                    });
+
+                            }
+                        }
+                        else
+                        {
+                            using (MarketDataDataContext marketData = new MarketDataDataContext())
+                            {
+                                stockBarResult = (from p in marketData.VA_Prices_MN_Latests
+                                                    where SIDs.Contains(p.SID)
+                                                    select p).ToDictionary(k => k.SID, v =>
+                                                    new StockBar
+                                                    {
+                                                        AsOfDate = v.AsOfDate,
+                                                        Close = v.Close,
+                                                        High = v.High,
+                                                        Low = v.Low,
+                                                        Open = v.Open,
+                                                        TS = v.TS,
+                                                        Volume = v.Volume
+                                                    });
+                            }
+                        }
+                        break;
+                }
+            }
+
+            return stockBarResult;
+        }
+
+        private IDictionary<long, CryptoBar> _VA_GetLatestCryptoPrices(long[] SIDs, BarFrequency frequency)
+        {
+            Dictionary<long, CryptoBar> stockBarResult = null;
+            if (SIDs != null && SIDs.Count() > 0)
+            {
+                switch (frequency)
+                {
+                    case BarFrequency.Minute1:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_M1_Latests
+                                              where SIDs.Contains(p.SID)
+                                              orderby p.AsOfDate descending
+                                              group p by p.SID into g
+                                              select g).ToDictionary(k => k.Key, v => v.Select(p =>
+                                              new CryptoBar
+                                              {
+                                                  AsOfDate = p.AsOfDate,
+                                                  Close = p.Close,
+                                                  High = p.High,
+                                                  Low = p.Low,
+                                                  Open = p.Open,
+                                                  TS = p.TS,
+                                                  Volume = p.Volume,
+                                                  MarketCap = p.MarketCap
+                                              }).First());
+                        }
+                        break;
+                    case BarFrequency.Minute5:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_M5_Latests
+                                              where SIDs.Contains(p.SID)
+                                              orderby p.AsOfDate descending
+                                              group p by p.SID into g
+                                              select g).ToDictionary(k => k.Key, v => v.Select(p =>
+                                              new CryptoBar
+                                              {
+                                                  AsOfDate = p.AsOfDate,
+                                                  Close = p.Close,
+                                                  High = p.High,
+                                                  Low = p.Low,
+                                                  Open = p.Open,
+                                                  TS = p.TS,
+                                                  Volume = p.Volume,
+                                                  MarketCap = p.MarketCap
+                                              }).First());
+                        }
+                        break;
+                    case BarFrequency.Minute15:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_M15_Latests
+                                              where SIDs.Contains(p.SID)
+                                              orderby p.AsOfDate descending
+                                              group p by p.SID into g
+                                              select g).ToDictionary(k => k.Key, v => v.Select(p =>
+                                              new CryptoBar
+                                              {
+                                                  AsOfDate = p.AsOfDate,
+                                                  Close = p.Close,
+                                                  High = p.High,
+                                                  Low = p.Low,
+                                                  Open = p.Open,
+                                                  TS = p.TS,
+                                                  Volume = p.Volume,
+                                                  MarketCap = p.MarketCap
+                                              }).First());
+                        }
+                        break;
+                    case BarFrequency.Minute30:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_M30_Latests
+                                              where SIDs.Contains(p.SID)
+                                              orderby p.AsOfDate descending
+                                              group p by p.SID into g
+                                              select g).ToDictionary(k => k.Key, v => v.Select(p =>
+                                              new CryptoBar
+                                              {
+                                                  AsOfDate = p.AsOfDate,
+                                                  Close = p.Close,
+                                                  High = p.High,
+                                                  Low = p.Low,
+                                                  Open = p.Open,
+                                                  TS = p.TS,
+                                                  Volume = p.Volume,
+                                                  MarketCap = p.MarketCap
+                                              }).First());
+                        }
+                        break;
+                    case BarFrequency.Hour1:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_H1_Latests
+                                              where SIDs.Contains(p.SID)
+                                              orderby p.AsOfDate descending
+                                              group p by p.SID into g
+                                              select g).ToDictionary(k => k.Key, v => v.Select(p =>
+                                              new CryptoBar
+                                              {
+                                                  AsOfDate = p.AsOfDate,
+                                                  Close = p.Close,
+                                                  High = p.High,
+                                                  Low = p.Low,
+                                                  Open = p.Open,
+                                                  TS = p.TS,
+                                                  Volume = p.Volume,
+                                                  MarketCap = p.MarketCap
+                                              }).First());
+                        }
+                        break;
+                    case BarFrequency.Day1:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_D1_Latests
+                                                where SIDs.Contains(p.SID)
+                                                orderby p.AsOfDate descending
+                                                group p by p.SID into g
+                                                select g).ToDictionary(k => k.Key, v => v.Select(p =>
+                                                new CryptoBar
+                                                {
+                                                    AsOfDate = p.AsOfDate,
+                                                    Close = p.Close,
+                                                    High = p.High,
+                                                    Low = p.Low,
+                                                    Open = p.Open,
+                                                    TS = p.TS,
+                                                    Volume = p.Volume,
+                                                    MarketCap = p.MarketCap
+                                                }).First());
+                        }
+                        break;
+                    case BarFrequency.Week1:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_W1_Latests
+                                                where SIDs.Contains(p.SID)
+                                                orderby p.AsOfDate descending
+                                                group p by p.SID into g
+                                                select g).ToDictionary(k => k.Key, v => v.Select(p =>
+                                                new CryptoBar
+                                                {
+                                                    AsOfDate = p.AsOfDate,
+                                                    Close = p.Close,
+                                                    High = p.High,
+                                                    Low = p.Low,
+                                                    Open = p.Open,
+                                                    TS = p.TS,
+                                                    Volume = p.Volume,
+                                                    MarketCap = p.MarketCap
+                                                }).First());
+                        }
+
+                        break;
+                    case BarFrequency.Month1:
+                        using (MarketDataDataContext marketData = new MarketDataDataContext())
+                        {
+                            stockBarResult = (from p in marketData.VA_Prices_MN_Latests
+                                                where SIDs.Contains(p.SID)
+                                                orderby p.AsOfDate descending
+                                                group p by p.SID into g
+                                                select g).ToDictionary(k => k.Key, v => v.Select(p =>
+                                                new CryptoBar
+                                                {
+                                                    AsOfDate = p.AsOfDate,
+                                                    Close = p.Close,
+                                                    High = p.High,
+                                                    Low = p.Low,
+                                                    Open = p.Open,
+                                                    TS = p.TS,
+                                                    Volume = p.Volume,
+                                                    MarketCap = p.MarketCap
+                                                }).First());
+                        }
+                        break;
+                }
+            }
+
+            return stockBarResult;
         }
 
         private IDictionary<long, StockBar[]> _VA_GetStockPrices(long[] SIDs, BarFrequency frequency, DateTime? startDate, DateTime? endDate, int outputCount, bool isAdjustedValue)

@@ -52,6 +52,10 @@
     <Compile Include="Contracts\DataContracts\MarketData\Quote.cs" />
     <Compile Include="Contracts\DataContracts\MarketData\TimeSeriesDataInput.cs" />
     <Compile Include="Contracts\DataContracts\MarketData\TimeSeriesDataOutput.cs" />
+    <Compile Include="Contracts\DataContracts\Trading\Contract.cs" />
+    <Compile Include="Contracts\DataContracts\Trading\Order.cs" />
+    <Compile Include="Contracts\DataContracts\Trading\Position.cs" />
+    <Compile Include="Contracts\DataContracts\Trading\Trade.cs" />
     <Compile Include="Contracts\Services\IIBTradingService.cs" />
     <Compile Include="Contracts\Services\Restful\IMarketDataRfService.cs" />
     <Compile Include="Contracts\Services\IMarketDataService.cs" />

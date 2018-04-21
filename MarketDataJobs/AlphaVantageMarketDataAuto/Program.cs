@@ -30,22 +30,24 @@ namespace AlphaVantageMarketDataAuto
 
             string period = AutomationHelper.AutomationJob.GetArgument("period");
             string adjustedvalue = AutomationHelper.AutomationJob.GetArgument("adjustedvalue");
+            string startFrom = AutomationHelper.AutomationJob.GetArgument("StartFrom");
             string marketDataUrl = AutomationHelper.AutomationJob.GetArgument("MarketDataSkywolfHttp");
-
             bool isAdjustedValue = false;
 
             bool.TryParse(adjustedvalue, out isAdjustedValue);
-            
+            int iStartFrom = 0;
+            int.TryParse(startFrom, out iStartFrom);
             try
             {
                 _logger.LogInfo("LogFileName:" + logfilename);
                 _logger.LogInfo("Period:" + period);
                 _logger.LogInfo("AdjustedValue:" + isAdjustedValue.ToString());
+                _logger.LogInfo("StartFrom:" + iStartFrom);
                 _logger.LogInfo("MarketDataUrl:" + marketDataUrl);
 
                 MarketDataHandler marketData = new MarketDataHandler(period, isAdjustedValue);
 
-                marketData.Update();
+                marketData.Update(iStartFrom);
 
                 string title = string.Empty;
 

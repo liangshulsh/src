@@ -33,6 +33,12 @@ namespace Skywolf.Contracts.Services
         IDictionary<string, CryptoBar[]> GetCryptoHistoryPrices(string[] symbols, string market, BarFrequency frequency, DateTime? startDate, DateTime? endDate, int outputCount, string datasource);
 
         [OperationContract]
+        IDictionary<string, StockBar> GetLatestStockHistoryPrices(string[] symbols, BarFrequency frequency, bool isAdjustedValue, string datasource);
+
+        [OperationContract]
+        IDictionary<string, CryptoBar> GetLatestCryptoHistoryPrices(string[] symbols, string market, BarFrequency frequency, string datasource);
+
+        [OperationContract]
         string[] VA_GetAvailableAPIKey();
 
         [OperationContract]

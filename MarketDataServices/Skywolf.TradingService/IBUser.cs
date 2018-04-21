@@ -2,6 +2,7 @@
 using Skywolf.IBApi;
 using Skywolf.TradingService.Messages;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,10 @@ namespace Skywolf.TradingService
         private const int ACCOUNT_ID_BASE = 50000000;
 
         private const int ACCOUNT_SUMMARY_ID = ACCOUNT_ID_BASE + 1;
+
+        public const int CONTRACT_ID_BASE = 60000000;
+
+        private int _contractDetailNextId = CONTRACT_ID_BASE + 1;
 
         private const string ACCOUNT_SUMMARY_TAGS = "AccountType,NetLiquidation,TotalCashValue,SettledCash,AccruedCash,BuyingPower,EquityWithLoanValue,PreviousEquityWithLoanValue,"
              + "GrossPositionValue,ReqTEquity,ReqTMargin,SMA,InitMarginReq,MaintMarginReq,AvailableFunds,ExcessLiquidity,Cushion,FullInitMarginReq,FullMaintMarginReq,FullAvailableFunds,"
@@ -44,12 +49,35 @@ namespace Skywolf.TradingService
         private object _accountSummaryLockObj = new object();
         private List<AccountSummaryMessage> _accountSummary = new List<AccountSummaryMessage>();
 
+        private object _updateAccountLockObj = new object();
+        private bool _accountUpdateRequestActive = false;
+        private string _currentAccountSubscribedToTupdate = string.Empty;
         private List<AccountValueMessage> _accountValues = new List<AccountValueMessage>();
         private List<UpdatePortfolioMessage> _portfolios = new List<UpdatePortfolioMessage>();
 
+        private EventWaitHandle _positionWait = null;
+        private object _positionLockObj = new object();
         private List<PositionMessage> _positions = new List<PositionMessage>();
 
         private string _lastUpdateTime = string.Empty;
+
+        private object _placeOrderLockObj = new object();
+
+        private EventWaitHandle _openOrderWait = null;
+        private object _refreshOpenOrderLockObj = new object();
+        private object _openOrderLockObj = new object();
+        private List<OpenOrderMessage> _openOrders = new List<OpenOrderMessage>();
+
+        private EventWaitHandle _executionWait = null;
+        private object _filterExecutionLockObj = new object();
+        private object _executionLockObj = new object();
+        private List<ExecutionMessage> _executions = new List<ExecutionMessage>();
+        private Dictionary<int, List<ExecutionMessage>> _requestExecutions = new Dictionary<int, List<ExecutionMessage>>();
+        private int _executionReqNextId = 1000;
+
+        private EventWaitHandle _contractDetailWait = null;
+        private object _contractDetailLockObj = new object();
+        private ConcurrentDictionary<string, ContractDetailsMessage> _contractDetails = new ConcurrentDictionary<string, ContractDetailsMessage>();
 
         private EReaderMonitorSignal _signal = new EReaderMonitorSignal();
 
@@ -72,13 +100,312 @@ namespace Skywolf.TradingService
             _ibClient.UpdateAccountValue += ibClient_HandleAccountValue;
             _ibClient.UpdatePortfolio += ibClient_HandlePortfolioValue;
             _ibClient.UpdateAccountTime += ibClient_HandleLastUpdateTime;
+            _ibClient.OpenOrder += ibClient_HandleOpenOrder;
+            _ibClient.OrderStatus += ibClient_HandleOrderStatus;
+            _ibClient.OpenOrderEnd += ibClient_HandleOpenOrderEnd;
+            _ibClient.ExecDetails += ibClient_HandleExecutionMessage;
+            _ibClient.ExecDetailsEnd += ibClient_HandleExecutionEnd;
+            _ibClient.CommissionReport += commissionReport => ibClient_HandleCommissionMessage(new CommissionMessage(commissionReport));
+            _ibClient.ContractDetails += ibClient_HandleContractDataMessage;
+            _ibClient.ContractDetailsEnd += ibClient_HandleContractDataEnd;
 
         }
 
-        private void ibClient_HandleLastUpdateTime(UpdateAccountTimeMessage message)
+        #region PlaceOrder
+
+        public int PlaceOrder(Contract contract, Order order)
         {
-            _lastUpdateTime = message.Timestamp;
+            lock (_placeOrderLockObj)
+            {
+                int orderId = 0;
+                if (order.OrderId != 0)
+                {
+                    _ibClient.ClientSocket.placeOrder(order.OrderId, contract, order);
+                    orderId = order.OrderId;
+                }
+                else
+                {
+                    _ibClient.ClientSocket.placeOrder(_ibClient.NextOrderId, contract, order);
+                    orderId = _ibClient.NextOrderId;
+                    _ibClient.NextOrderId++;
+                }
+
+                return orderId;
+            }
         }
+
+        public bool CancelOrder(int orderId)
+        {
+            int clientId = _clientId;
+            OpenOrderMessage openOrder = GetOpenOrderMessage(orderId, clientId);
+            if (openOrder != null)
+            {
+                _ibClient.ClientSocket.cancelOrder(openOrder.OrderId);
+                return true;
+            }
+
+            return false;
+        }
+
+        public OpenOrderMessage GetOpenOrderMessage(int orderId, int clientId)
+        {
+            lock (_openOrderLockObj)
+            {
+                for (int i = 0; i < _openOrders.Count; i++)
+                {
+                    if (_openOrders[i].Order.OrderId == orderId && _openOrders[i].Order.ClientId == clientId)
+                        return _openOrders[i];
+                }
+            }
+
+            return null;
+        }
+
+        public OpenOrderMessage[] GetAllOpenOrders()
+        {
+            lock(_openOrderLockObj)
+            {
+                return _openOrders.ToArray();
+            }
+        }
+
+        public OpenOrderMessage[] RefreshAllOpenOrders()
+        {
+            lock (_refreshOpenOrderLockObj)
+            {
+                if (_openOrderWait != null)
+                {
+                    try
+                    {
+                        _openOrderWait.Set();
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                    _openOrderWait = null;
+                }
+
+                if (_openOrderWait == null)
+                {
+                    _openOrderWait = new ManualResetEvent(false);
+                    _ibClient.ClientSocket.reqAllOpenOrders();
+
+                    _openOrderWait.WaitOne(TIME_OUT_VALUE);
+                }
+
+                return GetAllOpenOrders();
+            }
+        }
+
+        public ExecutionMessage[] GetAllExecutions()
+        {
+            lock (_executionLockObj)
+            {
+                return _executions.ToArray();
+            }
+        }
+
+        public ExecutionMessage[] FilterExecutions(ExecutionFilter execFilter)
+        {
+
+            if (execFilter == null)
+            {
+                execFilter = new ExecutionFilter();
+            }
+
+            lock (_filterExecutionLockObj)
+            {
+                if (_executionWait != null)
+                {
+                    try
+                    {
+                        _executionWait.Set();
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                    _executionWait = null;
+                }
+
+                List<ExecutionMessage> reqExecutions = new List<ExecutionMessage>();
+
+                if (_executionWait == null)
+                {
+                    _executionWait = new ManualResetEvent(false);
+                    int reqId = _executionReqNextId;
+                    _executionReqNextId++;
+                    _requestExecutions[reqId] = reqExecutions;
+                    _ibClient.ClientSocket.reqExecutions(reqId, execFilter);
+                    _executionWait.WaitOne(TIME_OUT_VALUE);
+                    _requestExecutions.Remove(reqId);
+                }
+
+                return reqExecutions.ToArray();
+            }
+        }
+
+        private void ibClient_HandleExecutionEnd(int reqId)
+        {
+            if (_executionWait != null)
+            {
+                _executionWait.Set();
+                _executionWait = null;
+            }
+        }
+
+        private void ibClient_HandleCommissionMessage(CommissionMessage message)
+        {
+            lock (_executionLockObj)
+            {
+                for (int i = 0; i < _executions.Count; i++)
+                {
+                    if (_executions[i].Execution != null && _executions[i].Execution.ExecId == message.CommissionReport.ExecId)
+                    {
+                        _executions[i].Commission = message.CommissionReport;
+                    }
+                }
+
+                foreach (var executions in _requestExecutions.Values)
+                {
+                    foreach (var execution in executions)
+                    {
+                        if (execution.Execution != null && execution.Execution.ExecId == message.CommissionReport.ExecId)
+                        {
+                            execution.Commission = message.CommissionReport;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ibClient_HandleOpenOrder(OpenOrderMessage openOrder)
+        {
+            UpdateLiveOrders(openOrder);
+        }
+
+        private void ibClient_HandleOpenOrderEnd()
+        {
+           if (_openOrderWait != null)
+            {
+                _openOrderWait.Set();
+                _openOrderWait = null;
+            }
+        }
+
+        private void ibClient_HandleExecutionMessage(ExecutionMessage message)
+        {
+            lock (_executionLockObj)
+            {
+                List<ExecutionMessage> executions;
+                if (_requestExecutions.ContainsKey(message.ReqId))
+                {
+                    executions = _requestExecutions[message.ReqId];
+                }
+                else
+                {
+                    executions = _executions;
+                }
+                
+                for (int i = 0; i < executions.Count; i++)
+                {
+                    if (executions[i].Execution != null && executions[i].Execution.ExecId == message.Execution.ExecId)
+                    {
+                        executions[i] = message;
+                    }
+                }
+
+                executions.Add(message);
+            }
+        }
+
+        private void ibClient_HandleOrderStatus(OrderStatusMessage statusMessage)
+        {
+            lock (_openOrderLockObj)
+            {
+                for (int i = 0; i < _openOrders.Count; i++)
+                {
+                    if (_openOrders[i].Order.PermId == statusMessage.PermId)
+                    {
+                        _openOrders[i].OrderStatus = statusMessage;
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void UpdateLiveOrders(OpenOrderMessage orderMesage)
+        {
+            lock (_openOrderLockObj)
+            {
+                for (int i = 0; i < _openOrders.Count; i++)
+                {
+                    if (_openOrders[i].Order.OrderId == orderMesage.OrderId)
+                    {
+                        _openOrders[i] = orderMesage;
+                        return;
+                    }
+                }
+                _openOrders.Add(orderMesage);
+            }
+        }
+
+        #endregion
+
+        #region ContractDetails
+
+        public ContractDetails GetContractDetails(Contract contract)
+        {
+            if (contract == null)
+            {
+                return null;
+            }
+
+            if (_contractDetails.ContainsKey(contract.ToString()))
+            {
+                return _contractDetails[contract.ToString()].ContractDetails;
+            }
+            else
+            {
+                lock (_contractDetailLockObj)
+                {
+                    if (_contractDetailWait != null)
+                    {
+                        _contractDetailWait.Set();
+                        _contractDetailWait = null;
+                    }
+
+                    int reqId = _contractDetailNextId;
+                    _contractDetailNextId++;
+                    _contractDetailWait = new ManualResetEvent(false);
+                    _ibClient.ClientSocket.reqContractDetails(reqId, contract);
+                    _contractDetailWait.WaitOne(TIME_OUT_VALUE);
+                    return (from p in _contractDetails
+                     where p.Value.RequestId == reqId
+                     select p.Value.ContractDetails).FirstOrDefault();
+                }
+            }
+        }
+        
+        private void ibClient_HandleContractDataMessage(ContractDetailsMessage message)
+        {
+            if (message.ContractDetails != null && message.ContractDetails.Summary != null)
+            {
+                _contractDetails[message.ContractDetails.Summary.ToString()] = message;
+            }
+        }
+
+        private void ibClient_HandleContractDataEnd(int reqId)
+        {
+            if (_contractDetailWait != null)
+            {
+                _contractDetailWait.Set();
+                _contractDetailWait = null;
+            }
+        }
+
+        #endregion
 
         #region Connection
         public void Disconnect()
@@ -210,38 +537,165 @@ namespace Skywolf.TradingService
 
         #endregion
 
-        private void ibClient_HandleAccountValue(AccountValueMessage accountValueMessage)
+        #region Account Update
+
+        public bool UnsubscribeAccountUpdates()
         {
-            for (int i = 0; i < _accountValues.Count; i++)
+            if (_accountUpdateRequestActive)
             {
-                if (_accountValues[i].AccountName == accountValueMessage.AccountName && _accountValues[i].Key == accountValueMessage.Key)
+                lock (_updateAccountLockObj)
                 {
-                    _accountValues[i].Value = accountValueMessage.Value;
-                    _accountValues[i].Currency = accountValueMessage.Currency;
-                    return;
+                    if (_accountUpdateRequestActive)
+                    {
+                        _ibClient.ClientSocket.reqAccountUpdates(false, _currentAccountSubscribedToTupdate);
+                        _currentAccountSubscribedToTupdate = string.Empty;
+                        _accountUpdateRequestActive = false;
+                        return true;
+                    }
                 }
             }
-            _accountValues.Add(accountValueMessage);
+
+            return false;
+        }
+
+        public bool SubscribeAccountUpdates(string account)
+        {
+            if (string.IsNullOrWhiteSpace(account) || _managedAccounts == null || _managedAccounts.Count == 0)
+            {
+                return false;
+            }
+
+            lock (_updateAccountLockObj)
+            {
+                if (!_accountUpdateRequestActive)
+                {
+                    if (string.IsNullOrWhiteSpace(account))
+                    {
+                        _currentAccountSubscribedToTupdate = _managedAccounts.First();
+                    }
+                    else
+                    {
+                        _currentAccountSubscribedToTupdate = account;
+                    }
+
+                    _accountUpdateRequestActive = true;
+                    _accountValues.Clear();
+                    _portfolios.Clear();
+                    _ibClient.ClientSocket.reqAccountUpdates(true, _currentAccountSubscribedToTupdate);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public AccountValueMessage[] GetAccountValues()
+        {
+            lock (_updateAccountLockObj)
+            {
+                if (_accountValues != null)
+                {
+                    return _accountValues.ToArray();
+                }
+            }
+
+            return null;
+        }
+
+        public UpdatePortfolioMessage[] GetPortfolios()
+        {
+            lock (_updateAccountLockObj)
+            {
+                if (_portfolios != null)
+                {
+                    return _portfolios.ToArray();
+                }
+            }
+
+            return null;
+        }
+
+        public string GetAccountUpdateTime()
+        {
+            return _lastUpdateTime;
+        }
+
+        private void ibClient_HandleAccountValue(AccountValueMessage accountValueMessage)
+        {
+            lock (_updateAccountLockObj)
+            {
+                for (int i = 0; i < _accountValues.Count; i++)
+                {
+                    if (_accountValues[i].AccountName == accountValueMessage.AccountName && _accountValues[i].Key == accountValueMessage.Key)
+                    {
+                        _accountValues[i].Value = accountValueMessage.Value;
+                        _accountValues[i].Currency = accountValueMessage.Currency;
+                        return;
+                    }
+                }
+                _accountValues.Add(accountValueMessage);
+            }
         }
 
         private void ibClient_HandlePortfolioValue(UpdatePortfolioMessage updatePortfolioMessage)
         {
-
-            for (int i = 0; i < _portfolios.Count; i++)
+            lock (_updateAccountLockObj)
             {
-                if (_portfolios[i].AccountName == updatePortfolioMessage.AccountName && Utils.ContractToString(_portfolios[i].Contract) == Utils.ContractToString(updatePortfolioMessage.Contract))
+                for (int i = 0; i < _portfolios.Count; i++)
                 {
-                    _portfolios[i].Position = updatePortfolioMessage.Position;
-                    _portfolios[i].MarketPrice = updatePortfolioMessage.MarketPrice;
-                    _portfolios[i].MarketValue = updatePortfolioMessage.MarketValue;
-                    _portfolios[i].AverageCost = updatePortfolioMessage.AverageCost;
-                    _portfolios[i].UnrealizedPNL = updatePortfolioMessage.UnrealizedPNL;
-                    _portfolios[i].RealizedPNL = updatePortfolioMessage.RealizedPNL;
-                    return;
+                    if (_portfolios[i].AccountName == updatePortfolioMessage.AccountName && Utils.ContractToString(_portfolios[i].Contract) == Utils.ContractToString(updatePortfolioMessage.Contract))
+                    {
+                        _portfolios[i].Position = updatePortfolioMessage.Position;
+                        _portfolios[i].MarketPrice = updatePortfolioMessage.MarketPrice;
+                        _portfolios[i].MarketValue = updatePortfolioMessage.MarketValue;
+                        _portfolios[i].AverageCost = updatePortfolioMessage.AverageCost;
+                        _portfolios[i].UnrealizedPNL = updatePortfolioMessage.UnrealizedPNL;
+                        _portfolios[i].RealizedPNL = updatePortfolioMessage.RealizedPNL;
+                        return;
+                    }
                 }
-            }
 
-            _portfolios.Add(updatePortfolioMessage);
+                _portfolios.Add(updatePortfolioMessage);
+            }
+        }
+
+        private void ibClient_HandleLastUpdateTime(UpdateAccountTimeMessage message)
+        {
+            _lastUpdateTime = message.Timestamp;
+        }
+
+        #endregion
+
+        #region Positions
+
+        public PositionMessage[] GetPositions()
+        {
+            lock (_positionLockObj)
+            {
+                if (_positionWait != null)
+                {
+                    try
+                    {
+                        _positionWait.Set();
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                    _positionWait = null;
+                }
+
+                if (_positionWait == null)
+                {
+                    _positions.Clear();
+                    _positionWait = new ManualResetEvent(false);
+                    _ibClient.ClientSocket.reqPositions();
+
+                    _positionWait.WaitOne(TIME_OUT_VALUE);
+                }
+
+                return _positions.ToArray();
+            }
         }
 
         private void ibClient_HandlePosition(PositionMessage positionMessage)
@@ -262,8 +716,14 @@ namespace Skywolf.TradingService
 
         private void ibClient_HandlePositionEnd()
         {
-
+            if (_positionWait != null)
+            {
+                _positionWait.Set();
+                _positionWait = null;
+            }
         }
+
+        #endregion
 
         #region Error Handling
         void ibClient_Error(int id, int errorCode, string str, Exception ex)

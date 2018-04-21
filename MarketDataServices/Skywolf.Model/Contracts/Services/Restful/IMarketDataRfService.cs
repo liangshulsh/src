@@ -31,6 +31,14 @@ namespace Skywolf.Contracts.Services.Restful
         string GetCryptoHistoryPrices(string symbols, string market, string frequency, string startdate, string enddate, string outputcount, string datasource);
 
         [OperationContract]
+        [WebGet(UriTemplate = "getlateststockhistoryprices?symbols={symbols}&frequency={frequency}&isadjustedvalue={isadjustedvalue}&datasource={datasource}")]
+        string GetLatestStockHistoryPrices(string symbols, string frequency, string isadjustedvalue, string datasource);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "getlatestcryptohistoryprices?symbols={symbols}&market={market}&frequency={frequency}&datasource={datasource}")]
+        string GetLatestCryptoHistoryPrices(string symbols, string market, string frequency, string datasource);
+
+        [OperationContract]
         [WebGet(UriTemplate = "va_getavailableapikey")]
         string VA_GetAvailableAPIKey();
 

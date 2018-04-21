@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="MarketData">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 11.75" name="MarketData">
   <DataContextMoniker Name="/MarketDataDataContext" />
   <nestedChildShapes>
     <classShape Id="d3c54405-e532-4e64-8df3-28963a9a1bf2" absoluteBounds="0.625, 0.5, 2, 2.1554996744791666">
@@ -84,6 +84,72 @@
       <DataClassMoniker Name="/MarketDataDataContext/vw_PricingRule" />
       <nestedChildShapes>
         <elementListCompartment Id="92d2a629-8191-4f82-8c89-78c3992f6cea" absoluteBounds="5.14, 1.585, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a0ed5894-b7fb-4f63-ad74-7c202c6d7fff" isExpanded="false" absoluteBounds="0.625, 4.75, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/VA_AdjPrices_D1_Latest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6ccc96cd-83fc-44bd-8013-934052083213" absoluteBounds="0.64000000000000012, 5.21, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="056abc7d-d3fc-4f8d-86db-b629d387906e" isExpanded="false" absoluteBounds="0.625, 5.375, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/VA_AdjPrices_MN_Latest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6185eb91-be0d-41dd-b306-42050cd6a339" absoluteBounds="0.64000000000000012, 5.835, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d25fdc57-7cab-4aec-b1be-dd4c8bdcfa78" isExpanded="false" absoluteBounds="0.625, 6, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/VA_AdjPrices_W1_Latest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="02f6deca-5902-4371-b7d6-055b984568cc" absoluteBounds="0.64000000000000012, 6.46, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="dd305bc5-805b-473b-b7b6-8bd24f266190" isExpanded="false" absoluteBounds="0.625, 6.625, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/VA_Prices_D1_Latest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6c262266-450e-48bd-884a-5e6b2b83e34e" absoluteBounds="0.64000000000000012, 7.085, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="aa59c6e8-c1c5-4fbb-8d2c-5d1436578fea" isExpanded="false" absoluteBounds="0.625, 7.25, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/VA_Prices_H1_Latest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7d61b980-cfd2-4ec2-963c-5ec07cee1918" absoluteBounds="0.64000000000000012, 7.7100000000000009, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f6c5e5bd-4ee8-441f-af10-494287bbf71f" isExpanded="false" absoluteBounds="0.625, 7.875, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/VA_Prices_M1_Latest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b59b8234-22bc-4ec5-b0b4-e2bc54c631a0" absoluteBounds="0.64000000000000012, 8.335, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ddb1bb80-1142-491e-9cad-9add4ef89686" isExpanded="false" absoluteBounds="0.625, 8.5, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/VA_Prices_M15_Latest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8e68bf49-2e45-4ae6-b20b-8fe767c705f4" absoluteBounds="0.64000000000000012, 8.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="08fd0131-aa82-42b0-a109-f1bff4162636" isExpanded="false" absoluteBounds="0.625, 9.125, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/VA_Prices_M30_Latest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="63918e97-1afc-4ab5-9845-5532a44d2145" absoluteBounds="0.64000000000000012, 9.585, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8b6dad6f-a117-4753-ad73-a41975cf1a62" isExpanded="false" absoluteBounds="0.625, 9.75, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/VA_Prices_M5_Latest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0f1bcdfa-ba26-4def-b41c-00e4d1c3c611" absoluteBounds="0.64000000000000012, 10.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a3a7c125-bf39-4106-80cd-ac956f82eac8" isExpanded="false" absoluteBounds="0.625, 10.375, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/VA_Prices_MN_Latest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="14a926a4-2cce-4628-8fb5-47ec805d660e" absoluteBounds="0.64000000000000012, 10.835, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="0a41e019-6635-4f9c-9f67-039c2046e848" isExpanded="false" absoluteBounds="0.625, 11, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/VA_Prices_W1_Latest" />
+      <nestedChildShapes>
+        <elementListCompartment Id="800debed-b908-4168-98b5-d131be8b1bc4" absoluteBounds="0.64000000000000012, 11.46, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

@@ -101,7 +101,7 @@ namespace Skywolf.MarketDataGrabber
                 string result = HttpGet(url);
                 _lastCallingTime = DateTime.Now;
 
-                while (!string.IsNullOrEmpty(result) && result.Contains("Please consider optimizing your API call frequency."))
+                while (!string.IsNullOrEmpty(result) && result.StartsWith("{"))
                 {
                     Thread.Sleep(5000);
                     result = HttpGet(url);

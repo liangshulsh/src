@@ -25,7 +25,7 @@ namespace TradingTest
             IBUser user = new IBUser("127.0.0.1", 4002, 2, _log);
             if (user.Connect())
             {
-                var summary = user.RequestAccountSummary();
+                var summary = user.GetAccountSummary();
                 foreach (var item in summary)
                 {
                     Console.WriteLine(string.Format("{0} {1} {2} {3} {4}", item.RequestId, item.Account, item.Tag, item.Currency, item.Value));

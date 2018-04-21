@@ -66,6 +66,39 @@ namespace Skywolf.DatabaseRepository
     partial void InsertVA_AdjPrices_W1(VA_AdjPrices_W1 instance);
     partial void UpdateVA_AdjPrices_W1(VA_AdjPrices_W1 instance);
     partial void DeleteVA_AdjPrices_W1(VA_AdjPrices_W1 instance);
+    partial void InsertVA_AdjPrices_D1_Latest(VA_AdjPrices_D1_Latest instance);
+    partial void UpdateVA_AdjPrices_D1_Latest(VA_AdjPrices_D1_Latest instance);
+    partial void DeleteVA_AdjPrices_D1_Latest(VA_AdjPrices_D1_Latest instance);
+    partial void InsertVA_AdjPrices_MN_Latest(VA_AdjPrices_MN_Latest instance);
+    partial void UpdateVA_AdjPrices_MN_Latest(VA_AdjPrices_MN_Latest instance);
+    partial void DeleteVA_AdjPrices_MN_Latest(VA_AdjPrices_MN_Latest instance);
+    partial void InsertVA_AdjPrices_W1_Latest(VA_AdjPrices_W1_Latest instance);
+    partial void UpdateVA_AdjPrices_W1_Latest(VA_AdjPrices_W1_Latest instance);
+    partial void DeleteVA_AdjPrices_W1_Latest(VA_AdjPrices_W1_Latest instance);
+    partial void InsertVA_Prices_D1_Latest(VA_Prices_D1_Latest instance);
+    partial void UpdateVA_Prices_D1_Latest(VA_Prices_D1_Latest instance);
+    partial void DeleteVA_Prices_D1_Latest(VA_Prices_D1_Latest instance);
+    partial void InsertVA_Prices_H1_Latest(VA_Prices_H1_Latest instance);
+    partial void UpdateVA_Prices_H1_Latest(VA_Prices_H1_Latest instance);
+    partial void DeleteVA_Prices_H1_Latest(VA_Prices_H1_Latest instance);
+    partial void InsertVA_Prices_M1_Latest(VA_Prices_M1_Latest instance);
+    partial void UpdateVA_Prices_M1_Latest(VA_Prices_M1_Latest instance);
+    partial void DeleteVA_Prices_M1_Latest(VA_Prices_M1_Latest instance);
+    partial void InsertVA_Prices_M15_Latest(VA_Prices_M15_Latest instance);
+    partial void UpdateVA_Prices_M15_Latest(VA_Prices_M15_Latest instance);
+    partial void DeleteVA_Prices_M15_Latest(VA_Prices_M15_Latest instance);
+    partial void InsertVA_Prices_M30_Latest(VA_Prices_M30_Latest instance);
+    partial void UpdateVA_Prices_M30_Latest(VA_Prices_M30_Latest instance);
+    partial void DeleteVA_Prices_M30_Latest(VA_Prices_M30_Latest instance);
+    partial void InsertVA_Prices_M5_Latest(VA_Prices_M5_Latest instance);
+    partial void UpdateVA_Prices_M5_Latest(VA_Prices_M5_Latest instance);
+    partial void DeleteVA_Prices_M5_Latest(VA_Prices_M5_Latest instance);
+    partial void InsertVA_Prices_MN_Latest(VA_Prices_MN_Latest instance);
+    partial void UpdateVA_Prices_MN_Latest(VA_Prices_MN_Latest instance);
+    partial void DeleteVA_Prices_MN_Latest(VA_Prices_MN_Latest instance);
+    partial void InsertVA_Prices_W1_Latest(VA_Prices_W1_Latest instance);
+    partial void UpdateVA_Prices_W1_Latest(VA_Prices_W1_Latest instance);
+    partial void DeleteVA_Prices_W1_Latest(VA_Prices_W1_Latest instance);
     #endregion
 		
 		public MarketDataDataContext() : 
@@ -207,6 +240,94 @@ namespace Skywolf.DatabaseRepository
 			get
 			{
 				return this.GetTable<vw_PricingRule>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VA_AdjPrices_D1_Latest> VA_AdjPrices_D1_Latests
+		{
+			get
+			{
+				return this.GetTable<VA_AdjPrices_D1_Latest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VA_AdjPrices_MN_Latest> VA_AdjPrices_MN_Latests
+		{
+			get
+			{
+				return this.GetTable<VA_AdjPrices_MN_Latest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VA_AdjPrices_W1_Latest> VA_AdjPrices_W1_Latests
+		{
+			get
+			{
+				return this.GetTable<VA_AdjPrices_W1_Latest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VA_Prices_D1_Latest> VA_Prices_D1_Latests
+		{
+			get
+			{
+				return this.GetTable<VA_Prices_D1_Latest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VA_Prices_H1_Latest> VA_Prices_H1_Latests
+		{
+			get
+			{
+				return this.GetTable<VA_Prices_H1_Latest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VA_Prices_M1_Latest> VA_Prices_M1_Latests
+		{
+			get
+			{
+				return this.GetTable<VA_Prices_M1_Latest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VA_Prices_M15_Latest> VA_Prices_M15_Latests
+		{
+			get
+			{
+				return this.GetTable<VA_Prices_M15_Latest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VA_Prices_M30_Latest> VA_Prices_M30_Latests
+		{
+			get
+			{
+				return this.GetTable<VA_Prices_M30_Latest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VA_Prices_M5_Latest> VA_Prices_M5_Latests
+		{
+			get
+			{
+				return this.GetTable<VA_Prices_M5_Latest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VA_Prices_MN_Latest> VA_Prices_MN_Latests
+		{
+			get
+			{
+				return this.GetTable<VA_Prices_MN_Latest>();
+			}
+		}
+		
+		public System.Data.Linq.Table<VA_Prices_W1_Latest> VA_Prices_W1_Latests
+		{
+			get
+			{
+				return this.GetTable<VA_Prices_W1_Latest>();
 			}
 		}
 	}
@@ -3519,6 +3640,2896 @@ namespace Skywolf.DatabaseRepository
 				{
 					this._TS = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.AdjPrices_D1_Latest")]
+	public partial class VA_AdjPrices_D1_Latest : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SID;
+		
+		private System.DateTime _AsOfDate;
+		
+		private System.Nullable<double> _Open;
+		
+		private System.Nullable<double> _High;
+		
+		private System.Nullable<double> _Low;
+		
+		private System.Nullable<double> _Close;
+		
+		private System.Nullable<decimal> _Volume;
+		
+		private System.Nullable<double> _AdjClose;
+		
+		private System.Nullable<double> _DividendAmount;
+		
+		private System.Nullable<double> _SplitCoefficient;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSIDChanging(long value);
+    partial void OnSIDChanged();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnOpenChanging(System.Nullable<double> value);
+    partial void OnOpenChanged();
+    partial void OnHighChanging(System.Nullable<double> value);
+    partial void OnHighChanged();
+    partial void OnLowChanging(System.Nullable<double> value);
+    partial void OnLowChanged();
+    partial void OnCloseChanging(System.Nullable<double> value);
+    partial void OnCloseChanged();
+    partial void OnVolumeChanging(System.Nullable<decimal> value);
+    partial void OnVolumeChanged();
+    partial void OnAdjCloseChanging(System.Nullable<double> value);
+    partial void OnAdjCloseChanged();
+    partial void OnDividendAmountChanging(System.Nullable<double> value);
+    partial void OnDividendAmountChanged();
+    partial void OnSplitCoefficientChanging(System.Nullable<double> value);
+    partial void OnSplitCoefficientChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    #endregion
+		
+		public VA_AdjPrices_D1_Latest()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this.OnSIDChanging(value);
+					this.SendPropertyChanging();
+					this._SID = value;
+					this.SendPropertyChanged("SID");
+					this.OnSIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Open]", Storage="_Open", DbType="Float")]
+		public System.Nullable<double> Open
+		{
+			get
+			{
+				return this._Open;
+			}
+			set
+			{
+				if ((this._Open != value))
+				{
+					this.OnOpenChanging(value);
+					this.SendPropertyChanging();
+					this._Open = value;
+					this.SendPropertyChanged("Open");
+					this.OnOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_High", DbType="Float")]
+		public System.Nullable<double> High
+		{
+			get
+			{
+				return this._High;
+			}
+			set
+			{
+				if ((this._High != value))
+				{
+					this.OnHighChanging(value);
+					this.SendPropertyChanging();
+					this._High = value;
+					this.SendPropertyChanged("High");
+					this.OnHighChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Low", DbType="Float")]
+		public System.Nullable<double> Low
+		{
+			get
+			{
+				return this._Low;
+			}
+			set
+			{
+				if ((this._Low != value))
+				{
+					this.OnLowChanging(value);
+					this.SendPropertyChanging();
+					this._Low = value;
+					this.SendPropertyChanged("Low");
+					this.OnLowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Close]", Storage="_Close", DbType="Float")]
+		public System.Nullable<double> Close
+		{
+			get
+			{
+				return this._Close;
+			}
+			set
+			{
+				if ((this._Close != value))
+				{
+					this.OnCloseChanging(value);
+					this.SendPropertyChanging();
+					this._Close = value;
+					this.SendPropertyChanged("Close");
+					this.OnCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volume", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> Volume
+		{
+			get
+			{
+				return this._Volume;
+			}
+			set
+			{
+				if ((this._Volume != value))
+				{
+					this.OnVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._Volume = value;
+					this.SendPropertyChanged("Volume");
+					this.OnVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdjClose", DbType="Float")]
+		public System.Nullable<double> AdjClose
+		{
+			get
+			{
+				return this._AdjClose;
+			}
+			set
+			{
+				if ((this._AdjClose != value))
+				{
+					this.OnAdjCloseChanging(value);
+					this.SendPropertyChanging();
+					this._AdjClose = value;
+					this.SendPropertyChanged("AdjClose");
+					this.OnAdjCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DividendAmount", DbType="Float")]
+		public System.Nullable<double> DividendAmount
+		{
+			get
+			{
+				return this._DividendAmount;
+			}
+			set
+			{
+				if ((this._DividendAmount != value))
+				{
+					this.OnDividendAmountChanging(value);
+					this.SendPropertyChanging();
+					this._DividendAmount = value;
+					this.SendPropertyChanged("DividendAmount");
+					this.OnDividendAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SplitCoefficient", DbType="Float")]
+		public System.Nullable<double> SplitCoefficient
+		{
+			get
+			{
+				return this._SplitCoefficient;
+			}
+			set
+			{
+				if ((this._SplitCoefficient != value))
+				{
+					this.OnSplitCoefficientChanging(value);
+					this.SendPropertyChanging();
+					this._SplitCoefficient = value;
+					this.SendPropertyChanged("SplitCoefficient");
+					this.OnSplitCoefficientChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.AdjPrices_MN_Latest")]
+	public partial class VA_AdjPrices_MN_Latest : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SID;
+		
+		private System.DateTime _AsOfDate;
+		
+		private System.Nullable<double> _Open;
+		
+		private System.Nullable<double> _High;
+		
+		private System.Nullable<double> _Low;
+		
+		private System.Nullable<double> _Close;
+		
+		private System.Nullable<decimal> _Volume;
+		
+		private System.Nullable<double> _AdjClose;
+		
+		private System.Nullable<double> _DividendAmount;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSIDChanging(long value);
+    partial void OnSIDChanged();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnOpenChanging(System.Nullable<double> value);
+    partial void OnOpenChanged();
+    partial void OnHighChanging(System.Nullable<double> value);
+    partial void OnHighChanged();
+    partial void OnLowChanging(System.Nullable<double> value);
+    partial void OnLowChanged();
+    partial void OnCloseChanging(System.Nullable<double> value);
+    partial void OnCloseChanged();
+    partial void OnVolumeChanging(System.Nullable<decimal> value);
+    partial void OnVolumeChanged();
+    partial void OnAdjCloseChanging(System.Nullable<double> value);
+    partial void OnAdjCloseChanged();
+    partial void OnDividendAmountChanging(System.Nullable<double> value);
+    partial void OnDividendAmountChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    #endregion
+		
+		public VA_AdjPrices_MN_Latest()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this.OnSIDChanging(value);
+					this.SendPropertyChanging();
+					this._SID = value;
+					this.SendPropertyChanged("SID");
+					this.OnSIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Open]", Storage="_Open", DbType="Float")]
+		public System.Nullable<double> Open
+		{
+			get
+			{
+				return this._Open;
+			}
+			set
+			{
+				if ((this._Open != value))
+				{
+					this.OnOpenChanging(value);
+					this.SendPropertyChanging();
+					this._Open = value;
+					this.SendPropertyChanged("Open");
+					this.OnOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_High", DbType="Float")]
+		public System.Nullable<double> High
+		{
+			get
+			{
+				return this._High;
+			}
+			set
+			{
+				if ((this._High != value))
+				{
+					this.OnHighChanging(value);
+					this.SendPropertyChanging();
+					this._High = value;
+					this.SendPropertyChanged("High");
+					this.OnHighChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Low", DbType="Float")]
+		public System.Nullable<double> Low
+		{
+			get
+			{
+				return this._Low;
+			}
+			set
+			{
+				if ((this._Low != value))
+				{
+					this.OnLowChanging(value);
+					this.SendPropertyChanging();
+					this._Low = value;
+					this.SendPropertyChanged("Low");
+					this.OnLowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Close]", Storage="_Close", DbType="Float")]
+		public System.Nullable<double> Close
+		{
+			get
+			{
+				return this._Close;
+			}
+			set
+			{
+				if ((this._Close != value))
+				{
+					this.OnCloseChanging(value);
+					this.SendPropertyChanging();
+					this._Close = value;
+					this.SendPropertyChanged("Close");
+					this.OnCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volume", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> Volume
+		{
+			get
+			{
+				return this._Volume;
+			}
+			set
+			{
+				if ((this._Volume != value))
+				{
+					this.OnVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._Volume = value;
+					this.SendPropertyChanged("Volume");
+					this.OnVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdjClose", DbType="Float")]
+		public System.Nullable<double> AdjClose
+		{
+			get
+			{
+				return this._AdjClose;
+			}
+			set
+			{
+				if ((this._AdjClose != value))
+				{
+					this.OnAdjCloseChanging(value);
+					this.SendPropertyChanging();
+					this._AdjClose = value;
+					this.SendPropertyChanged("AdjClose");
+					this.OnAdjCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DividendAmount", DbType="Float")]
+		public System.Nullable<double> DividendAmount
+		{
+			get
+			{
+				return this._DividendAmount;
+			}
+			set
+			{
+				if ((this._DividendAmount != value))
+				{
+					this.OnDividendAmountChanging(value);
+					this.SendPropertyChanging();
+					this._DividendAmount = value;
+					this.SendPropertyChanged("DividendAmount");
+					this.OnDividendAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.AdjPrices_W1_Latest")]
+	public partial class VA_AdjPrices_W1_Latest : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SID;
+		
+		private System.DateTime _AsOfDate;
+		
+		private System.Nullable<double> _Open;
+		
+		private System.Nullable<double> _High;
+		
+		private System.Nullable<double> _Low;
+		
+		private System.Nullable<double> _Close;
+		
+		private System.Nullable<decimal> _Volume;
+		
+		private System.Nullable<double> _AdjClose;
+		
+		private System.Nullable<double> _DividendAmount;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSIDChanging(long value);
+    partial void OnSIDChanged();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnOpenChanging(System.Nullable<double> value);
+    partial void OnOpenChanged();
+    partial void OnHighChanging(System.Nullable<double> value);
+    partial void OnHighChanged();
+    partial void OnLowChanging(System.Nullable<double> value);
+    partial void OnLowChanged();
+    partial void OnCloseChanging(System.Nullable<double> value);
+    partial void OnCloseChanged();
+    partial void OnVolumeChanging(System.Nullable<decimal> value);
+    partial void OnVolumeChanged();
+    partial void OnAdjCloseChanging(System.Nullable<double> value);
+    partial void OnAdjCloseChanged();
+    partial void OnDividendAmountChanging(System.Nullable<double> value);
+    partial void OnDividendAmountChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    #endregion
+		
+		public VA_AdjPrices_W1_Latest()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this.OnSIDChanging(value);
+					this.SendPropertyChanging();
+					this._SID = value;
+					this.SendPropertyChanged("SID");
+					this.OnSIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Open]", Storage="_Open", DbType="Float")]
+		public System.Nullable<double> Open
+		{
+			get
+			{
+				return this._Open;
+			}
+			set
+			{
+				if ((this._Open != value))
+				{
+					this.OnOpenChanging(value);
+					this.SendPropertyChanging();
+					this._Open = value;
+					this.SendPropertyChanged("Open");
+					this.OnOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_High", DbType="Float")]
+		public System.Nullable<double> High
+		{
+			get
+			{
+				return this._High;
+			}
+			set
+			{
+				if ((this._High != value))
+				{
+					this.OnHighChanging(value);
+					this.SendPropertyChanging();
+					this._High = value;
+					this.SendPropertyChanged("High");
+					this.OnHighChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Low", DbType="Float")]
+		public System.Nullable<double> Low
+		{
+			get
+			{
+				return this._Low;
+			}
+			set
+			{
+				if ((this._Low != value))
+				{
+					this.OnLowChanging(value);
+					this.SendPropertyChanging();
+					this._Low = value;
+					this.SendPropertyChanged("Low");
+					this.OnLowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Close]", Storage="_Close", DbType="Float")]
+		public System.Nullable<double> Close
+		{
+			get
+			{
+				return this._Close;
+			}
+			set
+			{
+				if ((this._Close != value))
+				{
+					this.OnCloseChanging(value);
+					this.SendPropertyChanging();
+					this._Close = value;
+					this.SendPropertyChanged("Close");
+					this.OnCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volume", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> Volume
+		{
+			get
+			{
+				return this._Volume;
+			}
+			set
+			{
+				if ((this._Volume != value))
+				{
+					this.OnVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._Volume = value;
+					this.SendPropertyChanged("Volume");
+					this.OnVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AdjClose", DbType="Float")]
+		public System.Nullable<double> AdjClose
+		{
+			get
+			{
+				return this._AdjClose;
+			}
+			set
+			{
+				if ((this._AdjClose != value))
+				{
+					this.OnAdjCloseChanging(value);
+					this.SendPropertyChanging();
+					this._AdjClose = value;
+					this.SendPropertyChanged("AdjClose");
+					this.OnAdjCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DividendAmount", DbType="Float")]
+		public System.Nullable<double> DividendAmount
+		{
+			get
+			{
+				return this._DividendAmount;
+			}
+			set
+			{
+				if ((this._DividendAmount != value))
+				{
+					this.OnDividendAmountChanging(value);
+					this.SendPropertyChanging();
+					this._DividendAmount = value;
+					this.SendPropertyChanged("DividendAmount");
+					this.OnDividendAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.Prices_D1_Latest")]
+	public partial class VA_Prices_D1_Latest : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SID;
+		
+		private System.DateTime _AsOfDate;
+		
+		private System.Nullable<double> _Open;
+		
+		private System.Nullable<double> _High;
+		
+		private System.Nullable<double> _Low;
+		
+		private System.Nullable<double> _Close;
+		
+		private System.Nullable<decimal> _Volume;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+		private System.Nullable<decimal> _MarketCap;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSIDChanging(long value);
+    partial void OnSIDChanged();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnOpenChanging(System.Nullable<double> value);
+    partial void OnOpenChanged();
+    partial void OnHighChanging(System.Nullable<double> value);
+    partial void OnHighChanged();
+    partial void OnLowChanging(System.Nullable<double> value);
+    partial void OnLowChanged();
+    partial void OnCloseChanging(System.Nullable<double> value);
+    partial void OnCloseChanged();
+    partial void OnVolumeChanging(System.Nullable<decimal> value);
+    partial void OnVolumeChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    partial void OnMarketCapChanging(System.Nullable<decimal> value);
+    partial void OnMarketCapChanged();
+    #endregion
+		
+		public VA_Prices_D1_Latest()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this.OnSIDChanging(value);
+					this.SendPropertyChanging();
+					this._SID = value;
+					this.SendPropertyChanged("SID");
+					this.OnSIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Open]", Storage="_Open", DbType="Float")]
+		public System.Nullable<double> Open
+		{
+			get
+			{
+				return this._Open;
+			}
+			set
+			{
+				if ((this._Open != value))
+				{
+					this.OnOpenChanging(value);
+					this.SendPropertyChanging();
+					this._Open = value;
+					this.SendPropertyChanged("Open");
+					this.OnOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_High", DbType="Float")]
+		public System.Nullable<double> High
+		{
+			get
+			{
+				return this._High;
+			}
+			set
+			{
+				if ((this._High != value))
+				{
+					this.OnHighChanging(value);
+					this.SendPropertyChanging();
+					this._High = value;
+					this.SendPropertyChanged("High");
+					this.OnHighChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Low", DbType="Float")]
+		public System.Nullable<double> Low
+		{
+			get
+			{
+				return this._Low;
+			}
+			set
+			{
+				if ((this._Low != value))
+				{
+					this.OnLowChanging(value);
+					this.SendPropertyChanging();
+					this._Low = value;
+					this.SendPropertyChanged("Low");
+					this.OnLowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Close]", Storage="_Close", DbType="Float")]
+		public System.Nullable<double> Close
+		{
+			get
+			{
+				return this._Close;
+			}
+			set
+			{
+				if ((this._Close != value))
+				{
+					this.OnCloseChanging(value);
+					this.SendPropertyChanging();
+					this._Close = value;
+					this.SendPropertyChanged("Close");
+					this.OnCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volume", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> Volume
+		{
+			get
+			{
+				return this._Volume;
+			}
+			set
+			{
+				if ((this._Volume != value))
+				{
+					this.OnVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._Volume = value;
+					this.SendPropertyChanged("Volume");
+					this.OnVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MarketCap", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> MarketCap
+		{
+			get
+			{
+				return this._MarketCap;
+			}
+			set
+			{
+				if ((this._MarketCap != value))
+				{
+					this.OnMarketCapChanging(value);
+					this.SendPropertyChanging();
+					this._MarketCap = value;
+					this.SendPropertyChanged("MarketCap");
+					this.OnMarketCapChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.Prices_H1_Latest")]
+	public partial class VA_Prices_H1_Latest : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SID;
+		
+		private System.DateTime _AsOfDate;
+		
+		private System.Nullable<double> _Open;
+		
+		private System.Nullable<double> _High;
+		
+		private System.Nullable<double> _Low;
+		
+		private System.Nullable<double> _Close;
+		
+		private System.Nullable<decimal> _Volume;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+		private System.Nullable<decimal> _MarketCap;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSIDChanging(long value);
+    partial void OnSIDChanged();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnOpenChanging(System.Nullable<double> value);
+    partial void OnOpenChanged();
+    partial void OnHighChanging(System.Nullable<double> value);
+    partial void OnHighChanged();
+    partial void OnLowChanging(System.Nullable<double> value);
+    partial void OnLowChanged();
+    partial void OnCloseChanging(System.Nullable<double> value);
+    partial void OnCloseChanged();
+    partial void OnVolumeChanging(System.Nullable<decimal> value);
+    partial void OnVolumeChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    partial void OnMarketCapChanging(System.Nullable<decimal> value);
+    partial void OnMarketCapChanged();
+    #endregion
+		
+		public VA_Prices_H1_Latest()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this.OnSIDChanging(value);
+					this.SendPropertyChanging();
+					this._SID = value;
+					this.SendPropertyChanged("SID");
+					this.OnSIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Open]", Storage="_Open", DbType="Float")]
+		public System.Nullable<double> Open
+		{
+			get
+			{
+				return this._Open;
+			}
+			set
+			{
+				if ((this._Open != value))
+				{
+					this.OnOpenChanging(value);
+					this.SendPropertyChanging();
+					this._Open = value;
+					this.SendPropertyChanged("Open");
+					this.OnOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_High", DbType="Float")]
+		public System.Nullable<double> High
+		{
+			get
+			{
+				return this._High;
+			}
+			set
+			{
+				if ((this._High != value))
+				{
+					this.OnHighChanging(value);
+					this.SendPropertyChanging();
+					this._High = value;
+					this.SendPropertyChanged("High");
+					this.OnHighChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Low", DbType="Float")]
+		public System.Nullable<double> Low
+		{
+			get
+			{
+				return this._Low;
+			}
+			set
+			{
+				if ((this._Low != value))
+				{
+					this.OnLowChanging(value);
+					this.SendPropertyChanging();
+					this._Low = value;
+					this.SendPropertyChanged("Low");
+					this.OnLowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Close]", Storage="_Close", DbType="Float")]
+		public System.Nullable<double> Close
+		{
+			get
+			{
+				return this._Close;
+			}
+			set
+			{
+				if ((this._Close != value))
+				{
+					this.OnCloseChanging(value);
+					this.SendPropertyChanging();
+					this._Close = value;
+					this.SendPropertyChanged("Close");
+					this.OnCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volume", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> Volume
+		{
+			get
+			{
+				return this._Volume;
+			}
+			set
+			{
+				if ((this._Volume != value))
+				{
+					this.OnVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._Volume = value;
+					this.SendPropertyChanged("Volume");
+					this.OnVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MarketCap", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> MarketCap
+		{
+			get
+			{
+				return this._MarketCap;
+			}
+			set
+			{
+				if ((this._MarketCap != value))
+				{
+					this.OnMarketCapChanging(value);
+					this.SendPropertyChanging();
+					this._MarketCap = value;
+					this.SendPropertyChanged("MarketCap");
+					this.OnMarketCapChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.Prices_M1_Latest")]
+	public partial class VA_Prices_M1_Latest : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SID;
+		
+		private System.DateTime _AsOfDate;
+		
+		private System.Nullable<double> _Open;
+		
+		private System.Nullable<double> _High;
+		
+		private System.Nullable<double> _Low;
+		
+		private System.Nullable<double> _Close;
+		
+		private System.Nullable<decimal> _Volume;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+		private System.Nullable<decimal> _MarketCap;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSIDChanging(long value);
+    partial void OnSIDChanged();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnOpenChanging(System.Nullable<double> value);
+    partial void OnOpenChanged();
+    partial void OnHighChanging(System.Nullable<double> value);
+    partial void OnHighChanged();
+    partial void OnLowChanging(System.Nullable<double> value);
+    partial void OnLowChanged();
+    partial void OnCloseChanging(System.Nullable<double> value);
+    partial void OnCloseChanged();
+    partial void OnVolumeChanging(System.Nullable<decimal> value);
+    partial void OnVolumeChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    partial void OnMarketCapChanging(System.Nullable<decimal> value);
+    partial void OnMarketCapChanged();
+    #endregion
+		
+		public VA_Prices_M1_Latest()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this.OnSIDChanging(value);
+					this.SendPropertyChanging();
+					this._SID = value;
+					this.SendPropertyChanged("SID");
+					this.OnSIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Open]", Storage="_Open", DbType="Float")]
+		public System.Nullable<double> Open
+		{
+			get
+			{
+				return this._Open;
+			}
+			set
+			{
+				if ((this._Open != value))
+				{
+					this.OnOpenChanging(value);
+					this.SendPropertyChanging();
+					this._Open = value;
+					this.SendPropertyChanged("Open");
+					this.OnOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_High", DbType="Float")]
+		public System.Nullable<double> High
+		{
+			get
+			{
+				return this._High;
+			}
+			set
+			{
+				if ((this._High != value))
+				{
+					this.OnHighChanging(value);
+					this.SendPropertyChanging();
+					this._High = value;
+					this.SendPropertyChanged("High");
+					this.OnHighChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Low", DbType="Float")]
+		public System.Nullable<double> Low
+		{
+			get
+			{
+				return this._Low;
+			}
+			set
+			{
+				if ((this._Low != value))
+				{
+					this.OnLowChanging(value);
+					this.SendPropertyChanging();
+					this._Low = value;
+					this.SendPropertyChanged("Low");
+					this.OnLowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Close]", Storage="_Close", DbType="Float")]
+		public System.Nullable<double> Close
+		{
+			get
+			{
+				return this._Close;
+			}
+			set
+			{
+				if ((this._Close != value))
+				{
+					this.OnCloseChanging(value);
+					this.SendPropertyChanging();
+					this._Close = value;
+					this.SendPropertyChanged("Close");
+					this.OnCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volume", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> Volume
+		{
+			get
+			{
+				return this._Volume;
+			}
+			set
+			{
+				if ((this._Volume != value))
+				{
+					this.OnVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._Volume = value;
+					this.SendPropertyChanged("Volume");
+					this.OnVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MarketCap", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> MarketCap
+		{
+			get
+			{
+				return this._MarketCap;
+			}
+			set
+			{
+				if ((this._MarketCap != value))
+				{
+					this.OnMarketCapChanging(value);
+					this.SendPropertyChanging();
+					this._MarketCap = value;
+					this.SendPropertyChanged("MarketCap");
+					this.OnMarketCapChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.Prices_M15_Latest")]
+	public partial class VA_Prices_M15_Latest : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SID;
+		
+		private System.DateTime _AsOfDate;
+		
+		private System.Nullable<double> _Open;
+		
+		private System.Nullable<double> _High;
+		
+		private System.Nullable<double> _Low;
+		
+		private System.Nullable<double> _Close;
+		
+		private System.Nullable<decimal> _Volume;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+		private System.Nullable<decimal> _MarketCap;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSIDChanging(long value);
+    partial void OnSIDChanged();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnOpenChanging(System.Nullable<double> value);
+    partial void OnOpenChanged();
+    partial void OnHighChanging(System.Nullable<double> value);
+    partial void OnHighChanged();
+    partial void OnLowChanging(System.Nullable<double> value);
+    partial void OnLowChanged();
+    partial void OnCloseChanging(System.Nullable<double> value);
+    partial void OnCloseChanged();
+    partial void OnVolumeChanging(System.Nullable<decimal> value);
+    partial void OnVolumeChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    partial void OnMarketCapChanging(System.Nullable<decimal> value);
+    partial void OnMarketCapChanged();
+    #endregion
+		
+		public VA_Prices_M15_Latest()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this.OnSIDChanging(value);
+					this.SendPropertyChanging();
+					this._SID = value;
+					this.SendPropertyChanged("SID");
+					this.OnSIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Open]", Storage="_Open", DbType="Float")]
+		public System.Nullable<double> Open
+		{
+			get
+			{
+				return this._Open;
+			}
+			set
+			{
+				if ((this._Open != value))
+				{
+					this.OnOpenChanging(value);
+					this.SendPropertyChanging();
+					this._Open = value;
+					this.SendPropertyChanged("Open");
+					this.OnOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_High", DbType="Float")]
+		public System.Nullable<double> High
+		{
+			get
+			{
+				return this._High;
+			}
+			set
+			{
+				if ((this._High != value))
+				{
+					this.OnHighChanging(value);
+					this.SendPropertyChanging();
+					this._High = value;
+					this.SendPropertyChanged("High");
+					this.OnHighChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Low", DbType="Float")]
+		public System.Nullable<double> Low
+		{
+			get
+			{
+				return this._Low;
+			}
+			set
+			{
+				if ((this._Low != value))
+				{
+					this.OnLowChanging(value);
+					this.SendPropertyChanging();
+					this._Low = value;
+					this.SendPropertyChanged("Low");
+					this.OnLowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Close]", Storage="_Close", DbType="Float")]
+		public System.Nullable<double> Close
+		{
+			get
+			{
+				return this._Close;
+			}
+			set
+			{
+				if ((this._Close != value))
+				{
+					this.OnCloseChanging(value);
+					this.SendPropertyChanging();
+					this._Close = value;
+					this.SendPropertyChanged("Close");
+					this.OnCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volume", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> Volume
+		{
+			get
+			{
+				return this._Volume;
+			}
+			set
+			{
+				if ((this._Volume != value))
+				{
+					this.OnVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._Volume = value;
+					this.SendPropertyChanged("Volume");
+					this.OnVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MarketCap", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> MarketCap
+		{
+			get
+			{
+				return this._MarketCap;
+			}
+			set
+			{
+				if ((this._MarketCap != value))
+				{
+					this.OnMarketCapChanging(value);
+					this.SendPropertyChanging();
+					this._MarketCap = value;
+					this.SendPropertyChanged("MarketCap");
+					this.OnMarketCapChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.Prices_M30_Latest")]
+	public partial class VA_Prices_M30_Latest : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SID;
+		
+		private System.DateTime _AsOfDate;
+		
+		private System.Nullable<double> _Open;
+		
+		private System.Nullable<double> _High;
+		
+		private System.Nullable<double> _Low;
+		
+		private System.Nullable<double> _Close;
+		
+		private System.Nullable<decimal> _Volume;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+		private System.Nullable<decimal> _MarketCap;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSIDChanging(long value);
+    partial void OnSIDChanged();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnOpenChanging(System.Nullable<double> value);
+    partial void OnOpenChanged();
+    partial void OnHighChanging(System.Nullable<double> value);
+    partial void OnHighChanged();
+    partial void OnLowChanging(System.Nullable<double> value);
+    partial void OnLowChanged();
+    partial void OnCloseChanging(System.Nullable<double> value);
+    partial void OnCloseChanged();
+    partial void OnVolumeChanging(System.Nullable<decimal> value);
+    partial void OnVolumeChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    partial void OnMarketCapChanging(System.Nullable<decimal> value);
+    partial void OnMarketCapChanged();
+    #endregion
+		
+		public VA_Prices_M30_Latest()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this.OnSIDChanging(value);
+					this.SendPropertyChanging();
+					this._SID = value;
+					this.SendPropertyChanged("SID");
+					this.OnSIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Open]", Storage="_Open", DbType="Float")]
+		public System.Nullable<double> Open
+		{
+			get
+			{
+				return this._Open;
+			}
+			set
+			{
+				if ((this._Open != value))
+				{
+					this.OnOpenChanging(value);
+					this.SendPropertyChanging();
+					this._Open = value;
+					this.SendPropertyChanged("Open");
+					this.OnOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_High", DbType="Float")]
+		public System.Nullable<double> High
+		{
+			get
+			{
+				return this._High;
+			}
+			set
+			{
+				if ((this._High != value))
+				{
+					this.OnHighChanging(value);
+					this.SendPropertyChanging();
+					this._High = value;
+					this.SendPropertyChanged("High");
+					this.OnHighChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Low", DbType="Float")]
+		public System.Nullable<double> Low
+		{
+			get
+			{
+				return this._Low;
+			}
+			set
+			{
+				if ((this._Low != value))
+				{
+					this.OnLowChanging(value);
+					this.SendPropertyChanging();
+					this._Low = value;
+					this.SendPropertyChanged("Low");
+					this.OnLowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Close]", Storage="_Close", DbType="Float")]
+		public System.Nullable<double> Close
+		{
+			get
+			{
+				return this._Close;
+			}
+			set
+			{
+				if ((this._Close != value))
+				{
+					this.OnCloseChanging(value);
+					this.SendPropertyChanging();
+					this._Close = value;
+					this.SendPropertyChanged("Close");
+					this.OnCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volume", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> Volume
+		{
+			get
+			{
+				return this._Volume;
+			}
+			set
+			{
+				if ((this._Volume != value))
+				{
+					this.OnVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._Volume = value;
+					this.SendPropertyChanged("Volume");
+					this.OnVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MarketCap", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> MarketCap
+		{
+			get
+			{
+				return this._MarketCap;
+			}
+			set
+			{
+				if ((this._MarketCap != value))
+				{
+					this.OnMarketCapChanging(value);
+					this.SendPropertyChanging();
+					this._MarketCap = value;
+					this.SendPropertyChanged("MarketCap");
+					this.OnMarketCapChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.Prices_M5_Latest")]
+	public partial class VA_Prices_M5_Latest : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SID;
+		
+		private System.DateTime _AsOfDate;
+		
+		private System.Nullable<double> _Open;
+		
+		private System.Nullable<double> _High;
+		
+		private System.Nullable<double> _Low;
+		
+		private System.Nullable<double> _Close;
+		
+		private System.Nullable<decimal> _Volume;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+		private System.Nullable<decimal> _MarketCap;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSIDChanging(long value);
+    partial void OnSIDChanged();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnOpenChanging(System.Nullable<double> value);
+    partial void OnOpenChanged();
+    partial void OnHighChanging(System.Nullable<double> value);
+    partial void OnHighChanged();
+    partial void OnLowChanging(System.Nullable<double> value);
+    partial void OnLowChanged();
+    partial void OnCloseChanging(System.Nullable<double> value);
+    partial void OnCloseChanged();
+    partial void OnVolumeChanging(System.Nullable<decimal> value);
+    partial void OnVolumeChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    partial void OnMarketCapChanging(System.Nullable<decimal> value);
+    partial void OnMarketCapChanged();
+    #endregion
+		
+		public VA_Prices_M5_Latest()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this.OnSIDChanging(value);
+					this.SendPropertyChanging();
+					this._SID = value;
+					this.SendPropertyChanged("SID");
+					this.OnSIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Open]", Storage="_Open", DbType="Float")]
+		public System.Nullable<double> Open
+		{
+			get
+			{
+				return this._Open;
+			}
+			set
+			{
+				if ((this._Open != value))
+				{
+					this.OnOpenChanging(value);
+					this.SendPropertyChanging();
+					this._Open = value;
+					this.SendPropertyChanged("Open");
+					this.OnOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_High", DbType="Float")]
+		public System.Nullable<double> High
+		{
+			get
+			{
+				return this._High;
+			}
+			set
+			{
+				if ((this._High != value))
+				{
+					this.OnHighChanging(value);
+					this.SendPropertyChanging();
+					this._High = value;
+					this.SendPropertyChanged("High");
+					this.OnHighChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Low", DbType="Float")]
+		public System.Nullable<double> Low
+		{
+			get
+			{
+				return this._Low;
+			}
+			set
+			{
+				if ((this._Low != value))
+				{
+					this.OnLowChanging(value);
+					this.SendPropertyChanging();
+					this._Low = value;
+					this.SendPropertyChanged("Low");
+					this.OnLowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Close]", Storage="_Close", DbType="Float")]
+		public System.Nullable<double> Close
+		{
+			get
+			{
+				return this._Close;
+			}
+			set
+			{
+				if ((this._Close != value))
+				{
+					this.OnCloseChanging(value);
+					this.SendPropertyChanging();
+					this._Close = value;
+					this.SendPropertyChanged("Close");
+					this.OnCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volume", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> Volume
+		{
+			get
+			{
+				return this._Volume;
+			}
+			set
+			{
+				if ((this._Volume != value))
+				{
+					this.OnVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._Volume = value;
+					this.SendPropertyChanged("Volume");
+					this.OnVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MarketCap", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> MarketCap
+		{
+			get
+			{
+				return this._MarketCap;
+			}
+			set
+			{
+				if ((this._MarketCap != value))
+				{
+					this.OnMarketCapChanging(value);
+					this.SendPropertyChanging();
+					this._MarketCap = value;
+					this.SendPropertyChanged("MarketCap");
+					this.OnMarketCapChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.Prices_MN_Latest")]
+	public partial class VA_Prices_MN_Latest : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SID;
+		
+		private System.DateTime _AsOfDate;
+		
+		private System.Nullable<double> _Open;
+		
+		private System.Nullable<double> _High;
+		
+		private System.Nullable<double> _Low;
+		
+		private System.Nullable<double> _Close;
+		
+		private System.Nullable<decimal> _Volume;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+		private System.Nullable<decimal> _MarketCap;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSIDChanging(long value);
+    partial void OnSIDChanged();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnOpenChanging(System.Nullable<double> value);
+    partial void OnOpenChanged();
+    partial void OnHighChanging(System.Nullable<double> value);
+    partial void OnHighChanged();
+    partial void OnLowChanging(System.Nullable<double> value);
+    partial void OnLowChanged();
+    partial void OnCloseChanging(System.Nullable<double> value);
+    partial void OnCloseChanged();
+    partial void OnVolumeChanging(System.Nullable<decimal> value);
+    partial void OnVolumeChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    partial void OnMarketCapChanging(System.Nullable<decimal> value);
+    partial void OnMarketCapChanged();
+    #endregion
+		
+		public VA_Prices_MN_Latest()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this.OnSIDChanging(value);
+					this.SendPropertyChanging();
+					this._SID = value;
+					this.SendPropertyChanged("SID");
+					this.OnSIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Open]", Storage="_Open", DbType="Float")]
+		public System.Nullable<double> Open
+		{
+			get
+			{
+				return this._Open;
+			}
+			set
+			{
+				if ((this._Open != value))
+				{
+					this.OnOpenChanging(value);
+					this.SendPropertyChanging();
+					this._Open = value;
+					this.SendPropertyChanged("Open");
+					this.OnOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_High", DbType="Float")]
+		public System.Nullable<double> High
+		{
+			get
+			{
+				return this._High;
+			}
+			set
+			{
+				if ((this._High != value))
+				{
+					this.OnHighChanging(value);
+					this.SendPropertyChanging();
+					this._High = value;
+					this.SendPropertyChanged("High");
+					this.OnHighChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Low", DbType="Float")]
+		public System.Nullable<double> Low
+		{
+			get
+			{
+				return this._Low;
+			}
+			set
+			{
+				if ((this._Low != value))
+				{
+					this.OnLowChanging(value);
+					this.SendPropertyChanging();
+					this._Low = value;
+					this.SendPropertyChanged("Low");
+					this.OnLowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Close]", Storage="_Close", DbType="Float")]
+		public System.Nullable<double> Close
+		{
+			get
+			{
+				return this._Close;
+			}
+			set
+			{
+				if ((this._Close != value))
+				{
+					this.OnCloseChanging(value);
+					this.SendPropertyChanging();
+					this._Close = value;
+					this.SendPropertyChanged("Close");
+					this.OnCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volume", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> Volume
+		{
+			get
+			{
+				return this._Volume;
+			}
+			set
+			{
+				if ((this._Volume != value))
+				{
+					this.OnVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._Volume = value;
+					this.SendPropertyChanged("Volume");
+					this.OnVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MarketCap", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> MarketCap
+		{
+			get
+			{
+				return this._MarketCap;
+			}
+			set
+			{
+				if ((this._MarketCap != value))
+				{
+					this.OnMarketCapChanging(value);
+					this.SendPropertyChanging();
+					this._MarketCap = value;
+					this.SendPropertyChanged("MarketCap");
+					this.OnMarketCapChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.Prices_W1_Latest")]
+	public partial class VA_Prices_W1_Latest : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SID;
+		
+		private System.DateTime _AsOfDate;
+		
+		private System.Nullable<double> _Open;
+		
+		private System.Nullable<double> _High;
+		
+		private System.Nullable<double> _Low;
+		
+		private System.Nullable<double> _Close;
+		
+		private System.Nullable<decimal> _Volume;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+		private System.Nullable<decimal> _MarketCap;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSIDChanging(long value);
+    partial void OnSIDChanged();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnOpenChanging(System.Nullable<double> value);
+    partial void OnOpenChanged();
+    partial void OnHighChanging(System.Nullable<double> value);
+    partial void OnHighChanged();
+    partial void OnLowChanging(System.Nullable<double> value);
+    partial void OnLowChanged();
+    partial void OnCloseChanging(System.Nullable<double> value);
+    partial void OnCloseChanged();
+    partial void OnVolumeChanging(System.Nullable<decimal> value);
+    partial void OnVolumeChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    partial void OnMarketCapChanging(System.Nullable<decimal> value);
+    partial void OnMarketCapChanged();
+    #endregion
+		
+		public VA_Prices_W1_Latest()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SID", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long SID
+		{
+			get
+			{
+				return this._SID;
+			}
+			set
+			{
+				if ((this._SID != value))
+				{
+					this.OnSIDChanging(value);
+					this.SendPropertyChanging();
+					this._SID = value;
+					this.SendPropertyChanged("SID");
+					this.OnSIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="DateTime NOT NULL")]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Open]", Storage="_Open", DbType="Float")]
+		public System.Nullable<double> Open
+		{
+			get
+			{
+				return this._Open;
+			}
+			set
+			{
+				if ((this._Open != value))
+				{
+					this.OnOpenChanging(value);
+					this.SendPropertyChanging();
+					this._Open = value;
+					this.SendPropertyChanged("Open");
+					this.OnOpenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_High", DbType="Float")]
+		public System.Nullable<double> High
+		{
+			get
+			{
+				return this._High;
+			}
+			set
+			{
+				if ((this._High != value))
+				{
+					this.OnHighChanging(value);
+					this.SendPropertyChanging();
+					this._High = value;
+					this.SendPropertyChanged("High");
+					this.OnHighChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Low", DbType="Float")]
+		public System.Nullable<double> Low
+		{
+			get
+			{
+				return this._Low;
+			}
+			set
+			{
+				if ((this._Low != value))
+				{
+					this.OnLowChanging(value);
+					this.SendPropertyChanging();
+					this._Low = value;
+					this.SendPropertyChanged("Low");
+					this.OnLowChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Close]", Storage="_Close", DbType="Float")]
+		public System.Nullable<double> Close
+		{
+			get
+			{
+				return this._Close;
+			}
+			set
+			{
+				if ((this._Close != value))
+				{
+					this.OnCloseChanging(value);
+					this.SendPropertyChanging();
+					this._Close = value;
+					this.SendPropertyChanged("Close");
+					this.OnCloseChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Volume", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> Volume
+		{
+			get
+			{
+				return this._Volume;
+			}
+			set
+			{
+				if ((this._Volume != value))
+				{
+					this.OnVolumeChanging(value);
+					this.SendPropertyChanging();
+					this._Volume = value;
+					this.SendPropertyChanged("Volume");
+					this.OnVolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MarketCap", DbType="Decimal(18,7)")]
+		public System.Nullable<decimal> MarketCap
+		{
+			get
+			{
+				return this._MarketCap;
+			}
+			set
+			{
+				if ((this._MarketCap != value))
+				{
+					this.OnMarketCapChanging(value);
+					this.SendPropertyChanging();
+					this._MarketCap = value;
+					this.SendPropertyChanged("MarketCap");
+					this.OnMarketCapChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

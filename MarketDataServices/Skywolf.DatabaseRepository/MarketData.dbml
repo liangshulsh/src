@@ -177,4 +177,151 @@
       <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="av.AdjPrices_D1_Latest" Member="VA_AdjPrices_D1_Latests">
+    <Type Name="VA_AdjPrices_D1_Latest">
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Open]" Member="Open" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="High" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Low" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+      <Column Name="AdjClose" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DividendAmount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="SplitCoefficient" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="av.AdjPrices_MN_Latest" Member="VA_AdjPrices_MN_Latests">
+    <Type Name="VA_AdjPrices_MN_Latest">
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Open]" Member="Open" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="High" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Low" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+      <Column Name="AdjClose" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DividendAmount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="av.AdjPrices_W1_Latest" Member="VA_AdjPrices_W1_Latests">
+    <Type Name="VA_AdjPrices_W1_Latest">
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Open]" Member="Open" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="High" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Low" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+      <Column Name="AdjClose" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DividendAmount" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="av.Prices_D1_Latest" Member="VA_Prices_D1_Latests">
+    <Type Name="VA_Prices_D1_Latest">
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Open]" Member="Open" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="High" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Low" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MarketCap" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="av.Prices_H1_Latest" Member="VA_Prices_H1_Latests">
+    <Type Name="VA_Prices_H1_Latest">
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Open]" Member="Open" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="High" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Low" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MarketCap" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="av.Prices_M1_Latest" Member="VA_Prices_M1_Latests">
+    <Type Name="VA_Prices_M1_Latest">
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Open]" Member="Open" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="High" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Low" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MarketCap" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="av.Prices_M15_Latest" Member="VA_Prices_M15_Latests">
+    <Type Name="VA_Prices_M15_Latest">
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Open]" Member="Open" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="High" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Low" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MarketCap" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="av.Prices_M30_Latest" Member="VA_Prices_M30_Latests">
+    <Type Name="VA_Prices_M30_Latest">
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Open]" Member="Open" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="High" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Low" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MarketCap" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="av.Prices_M5_Latest" Member="VA_Prices_M5_Latests">
+    <Type Name="VA_Prices_M5_Latest">
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Open]" Member="Open" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="High" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Low" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MarketCap" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="av.Prices_MN_Latest" Member="VA_Prices_MN_Latests">
+    <Type Name="VA_Prices_MN_Latest">
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Open]" Member="Open" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="High" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Low" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MarketCap" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="av.Prices_W1_Latest" Member="VA_Prices_W1_Latests">
+    <Type Name="VA_Prices_W1_Latest">
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="[Open]" Member="Open" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="High" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Low" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="[Close]" Member="Close" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Volume" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MarketCap" Type="System.Decimal" DbType="Decimal(18,7)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>
