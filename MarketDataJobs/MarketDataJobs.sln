@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlphaVantageMarketDataAuto"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationHelper", "AutomationHelper\AutomationHelper.csproj", "{F2488ED3-6838-43A5-A469-9741D9E251D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPAddressDetectAuto", "IPAddressDetectAuto\IPAddressDetectAuto.csproj", "{4855AD89-2102-4D0C-A852-598E8269B895}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F2488ED3-6838-43A5-A469-9741D9E251D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2488ED3-6838-43A5-A469-9741D9E251D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2488ED3-6838-43A5-A469-9741D9E251D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4855AD89-2102-4D0C-A852-598E8269B895}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4855AD89-2102-4D0C-A852-598E8269B895}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4855AD89-2102-4D0C-A852-598E8269B895}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4855AD89-2102-4D0C-A852-598E8269B895}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

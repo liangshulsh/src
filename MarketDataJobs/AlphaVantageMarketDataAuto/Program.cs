@@ -60,14 +60,14 @@ namespace AlphaVantageMarketDataAuto
                     title = string.Format("Alpha Vantage Market Data ({0}) Done", period);
                 }
 
-                Skywolf.Client.Utility.SendReportMail(null, "liangshulsh@hotmail.com", title, string.Empty);
+                Skywolf.Client.Utility.SendReportMail(null, "liangshulsh@126.com", title, string.Empty);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
                 _logger.LogError(ex.StackTrace);
                 
-                Skywolf.Client.Utility.SendReportMail(null, "liangshulsh@hotmail.com",
+                Skywolf.Client.Utility.SendReportMail(null, "liangshulsh@126.com",
                     string.Format("Alpha Vantage Market Data ({0}) Error", period), ex.Message + ex.StackTrace);
             }
             finally
