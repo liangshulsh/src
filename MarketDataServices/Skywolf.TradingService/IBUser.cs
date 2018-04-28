@@ -45,6 +45,11 @@ namespace Skywolf.TradingService
             set { _isConnected = value; }
         }
 
+        public int ClientId
+        {
+            get { return _clientId; }
+        }
+
         private EventWaitHandle _accountSummaryWait = null;
         private object _accountSummaryLockObj = new object();
         private List<AccountSummaryMessage> _accountSummary = new List<AccountSummaryMessage>();

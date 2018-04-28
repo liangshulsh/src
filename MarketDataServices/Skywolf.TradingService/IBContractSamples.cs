@@ -1,4 +1,5 @@
-﻿using Skywolf.IBApi;
+﻿using Trading = Skywolf.Contracts.DataContracts.Trading;
+using Skywolf.IBApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,30 @@ namespace Skywolf.TradingService
 {
     public class IBContractSamples
     {
+        public static Contract GetContract(Trading.SimpleOrder order)
+        {
+            Contract contract = null;
+            Trading.SimpleMarketOrder marketOrder = order as Trading.SimpleMarketOrder;
+            if (marketOrder != null)
+            {
+                switch (order.SecurityType)
+                {
+                    case Trading.TradeSecurityType.Stock:
+                        contract = USStockAtSmart();
+                        contract.Symbol = marketOrder.Symbol;
+                        contract.Currency = marketOrder.Currency;
+                        break;
+                    case Trading.TradeSecurityType.FX:
+                        contract = EurGbpFx();
+                        contract.Symbol = marketOrder.Symbol;
+                        contract.Currency = marketOrder.Currency;
+                        break;
+                }
+            }
+
+            return contract;
+        }
+
         /*
          * Usually, the easiest way to define a Stock/CASH contract is through these four attributes.
          */

@@ -213,7 +213,7 @@ namespace Skywolf.Client
                 if (!string.IsNullOrEmpty(emailBody))
                     smtpMsg.Body = emailBody;
 
-                smtpMsg.IsBodyHtml = true;
+                smtpMsg.IsBodyHtml = false;
 
                 if (reportFiles != null)
                 {

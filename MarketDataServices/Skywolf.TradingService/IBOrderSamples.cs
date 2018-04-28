@@ -1,4 +1,5 @@
-﻿using Skywolf.IBApi;
+﻿using Trading = Skywolf.Contracts.DataContracts.Trading;
+using Skywolf.IBApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,41 @@ namespace Skywolf.TradingService
 {
     public class IBOrderSamples
     {
+        public static Order GetOrder(Trading.SimpleOrder simpleOrder)
+        {
+            Order order = null;
+            Trading.SimpleMarketOrder marketOrder = simpleOrder as Trading.SimpleMarketOrder;
+            if (marketOrder != null)
+            {
+                string action = "BUY";
+                if (marketOrder.Action == Trading.TradeAction.BUY)
+                {
+                    action = "BUY";
+                }
+                else if (marketOrder.Action == Trading.TradeAction.SELL)
+                {
+                    action = "SELL";
+                }
+            
+                if (simpleOrder is Trading.SimpleLimitOrder)
+                {
+                    order = LimitOrder(action, marketOrder.Quantity, (simpleOrder as Trading.SimpleLimitOrder).LimitPrice);
+                }
+                else if (simpleOrder is Trading.SimpleStopOrder)
+                {
+                    order = Stop(action, marketOrder.Quantity, (simpleOrder as Trading.SimpleStopOrder).StopPrice);
+                }
+                else
+                {
+                    order = MarketOrder(action, marketOrder.Quantity);
+                }
+
+                order.OrderId = simpleOrder.OrderId;
+            }
+
+            return order;
+        }
+
         /// <summary>
         /// An auction order is entered into the electronic trading system during the pre-market opening period for execution at the 
         /// Calculated Opening Price (COP). If your order is not filled on the open, the order is re-submitted as a limit order with 

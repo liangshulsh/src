@@ -8,19 +8,18 @@ using System.Threading.Tasks;
 namespace Skywolf.Contracts.DataContracts.Trading
 {
     [DataContract(Namespace = Constants.NAMESPACE)]
-    [KnownType(typeof(PositionPortfolio))]
-    public class Position
+    public class PositionPortfolio : Position
     {
         [DataMember]
-        public Contract Contract { get; set; }
+        public double MarketPrice { get; set; }
 
         [DataMember]
-        public string Account { get; set; }
+        public double MarketValue { get; set; }
 
         [DataMember]
-        public double Quantity { get; set; }
+        public double UnrealizedPNL { get; set; }
 
         [DataMember]
-        public double AverageCost { get; set; }
+        public double RealizedPNL { get; set; }
     }
 }

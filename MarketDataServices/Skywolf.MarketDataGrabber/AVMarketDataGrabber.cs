@@ -40,7 +40,7 @@ namespace Skywolf.MarketDataGrabber
         const string AV_FIELD_DIVIDEND_AMOUNT = "dividend_amount";
         const string AV_FIELD_SPLIT_COEFFICIENT = "split_coefficient";
         const string AV_FIELD_ADJUSTED_CLOSE = "adjusted_close";
-        const string AV_FIELD_MARKET_CAP = "market cap";
+        const string AV_FIELD_MARKET_CAP = "market_cap";
 
         static string[] AV_FIELD_LIST = new string[] {
             AV_FIELD_SYMBOL,
@@ -88,7 +88,7 @@ namespace Skywolf.MarketDataGrabber
 
         protected static object _AVHttpGetObj = new object();
         protected static DateTime _lastCallingTime = DateTime.MinValue;
-
+        protected static Random _rand = new Random(DateTime.Now.Day);
         public string AVHttpGet(string url)
         {
             lock (_AVHttpGetObj)
@@ -101,11 +101,18 @@ namespace Skywolf.MarketDataGrabber
                 string result = HttpGet(url);
                 _lastCallingTime = DateTime.Now;
 
-                while (!string.IsNullOrEmpty(result) && result.StartsWith("{"))
+                int iCount = 0;
+                while (!string.IsNullOrEmpty(result) && result.StartsWith("{") && iCount < 50)
                 {
-                    Thread.Sleep(5000);
+                    if (result.Contains("Invalid API call."))
+                    {
+                        break;
+                    }
+
+                    Thread.Sleep(5000 + (int)(_rand.NextDouble() * 2000));
                     result = HttpGet(url);
                     _lastCallingTime = DateTime.Now;
+                    iCount++;
                 }
 
                 return result;
@@ -290,6 +297,17 @@ namespace Skywolf.MarketDataGrabber
             if (input == null || string.IsNullOrEmpty(input.Symbol) || dtTimeSeries == null || dtTimeSeries.Rows.Count == 0)
             {
                 return null;
+            }
+
+            if (dtTimeSeries != null && dtTimeSeries.Columns.Count > 0)
+            {
+                foreach (DataColumn col in dtTimeSeries.Columns)
+                {
+                    if (col.ColumnName.Trim().Contains(" "))
+                    {
+                        col.ColumnName = col.ColumnName.Trim().Replace(" ", "_");
+                    }
+                }
             }
 
             TimeSeriesDataOutput result = null;
