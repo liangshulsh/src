@@ -63,10 +63,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Skywolf.MarketDataService\Skywolf.MarketDataService.csproj">
-      <Project>{aa5bd1ca-d9c6-4ce9-8e26-d0bfad33b6e1}</Project>
-      <Name>Skywolf.MarketDataService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Skywolf.Model\Skywolf.Model.csproj">
       <Project>{efaa60dc-dbee-4297-a4c6-75ad8dc65262}</Project>
       <Name>Skywolf.Model</Name>

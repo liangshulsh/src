@@ -30,9 +30,6 @@ namespace Skywolf.DatabaseRepository
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertVA_APIKeyList(VA_APIKeyList instance);
-    partial void UpdateVA_APIKeyList(VA_APIKeyList instance);
-    partial void DeleteVA_APIKeyList(VA_APIKeyList instance);
     partial void InsertVA_Prices_D1(VA_Prices_D1 instance);
     partial void UpdateVA_Prices_D1(VA_Prices_D1 instance);
     partial void DeleteVA_Prices_D1(VA_Prices_D1 instance);
@@ -99,6 +96,9 @@ namespace Skywolf.DatabaseRepository
     partial void InsertVA_Prices_W1_Latest(VA_Prices_W1_Latest instance);
     partial void UpdateVA_Prices_W1_Latest(VA_Prices_W1_Latest instance);
     partial void DeleteVA_Prices_W1_Latest(VA_Prices_W1_Latest instance);
+    partial void InsertVA_APIKeyList(VA_APIKeyList instance);
+    partial void UpdateVA_APIKeyList(VA_APIKeyList instance);
+    partial void DeleteVA_APIKeyList(VA_APIKeyList instance);
     #endregion
 		
 		public MarketDataDataContext() : 
@@ -129,14 +129,6 @@ namespace Skywolf.DatabaseRepository
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<VA_APIKeyList> VA_APIKeyLists
-		{
-			get
-			{
-				return this.GetTable<VA_APIKeyList>();
-			}
 		}
 		
 		public System.Data.Linq.Table<VA_Prices_D1> VA_Prices_D1s
@@ -330,210 +322,12 @@ namespace Skywolf.DatabaseRepository
 				return this.GetTable<VA_Prices_W1_Latest>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.APIKeyList")]
-	public partial class VA_APIKeyList : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _ID;
-		
-		private System.DateTime _EnterTime;
-		
-		private System.Nullable<System.DateTime> _ExpireTime;
-		
-		private string _Key;
-		
-		private bool _Active;
-		
-		private string _Usr;
-		
-		private System.Nullable<System.DateTime> _TS;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(long value);
-    partial void OnIDChanged();
-    partial void OnEnterTimeChanging(System.DateTime value);
-    partial void OnEnterTimeChanged();
-    partial void OnExpireTimeChanging(System.Nullable<System.DateTime> value);
-    partial void OnExpireTimeChanged();
-    partial void OnKeyChanging(string value);
-    partial void OnKeyChanged();
-    partial void OnActiveChanging(bool value);
-    partial void OnActiveChanged();
-    partial void OnUsrChanging(string value);
-    partial void OnUsrChanged();
-    partial void OnTSChanging(System.Nullable<System.DateTime> value);
-    partial void OnTSChanged();
-    #endregion
-		
-		public VA_APIKeyList()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long ID
+		public System.Data.Linq.Table<VA_APIKeyList> VA_APIKeyLists
 		{
 			get
 			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EnterTime", DbType="DateTime NOT NULL")]
-		public System.DateTime EnterTime
-		{
-			get
-			{
-				return this._EnterTime;
-			}
-			set
-			{
-				if ((this._EnterTime != value))
-				{
-					this.OnEnterTimeChanging(value);
-					this.SendPropertyChanging();
-					this._EnterTime = value;
-					this.SendPropertyChanged("EnterTime");
-					this.OnEnterTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpireTime", DbType="DateTime")]
-		public System.Nullable<System.DateTime> ExpireTime
-		{
-			get
-			{
-				return this._ExpireTime;
-			}
-			set
-			{
-				if ((this._ExpireTime != value))
-				{
-					this.OnExpireTimeChanging(value);
-					this.SendPropertyChanging();
-					this._ExpireTime = value;
-					this.SendPropertyChanged("ExpireTime");
-					this.OnExpireTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Key]", Storage="_Key", DbType="VarChar(200) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Key
-		{
-			get
-			{
-				return this._Key;
-			}
-			set
-			{
-				if ((this._Key != value))
-				{
-					this.OnKeyChanging(value);
-					this.SendPropertyChanging();
-					this._Key = value;
-					this.SendPropertyChanged("Key");
-					this.OnKeyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
-		public bool Active
-		{
-			get
-			{
-				return this._Active;
-			}
-			set
-			{
-				if ((this._Active != value))
-				{
-					this.OnActiveChanging(value);
-					this.SendPropertyChanging();
-					this._Active = value;
-					this.SendPropertyChanged("Active");
-					this.OnActiveChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usr", DbType="VarChar(200)")]
-		public string Usr
-		{
-			get
-			{
-				return this._Usr;
-			}
-			set
-			{
-				if ((this._Usr != value))
-				{
-					this.OnUsrChanging(value);
-					this.SendPropertyChanging();
-					this._Usr = value;
-					this.SendPropertyChanged("Usr");
-					this.OnUsrChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
-		public System.Nullable<System.DateTime> TS
-		{
-			get
-			{
-				return this._TS;
-			}
-			set
-			{
-				if ((this._TS != value))
-				{
-					this.OnTSChanging(value);
-					this.SendPropertyChanging();
-					this._TS = value;
-					this.SendPropertyChanged("TS");
-					this.OnTSChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this.GetTable<VA_APIKeyList>();
 			}
 		}
 	}
@@ -6509,6 +6303,236 @@ namespace Skywolf.DatabaseRepository
 					this._MarketCap = value;
 					this.SendPropertyChanged("MarketCap");
 					this.OnMarketCapChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="av.APIKeyList")]
+	public partial class VA_APIKeyList : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _ID;
+		
+		private System.DateTime _EnterTime;
+		
+		private System.Nullable<System.DateTime> _ExpireTime;
+		
+		private string _Key;
+		
+		private bool _Active;
+		
+		private string _Usr;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+		private System.Nullable<int> _BatchId;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(long value);
+    partial void OnIDChanged();
+    partial void OnEnterTimeChanging(System.DateTime value);
+    partial void OnEnterTimeChanged();
+    partial void OnExpireTimeChanging(System.Nullable<System.DateTime> value);
+    partial void OnExpireTimeChanged();
+    partial void OnKeyChanging(string value);
+    partial void OnKeyChanged();
+    partial void OnActiveChanging(bool value);
+    partial void OnActiveChanged();
+    partial void OnUsrChanging(string value);
+    partial void OnUsrChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    partial void OnBatchIdChanging(System.Nullable<int> value);
+    partial void OnBatchIdChanged();
+    #endregion
+		
+		public VA_APIKeyList()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EnterTime", DbType="DateTime NOT NULL")]
+		public System.DateTime EnterTime
+		{
+			get
+			{
+				return this._EnterTime;
+			}
+			set
+			{
+				if ((this._EnterTime != value))
+				{
+					this.OnEnterTimeChanging(value);
+					this.SendPropertyChanging();
+					this._EnterTime = value;
+					this.SendPropertyChanged("EnterTime");
+					this.OnEnterTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExpireTime", DbType="DateTime")]
+		public System.Nullable<System.DateTime> ExpireTime
+		{
+			get
+			{
+				return this._ExpireTime;
+			}
+			set
+			{
+				if ((this._ExpireTime != value))
+				{
+					this.OnExpireTimeChanging(value);
+					this.SendPropertyChanging();
+					this._ExpireTime = value;
+					this.SendPropertyChanged("ExpireTime");
+					this.OnExpireTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Key]", Storage="_Key", DbType="VarChar(200) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Key
+		{
+			get
+			{
+				return this._Key;
+			}
+			set
+			{
+				if ((this._Key != value))
+				{
+					this.OnKeyChanging(value);
+					this.SendPropertyChanging();
+					this._Key = value;
+					this.SendPropertyChanged("Key");
+					this.OnKeyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Active", DbType="Bit NOT NULL")]
+		public bool Active
+		{
+			get
+			{
+				return this._Active;
+			}
+			set
+			{
+				if ((this._Active != value))
+				{
+					this.OnActiveChanging(value);
+					this.SendPropertyChanging();
+					this._Active = value;
+					this.SendPropertyChanged("Active");
+					this.OnActiveChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usr", DbType="VarChar(200)")]
+		public string Usr
+		{
+			get
+			{
+				return this._Usr;
+			}
+			set
+			{
+				if ((this._Usr != value))
+				{
+					this.OnUsrChanging(value);
+					this.SendPropertyChanging();
+					this._Usr = value;
+					this.SendPropertyChanged("Usr");
+					this.OnUsrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BatchId", DbType="Int")]
+		public System.Nullable<int> BatchId
+		{
+			get
+			{
+				return this._BatchId;
+			}
+			set
+			{
+				if ((this._BatchId != value))
+				{
+					this.OnBatchIdChanging(value);
+					this.SendPropertyChanging();
+					this._BatchId = value;
+					this.SendPropertyChanged("BatchId");
+					this.OnBatchIdChanged();
 				}
 			}
 		}

@@ -13,7 +13,7 @@ namespace Skywolf.TradingService
         public static Contract GetContract(Trading.SimpleOrder order)
         {
             Contract contract = null;
-            Trading.SimpleMarketOrder marketOrder = order as Trading.SimpleMarketOrder;
+            Trading.SimpleOrder marketOrder = order as Trading.SimpleOrder;
             if (marketOrder != null)
             {
                 switch (order.SecurityType)

@@ -20,11 +20,15 @@ namespace AlphaVantageMarketDataAuto
         const string DATASOURCE = "av";
         BarFrequency _period = BarFrequency.None;
         bool _isAdjustedValue = false;
-        
-        public MarketDataHandler(string period, bool isAdjustedValue)
+        int _priorityStart = 0;
+        int _priorityEnd = 0;
+
+        public MarketDataHandler(string period, bool isAdjustedValue, int priorityStart, int priorityEnd)
         {
             _period = ConvertStringToBarFrequency(period);
             _isAdjustedValue = isAdjustedValue;
+            _priorityStart = priorityStart;
+            _priorityEnd = priorityEnd;
         }
 
         public void Update(int iStartFrom = 0)
@@ -116,16 +120,16 @@ namespace AlphaVantageMarketDataAuto
                     {
                         if (StoreHistoryPrices(pricingRule.SID, _period, _isAdjustedValue, output.Data))
                         {
-                            _logger.LogInfo(string.Format("({3}/{4}) Symbol:{0}, SID:{1}, Stored {2} bars", pricingRule.Ticker, pricingRule.SID, output.Data.Count(), idx, totalSymbols));
+                            _logger.LogInfo(string.Format("({3}/{4}) Symbol:{0}, SID:{1}, P:{5}, Stored {2} bars", pricingRule.Ticker, pricingRule.SID, output.Data.Count(), idx, totalSymbols, pricingRule.Priority));
                         }
                         else
                         {
-                            _logger.LogInfo(string.Format("({3}/{4}) Symbol:{0}, SID:{1}, Failed stored {2} bars", pricingRule.Ticker, pricingRule.SID, output.Data.Count(), idx, totalSymbols));
+                            _logger.LogInfo(string.Format("({3}/{4}) Symbol:{0}, SID:{1}, P:{5}, Failed stored {2} bars", pricingRule.Ticker, pricingRule.SID, output.Data.Count(), idx, totalSymbols, pricingRule.Priority));
                         }
                     }
                     else
                     {
-                        _logger.LogInfo(string.Format("({2}/{3}) Symbol:{0}, SID:{1}, Can't retrive data", pricingRule.Ticker, pricingRule.SID, idx, totalSymbols));
+                        _logger.LogInfo(string.Format("({2}/{3}) Symbol:{0}, SID:{1}, P:{4}, Can't retrive data", pricingRule.Ticker, pricingRule.SID, idx, totalSymbols, pricingRule.Priority));
                     }
                     
                 }
@@ -136,10 +140,33 @@ namespace AlphaVantageMarketDataAuto
             };
         }
 
+        public EndpointAddress BuildMarketDataSkywolfHttpEndpointAddress()
+        {
+            string key = "MarketDataDSkywolfHttp";
+
+            switch (_period)
+            {
+                case BarFrequency.Day1:
+                    key = "MarketDataDSkywolfHttp";
+                    break;
+                case BarFrequency.Week1:
+                    key = "MarketDataWSkywolfHttp";
+                    break;
+                case BarFrequency.Month1:
+                    key = "MarketDataMNSkywolfHttp";
+                    break;
+                default:
+                    key = "MarketDataMSkywolfHttp";
+                    break;
+            }
+
+            return Utility.BuildEndpointAddress(key);
+        }
+
         public IDictionary<string, long> GetNameToSIDMap(string[] symbols)
         {
             BasicHttpBinding binding = Utility.BuildBasicHttpBinding();
-            EndpointAddress endpoint = Utility.BuildEndpointAddress("MarketDataSkywolfHttp");
+            EndpointAddress endpoint = BuildMarketDataSkywolfHttpEndpointAddress();
 
             using (SkywolfClient<IMarketDataService> skywolf = new SkywolfClient<IMarketDataService>(binding, endpoint))
             {
@@ -150,18 +177,27 @@ namespace AlphaVantageMarketDataAuto
         public PricingRule[] GetPricingRules()
         {
             BasicHttpBinding binding = Utility.BuildBasicHttpBinding();
-            EndpointAddress endpoint = Utility.BuildEndpointAddress("MarketDataSkywolfHttp");
+            EndpointAddress endpoint = BuildMarketDataSkywolfHttpEndpointAddress();
 
             using (SkywolfClient<IMarketDataService> skywolf = new SkywolfClient<IMarketDataService>(binding, endpoint))
             {
-                return skywolf.Instance.GetPricingRule(true, "yahoo");
+                PricingRule[] pricingRules = skywolf.Instance.GetPricingRule(true, "yahoo");
+                if (pricingRules != null && pricingRules.Count() > 0)
+                {
+                    return (from p in pricingRules
+                            where p.Priority >= _priorityStart && p.Priority <= _priorityEnd
+                            orderby p.Priority descending, p.SID ascending
+                            select p).ToArray();
+                }
             }
+
+            return null;
         }
 
         public string[] GetAPIKeys()
         {
             BasicHttpBinding binding = Utility.BuildBasicHttpBinding();
-            EndpointAddress endpoint = Utility.BuildEndpointAddress("MarketDataSkywolfHttp");
+            EndpointAddress endpoint = BuildMarketDataSkywolfHttpEndpointAddress();
 
             using (SkywolfClient<IMarketDataService> skywolf = new SkywolfClient<IMarketDataService>(binding, endpoint))
             {
@@ -172,7 +208,7 @@ namespace AlphaVantageMarketDataAuto
         public TimeSeriesDataOutput RetrieveStockTimeSeriesPrices(string symbol, BarFrequency period, bool isAjustedValue, long outputCount)
         {
             BasicHttpBinding binding = Utility.BuildBasicHttpBinding();
-            EndpointAddress endpoint = Utility.BuildEndpointAddress("MarketDataSkywolfHttp");
+            EndpointAddress endpoint = BuildMarketDataSkywolfHttpEndpointAddress();
 
             using (SkywolfClient<IMarketDataService> skywolf = new SkywolfClient<IMarketDataService>(binding, endpoint))
             {
@@ -189,7 +225,7 @@ namespace AlphaVantageMarketDataAuto
         public CryptoTimeSeriesDataOutput RetrieveCryptoTimeSeriesPrices(string symbol, string market, BarFrequency period, bool isAjustedValue, long outputCount)
         {
             BasicHttpBinding binding = Utility.BuildBasicHttpBinding();
-            EndpointAddress endpoint = Utility.BuildEndpointAddress("MarketDataSkywolfHttp");
+            EndpointAddress endpoint = BuildMarketDataSkywolfHttpEndpointAddress();
 
             using (SkywolfClient<IMarketDataService> skywolf = new SkywolfClient<IMarketDataService>(binding, endpoint))
             {
@@ -207,7 +243,7 @@ namespace AlphaVantageMarketDataAuto
         public bool StoreHistoryPrices(long SID, BarFrequency period, bool isAdjustedValue, Bar[] bars)
         {
             BasicHttpBinding binding = Utility.BuildBasicHttpBinding();
-            EndpointAddress endpoint = Utility.BuildEndpointAddress("MarketDataSkywolfHttp");
+            EndpointAddress endpoint = BuildMarketDataSkywolfHttpEndpointAddress();
 
             using (SkywolfClient<IMarketDataService> skywolf = new SkywolfClient<IMarketDataService>(binding, endpoint))
             {
@@ -224,7 +260,7 @@ namespace AlphaVantageMarketDataAuto
                 try
                 {
                     BasicHttpBinding binding = Utility.BuildBasicHttpBinding();
-                    EndpointAddress endpoint = Utility.BuildEndpointAddress("MarketDataSkywolfHttp");
+                    EndpointAddress endpoint = BuildMarketDataSkywolfHttpEndpointAddress();
 
                     using (SkywolfClient<IMarketDataService> skywolf = new SkywolfClient<IMarketDataService>(binding, endpoint))
                     {
@@ -259,7 +295,7 @@ namespace AlphaVantageMarketDataAuto
         public IDictionary<string, CryptoBar> GetLatestCryptoHistoryPrices(string[] symbols, string market, BarFrequency period)
         {
             BasicHttpBinding binding = Utility.BuildBasicHttpBinding();
-            EndpointAddress endpoint = Utility.BuildEndpointAddress("MarketDataSkywolfHttp");
+            EndpointAddress endpoint = BuildMarketDataSkywolfHttpEndpointAddress();
 
             using (SkywolfClient<IMarketDataService> skywolf = new SkywolfClient<IMarketDataService>(binding, endpoint))
             {

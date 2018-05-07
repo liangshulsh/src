@@ -13,7 +13,7 @@ namespace Skywolf.TradingService
         public static Order GetOrder(Trading.SimpleOrder simpleOrder)
         {
             Order order = null;
-            Trading.SimpleMarketOrder marketOrder = simpleOrder as Trading.SimpleMarketOrder;
+            Trading.SimpleOrder marketOrder = simpleOrder as Trading.SimpleOrder;
             if (marketOrder != null)
             {
                 string action = "BUY";

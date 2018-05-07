@@ -12,6 +12,7 @@ using Skywolf.MarketDataGrabber;
 using Skywolf.DatabaseRepository;
 using System.Collections.Generic;
 using Skywolf.Contracts.DataContracts.Instrument;
+using System.Configuration;
 
 namespace Skywolf.MarketDataService
 {
@@ -20,11 +21,17 @@ namespace Skywolf.MarketDataService
     {
         public const string DATASOURCE_ALPHAVANTAGE = "av";
         public const string DATASOURCE_DEFAULT = "av";
-
+        private static int _AVKeyBatchId = 1;
         private static ILog _Logger;
         protected static ConcurrentDictionary<string, IMarketDataGrabber> _dataGrabber = new ConcurrentDictionary<string, IMarketDataGrabber>();
         static MarketDataService()
         {
+            string AVKeyBatchId = ConfigurationManager.AppSettings["AVKeyBatchId"];
+            if (!string.IsNullOrWhiteSpace(AVKeyBatchId))
+            {
+                _AVKeyBatchId = Convert.ToInt32(AVKeyBatchId);
+            }
+
             _Logger = LogManager.GetLogger(typeof(MarketDataService));
             InitDataSource();
         }
@@ -34,7 +41,7 @@ namespace Skywolf.MarketDataService
             try
             {
                 _dataGrabber[DATASOURCE_ALPHAVANTAGE] = new AVMarketDataGrabber();
-                new AVMarketDataGrabber().UpdateAPIKeys(new MarketDataDatabase().VA_GetAvailableAPIKey());
+                new AVMarketDataGrabber().UpdateAPIKeys(new MarketDataDatabase().VA_GetAvailableAPIKey(_AVKeyBatchId));
             }
             catch (Exception ex)
             {
@@ -299,7 +306,7 @@ namespace Skywolf.MarketDataService
                 if (apiKeys != null && apiKeys.Length > 0)
                     new AVMarketDataGrabber().UpdateAPIKeys(apiKeys);
                 else
-                    new AVMarketDataGrabber().UpdateAPIKeys(new MarketDataDatabase().VA_GetAvailableAPIKey());
+                    new AVMarketDataGrabber().UpdateAPIKeys(new MarketDataDatabase().VA_GetAvailableAPIKey(_AVKeyBatchId));
             }
             catch (Exception ex)
             {
@@ -312,7 +319,7 @@ namespace Skywolf.MarketDataService
         {
             try
             {
-                return new MarketDataDatabase().VA_GetAvailableAPIKey();
+                return new MarketDataDatabase().VA_GetAvailableAPIKey(_AVKeyBatchId);
             }
             catch (Exception ex)
             {

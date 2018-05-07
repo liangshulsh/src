@@ -34,6 +34,7 @@
       <HintPath>..\ExternalLib\log4net-2.0.8\4.5\release\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />

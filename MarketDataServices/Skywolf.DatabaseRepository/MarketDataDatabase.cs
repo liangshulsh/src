@@ -8,6 +8,7 @@ using Skywolf.Contracts.DataContracts.Instrument;
 using System.Collections.Concurrent;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Skywolf.DatabaseRepository
 {
@@ -39,12 +40,12 @@ namespace Skywolf.DatabaseRepository
             }
         }
 
-        public string[] VA_GetAvailableAPIKey()
+        public string[] VA_GetAvailableAPIKey(int batchId)
         {
             using (MarketDataDataContext marketData = new MarketDataDataContext())
             {
                 return (from p in marketData.VA_APIKeyLists
-                        where p.Active
+                        where p.Active && p.BatchId == batchId
                         select p.Key).ToArray();
             }
         }

@@ -60,7 +60,7 @@ namespace Skywolf.Contracts.Services.Restful
         string GetAllTrades(string username);
 
         [OperationContract]
-        [WebGet(UriTemplate = "filtertrades?username={username}&clientid={clientid}&acctcode={acctcode}&symbol={symbol}&sectype={sectype}&exchange={exchange}&side={side}")]
+        [WebGet(UriTemplate = "filtertrades?username={username}&clientid={clientid}&acctcode={acctcode}&symbol={symbol}&sectype={sectype}&time={time}&exchange={exchange}&side={side}")]
         string FilterTrades(string username, string clientid, string acctcode, string symbol, string sectype, string time, string exchange, string side);
 
         [OperationContract]

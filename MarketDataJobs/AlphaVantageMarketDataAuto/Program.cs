@@ -31,21 +31,39 @@ namespace AlphaVantageMarketDataAuto
             string period = AutomationHelper.AutomationJob.GetArgument("period");
             string adjustedvalue = AutomationHelper.AutomationJob.GetArgument("adjustedvalue");
             string startFrom = AutomationHelper.AutomationJob.GetArgument("StartFrom");
-            string marketDataUrl = AutomationHelper.AutomationJob.GetArgument("MarketDataSkywolfHttp");
+            string marketDataDUrl = AutomationHelper.AutomationJob.GetArgument("MarketDataDSkywolfHttp");
+            string marketDataMUrl = AutomationHelper.AutomationJob.GetArgument("MarketDataMSkywolfHttp");
+            string marketDataWUrl = AutomationHelper.AutomationJob.GetArgument("MarketDataWSkywolfHttp");
+            string marketDataMNUrl = AutomationHelper.AutomationJob.GetArgument("MarketDataMNSkywolfHttp");
+            string priorityStart = AutomationHelper.AutomationJob.GetArgument("PriorityStart");
+            string priorityEnd = AutomationHelper.AutomationJob.GetArgument("PriorityEnd");
+            
             bool isAdjustedValue = false;
 
             bool.TryParse(adjustedvalue, out isAdjustedValue);
             int iStartFrom = 0;
             int.TryParse(startFrom, out iStartFrom);
+
+            int iPriorityStart = 0;
+            int iPriorityEnd = 0;
+
+            int.TryParse(priorityStart, out iPriorityStart);
+            int.TryParse(priorityEnd, out iPriorityEnd);
+
             try
             {
                 _logger.LogInfo("LogFileName:" + logfilename);
                 _logger.LogInfo("Period:" + period);
                 _logger.LogInfo("AdjustedValue:" + isAdjustedValue.ToString());
                 _logger.LogInfo("StartFrom:" + iStartFrom);
-                _logger.LogInfo("MarketDataUrl:" + marketDataUrl);
+                _logger.LogInfo("PriorityStart:" + iPriorityStart);
+                _logger.LogInfo("PriorityEnd:" + iPriorityEnd);
+                _logger.LogInfo("MarketDataDUrl:" + marketDataDUrl);
+                _logger.LogInfo("MarketDataMUrl:" + marketDataMUrl);
+                _logger.LogInfo("MarketDataWUrl:" + marketDataWUrl);
+                _logger.LogInfo("MarketDataMNUrl:" + marketDataMNUrl);
 
-                MarketDataHandler marketData = new MarketDataHandler(period, isAdjustedValue);
+                MarketDataHandler marketData = new MarketDataHandler(period, isAdjustedValue, iPriorityStart, iPriorityEnd);
 
                 marketData.Update(iStartFrom);
 

@@ -556,7 +556,7 @@ namespace MarketDataGrabberTest
         {
             AVMarketDataGrabber av = new AVMarketDataGrabber();
             MarketDataDatabase marketData = new MarketDataDatabase();
-            av.UpdateAPIKeys(marketData.VA_GetAvailableAPIKey());
+            av.UpdateAPIKeys(marketData.VA_GetAvailableAPIKey(1));
             Quote[] quotes = av.StockBatchQuote(_stockList);
             Console.Write(quotes);
             

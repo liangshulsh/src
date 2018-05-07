@@ -40,7 +40,7 @@ namespace Skywolf.TradingService
             }
 
             IBUser user = null;
-            username = username.ToUpper().Trim();
+            username = username.ToLower().Trim();
             if (_IBUserMap.ContainsKey(username))
             {
                 user = _IBUserMap[username];
@@ -63,6 +63,7 @@ namespace Skywolf.TradingService
 
         public void RemoveUser(string username)
         {
+            username = username.ToLower().Trim();
             IBUser user = GetUser(username);
 
             if (user != null)
@@ -75,6 +76,7 @@ namespace Skywolf.TradingService
 
         public IBUser GetUser(string username)
         {
+            username = username.ToLower().Trim();
             if (_IBUserMap.ContainsKey(username))
             {
                 return _IBUserMap[username];

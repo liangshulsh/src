@@ -5,7 +5,7 @@ import datetime
 class Research(DataModelBase):
     """description of class"""
     #ResearchConnectionString = 'DRIVER={SQL Server Native Client 11.0};SERVER=LAPTOP-N2OTR2I1\\SKYWOLFDB;DATABASE=Research;UID=liangshu;PWD=optimus'
-    ResearchConnectionString = 'DRIVER={SQL Server Native Client 11.0};SKYWOLFSERVER1;DATABASE=Research;UID=liangshu;PWD=optimus'
+    ResearchConnectionString = 'DRIVER={SQL Server Native Client 11.0};SERVER=SKYWOLFSERVER1;DATABASE=Research;UID=liangshu;PWD=optimus'
     def __init__(self):
         super(Research, self).__init__(self.ResearchConnectionString)
 

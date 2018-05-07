@@ -186,6 +186,7 @@ namespace Skywolf.TradingService
 
                 if (openOrder.OrderStatus != null)
                 {
+                    order.Status = openOrder.OrderStatus.Status;
                     order.Filled = openOrder.OrderStatus.Filled;
                     order.Remaining = openOrder.OrderStatus.Remaining;
                     order.AvgFillPrice = openOrder.OrderStatus.AvgFillPrice;
@@ -375,11 +376,11 @@ namespace Skywolf.TradingService
                                 System.Reflection.PropertyInfo property = null;
                                 if (dictProperties.TryGetValue(message.Tag, out property))
                                 {
-                                    if (property.GetType() == typeof(string))
+                                    if (property.PropertyType == typeof(string))
                                     {
                                         property.SetValue(accountSummary, message.Value);
                                     }
-                                    else if (property.GetType() == typeof(double))
+                                    else if (property.PropertyType == typeof(double))
                                     {
                                         double val;
                                         if (double.TryParse(message.Value, out val))
@@ -408,96 +409,152 @@ namespace Skywolf.TradingService
 
         public bool UnsubscribeAccountUpdates(string userName)
         {
-            IBUser user = _userManager.GetUser(userName);
-            if (user != null)
+            try
             {
-                return user.UnsubscribeAccountUpdates();
-            }
+                IBUser user = _userManager.GetUser(userName);
+                if (user != null)
+                {
+                    return user.UnsubscribeAccountUpdates();
+                }
 
-            return false;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
         }
 
         public bool SubscribeAccountUpdates(string userName, string account)
         {
-            IBUser user = _userManager.GetUser(userName);
-            if (user != null)
+            try
             {
-                return user.SubscribeAccountUpdates(account);
-            }
+                IBUser user = _userManager.GetUser(userName);
+                if (user != null)
+                {
+                    return user.SubscribeAccountUpdates(account);
+                }
 
-            return false;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
         }
 
         public PositionPortfolio[] GetPortfolios(string userName)
         {
-            IBUser user = _userManager.GetUser(userName);
-            if (user != null)
+            try
             {
-                Messages.UpdatePortfolioMessage[] portfolios = user.GetPortfolios();
-                if (portfolios != null)
+                IBUser user = _userManager.GetUser(userName);
+                if (user != null)
                 {
-                    return portfolios.Select(p => ConvertPositionPortfolio(p)).ToArray();
+                    Messages.UpdatePortfolioMessage[] portfolios = user.GetPortfolios();
+                    if (portfolios != null)
+                    {
+                        return portfolios.Select(p => ConvertPositionPortfolio(p)).ToArray();
+                    }
                 }
-            }
 
-            return null;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
         }
 
         public Trading.Trade[] GetAllTrades(string userName)
         {
-            IBUser user = _userManager.GetUser(userName);
-            if (user != null)
+            try
             {
-                Messages.ExecutionMessage[] executions = user.GetAllExecutions();
-                if (executions != null)
+                IBUser user = _userManager.GetUser(userName);
+                if (user != null)
                 {
-                    return executions.Select(p => ConvertExecutionToTrade(p)).ToArray();
+                    Messages.ExecutionMessage[] executions = user.GetAllExecutions();
+                    if (executions != null)
+                    {
+                        return executions.Select(p => ConvertExecutionToTrade(p)).ToArray();
+                    }
                 }
-            }
 
-            return null;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
         }
 
         public Trading.Trade[] FilterTrades(string userName, TradeFilter tradeFilter)
         {
-            IBUser user = _userManager.GetUser(userName);
-            if (user != null)
+            try
             {
-                ExecutionFilter filter = new ExecutionFilter(tradeFilter.ClientId, tradeFilter.AcctCode, tradeFilter.Time, tradeFilter.Symbol, tradeFilter.SecType, tradeFilter.Exchange, tradeFilter.Side);
-                Messages.ExecutionMessage[] executions = user.FilterExecutions(filter);
-                if (executions != null)
+                IBUser user = _userManager.GetUser(userName);
+                if (user != null)
                 {
-                    return executions.Select(p => ConvertExecutionToTrade(p)).ToArray();
+                    ExecutionFilter filter = new ExecutionFilter(tradeFilter.ClientId, tradeFilter.AcctCode, tradeFilter.Time, tradeFilter.Symbol, tradeFilter.SecType, tradeFilter.Exchange, tradeFilter.Side);
+                    Messages.ExecutionMessage[] executions = user.FilterExecutions(filter);
+                    if (executions != null)
+                    {
+                        return executions.Select(p => ConvertExecutionToTrade(p)).ToArray();
+                    }
                 }
-            }
 
-            return null;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
         }
 
         public string GetAccountUpdateTime(string userName)
         {
-            IBUser user = _userManager.GetUser(userName);
-            if (user != null)
+            try
             {
-                return user.GetAccountUpdateTime();
-            }
+                IBUser user = _userManager.GetUser(userName);
+                if (user != null)
+                {
+                    return user.GetAccountUpdateTime();
+                }
 
-            return string.Empty;
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
         }
 
         public Trading.Position[] GetPositions(string userName)
         {
-            IBUser user = _userManager.GetUser(userName);
-            if (user != null)
+            try
             {
-                Messages.PositionMessage[] positions = user.GetPositions();
-                if (positions != null)
+                IBUser user = _userManager.GetUser(userName);
+                if (user != null)
                 {
-                    return positions.Select(p => ConvertPosition(p)).ToArray();
+                    Messages.PositionMessage[] positions = user.GetPositions();
+                    if (positions != null)
+                    {
+                        return positions.Select(p => ConvertPosition(p)).ToArray();
+                    }
                 }
-            }
 
-            return null;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
         }
     }
 }
