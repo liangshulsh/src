@@ -83,7 +83,7 @@ namespace Skywolf.TradingService
         private EventWaitHandle _contractDetailWait = null;
         private object _contractDetailLockObj = new object();
         private ConcurrentDictionary<string, ContractDetailsMessage> _contractDetails = new ConcurrentDictionary<string, ContractDetailsMessage>();
-
+        private ConcurrentDictionary<int, Tuple<string, string, string>> _orderIdToPortfolio = new ConcurrentDictionary<int, Tuple<string, string, string>>();
         private EReaderMonitorSignal _signal = new EReaderMonitorSignal();
 
         public IBUser(string host, int port, int clientId, ILog log)
@@ -118,7 +118,7 @@ namespace Skywolf.TradingService
 
         #region PlaceOrder
 
-        public int PlaceOrder(Contract contract, Order order)
+        public int PlaceOrder(Contract contract, Order order, string fund = null, string strategy = null, string folder = null)
         {
             lock (_placeOrderLockObj)
             {
@@ -130,8 +130,14 @@ namespace Skywolf.TradingService
                 }
                 else
                 {
+                    if (!string.IsNullOrEmpty(fund) || !string.IsNullOrEmpty(strategy) || !string.IsNullOrEmpty(folder))
+                    {
+                        _orderIdToPortfolio[_ibClient.NextOrderId] = new Tuple<string, string, string>(fund, strategy, folder);
+                    }
+
                     _ibClient.ClientSocket.placeOrder(_ibClient.NextOrderId, contract, order);
                     orderId = _ibClient.NextOrderId;
+
                     _ibClient.NextOrderId++;
                 }
 
@@ -269,6 +275,7 @@ namespace Skywolf.TradingService
                     if (_executions[i].Execution != null && _executions[i].Execution.ExecId == message.CommissionReport.ExecId)
                     {
                         _executions[i].Commission = message.CommissionReport;
+                        UpdateExecutionMessageToDatabase(_executions[i]);
                     }
                 }
 
@@ -279,6 +286,7 @@ namespace Skywolf.TradingService
                         if (execution.Execution != null && execution.Execution.ExecId == message.CommissionReport.ExecId)
                         {
                             execution.Commission = message.CommissionReport;
+                            UpdateExecutionMessageToDatabase(execution);
                         }
                     }
                 }
@@ -328,18 +336,31 @@ namespace Skywolf.TradingService
 
         private void UpdateExecutionMessageToDatabase(ExecutionMessage executionMessage)
         {
-            Task.Factory.StartNew(() =>
+            //Task.Factory.StartNew(() =>
+            //{
+            try
             {
-                try
+                var trade = IBTradingService.ConvertExecutionToTrade(executionMessage);
+                if (executionMessage != null && executionMessage.Execution != null)
                 {
-                    new DatabaseRepository.TradeDatabase().Trade_Upsert(IBTradingService.ConvertExecutionToTrade(executionMessage));
+                    int orderId = executionMessage.Execution.OrderId;
+                    Tuple<string, string, string> portfolio = null;
+                    if (_orderIdToPortfolio.TryGetValue(orderId, out portfolio))
+                    {
+                        trade.Fund = portfolio.Item1;
+                        trade.Strategy = portfolio.Item2;
+                        trade.Folder = portfolio.Item3;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    _log.Error(ex.Message);
-                    _log.Error(ex.StackTrace);
-                }
-            });
+
+                new DatabaseRepository.TradeDatabase().Trade_Upsert(trade);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex.Message);
+                _log.Error(ex.StackTrace);
+            }
+            //});
         }
 
         private void ibClient_HandleOrderStatus(OrderStatusMessage statusMessage)
@@ -377,18 +398,31 @@ namespace Skywolf.TradingService
 
         private void UpdateOrderMessageToDatabase(OpenOrderMessage orderMessage)
         {
-            Task.Factory.StartNew(() =>
+            //Task.Factory.StartNew(() =>
+            //{
+            try
             {
-                try
+                var order = IBTradingService.ConvertOpenOrderMessageToOrder(orderMessage);
+                if (orderMessage != null)
                 {
-                    new DatabaseRepository.TradeDatabase().Order_Upsert(IBTradingService.ConvertOpenOrderMessageToOrder(orderMessage));
+                    int orderId = orderMessage.OrderId;
+                    Tuple<string, string, string> portfolio = null;
+                    if (_orderIdToPortfolio.TryGetValue(orderId, out portfolio))
+                    {
+                        order.Fund = portfolio.Item1;
+                        order.Strategy = portfolio.Item2;
+                        order.Folder = portfolio.Item3;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    _log.Error(ex.Message);
-                    _log.Error(ex.StackTrace);
-                }
-            });
+
+                new DatabaseRepository.TradeDatabase().Order_Upsert(order);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex.Message);
+                _log.Error(ex.StackTrace);
+            }
+            //});
         }
 
         #endregion

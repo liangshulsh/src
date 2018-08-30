@@ -134,7 +134,7 @@ namespace Skywolf.TradingService
                 {
                     IBApi.Contract contract = IBContractSamples.GetContract(simpleOrder);
                     IBApi.Order order = IBOrderSamples.GetOrder(simpleOrder);
-                    return user.PlaceOrder(contract, order);
+                    return user.PlaceOrder(contract, order, simpleOrder.Fund, simpleOrder.Strategy, simpleOrder.Folder);
                 }
 
                 return -1;
@@ -201,6 +201,7 @@ namespace Skywolf.TradingService
                 order.Contract = ConvertContract(openOrder.Contract);
                 if (openOrder.Order != null)
                 {
+                    order.Account = openOrder.Order.Account;
                     order.Action = openOrder.Order.Action;
                     order.ActiveStartTime = openOrder.Order.ActiveStartTime;
                     order.ActiveStopTime = openOrder.Order.ActiveStopTime;

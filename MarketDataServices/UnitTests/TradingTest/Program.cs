@@ -40,13 +40,14 @@ namespace TradingTest
                 var simpleOrder = new Skywolf.Contracts.DataContracts.Trading.SimpleOrder()
                 {
                     UserName = "ying0806",
-                    Action = Skywolf.Contracts.DataContracts.Trading.TradeAction.BUY,
+                    Action = Skywolf.Contracts.DataContracts.Trading.TradeAction.SELL,
                     Currency = "USD",
                     Folder = "Index",
-                    Quantity = 100,
-                    SecurityType = Skywolf.Contracts.DataContracts.Trading.TradeSecurityType.Stock,
+                    Quantity = 20000,
+                    SecurityType = Skywolf.Contracts.DataContracts.Trading.TradeSecurityType.FX,
                     Strategy = "SmartBeta",
-                    Symbol = "SPY"
+                    Fund = "FX",
+                    Symbol = "EUR"
                 };
 
                 try
