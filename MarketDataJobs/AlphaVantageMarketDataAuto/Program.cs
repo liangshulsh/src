@@ -71,11 +71,11 @@ namespace AlphaVantageMarketDataAuto
 
                 if (isAdjustedValue)
                 {
-                    title = string.Format("Alpha Vantage Market Data ({0} Adjusted) Done", period);
+                    title = string.Format("Alpha Vantage Market Data ({0} Adjusted) {1}-{2} Done", period, iPriorityStart, iPriorityEnd);
                 }
                 else
                 {
-                    title = string.Format("Alpha Vantage Market Data ({0}) Done", period);
+                    title = string.Format("Alpha Vantage Market Data ({0}) {1}-{2} Done", period, iPriorityStart, iPriorityEnd);
                 }
 
                 Skywolf.Client.Utility.SendReportMail(null, "liangshulsh@126.com", title, string.Empty);
@@ -86,7 +86,7 @@ namespace AlphaVantageMarketDataAuto
                 _logger.LogError(ex.StackTrace);
                 
                 Skywolf.Client.Utility.SendReportMail(null, "liangshulsh@126.com",
-                    string.Format("Alpha Vantage Market Data ({0}) Error", period), ex.Message + ex.StackTrace);
+                    string.Format("Alpha Vantage Market Data ({0}) {1}-{2} Error", period, iPriorityStart, iPriorityEnd), ex.Message + ex.StackTrace);
             }
             finally
             {
