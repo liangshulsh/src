@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Trade" Class="TradeDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=LAPTOP-N2OTR2I1\SKYWOLFDB;Initial Catalog=Trade;Integrated Security=True" SettingsObjectName="Skywolf.DatabaseRepository.Properties.Settings" SettingsPropertyName="TradeConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.vw_Orders" Member="vw_Orders">
+    <Type Name="vw_Order">
+      <Column Name="RecordID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="AccountType" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Account" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Strategy" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Folder" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PermId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="SecurityName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="SecurityType" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="OrderOpenTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Exchange" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrimaryExchange" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Currency" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Action" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="TotalQuantity" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="OrderType" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="LimitPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="AuxPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Tif" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ActiveStartTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ActiveStopTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OcaGroup" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="OcaType" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OrderRef" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Transmit" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ParentId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BlockOrder" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="SweepToFill" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="DisplaySize" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TriggerMethod" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OutsideRth" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Hidden" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="GoodAfterTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="GoodTillDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="OverridePerentageConstraints" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Rule80A" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="AllOrNone" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="MinQty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="InitMargin" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="MaintMargin" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="EquityWithLoan" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Commission" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="MinCommission" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="MaxCommission" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="CommissionCurrency" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="WarningTaxt" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Filled" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Remaining" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="AvgFillPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="LastFillPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="WhyHeld" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Usr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_Trades" Member="vw_Trades">
+    <Type Name="vw_Trade">
+      <Column Name="TradeID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="AccountType" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Account" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Strategy" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="Folder" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="OrderId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ClientId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PermId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ExecId" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="SID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="SecurityName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="SecurityType" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="TradeTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Exchange" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="PrimaryExchange" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Currency" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="Side" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Quantity" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="Price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Liquidation" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CumQty" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="AvgPrice" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="OrderRef" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="EvRule" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="EvMultiplier" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ModelCode" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Commission" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RealizedPNL" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Yield" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="YieldRedemptionDate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Usr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.usp_Order_Upsert" Method="usp_Order_Upsert">
+    <Parameter Name="account" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="asofdate" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="orderId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="clientId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="permId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SID" Parameter="sID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="securityName" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="securityType" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="orderOpenTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="exchange" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="primaryExchange" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="currency" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="action" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="totalQuantity" Type="System.Double" DbType="Float" />
+    <Parameter Name="orderType" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="limitPrice" Type="System.Double" DbType="Float" />
+    <Parameter Name="auxPrice" Type="System.Double" DbType="Float" />
+    <Parameter Name="tif" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="activeStartTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="activeStopTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="ocaGroup" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="ocaType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="orderRef" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="transmit" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="parentId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="blockOrder" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="sweepToFill" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="displaySize" Type="System.Int32" DbType="Int" />
+    <Parameter Name="triggerMethod" Type="System.Int32" DbType="Int" />
+    <Parameter Name="outsideRth" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="hidden" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="goodAfterTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="goodTillDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="overridePerentageConstraints" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="rule80A" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="allOrNone" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="minQty" Type="System.Int32" DbType="Int" />
+    <Parameter Name="status" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="initMargin" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="maintMargin" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="equityWithLoan" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="commission" Type="System.Double" DbType="Float" />
+    <Parameter Name="minCommission" Type="System.Double" DbType="Float" />
+    <Parameter Name="maxCommission" Type="System.Double" DbType="Float" />
+    <Parameter Name="commissionCurrency" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="warningTaxt" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="filled" Type="System.Double" DbType="Float" />
+    <Parameter Name="remaining" Type="System.Double" DbType="Float" />
+    <Parameter Name="avgFillPrice" Type="System.Double" DbType="Float" />
+    <Parameter Name="lastFillPrice" Type="System.Double" DbType="Float" />
+    <Parameter Name="whyHeld" Type="System.String" DbType="VarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.usp_Trade_Upsert" Method="usp_Trade_Upsert">
+    <Parameter Name="account" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="asofdate" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="orderId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="clientId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="permId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="execId" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="SID" Parameter="sID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="securityName" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="securityType" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="tradeTime" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="exchange" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="primaryExchange" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="currency" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="side" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="quantity" Type="System.Double" DbType="Float" />
+    <Parameter Name="price" Type="System.Double" DbType="Float" />
+    <Parameter Name="liquidation" Type="System.Int32" DbType="Int" />
+    <Parameter Name="cumQty" Type="System.Double" DbType="Float" />
+    <Parameter Name="avgPrice" Type="System.Double" DbType="Float" />
+    <Parameter Name="orderRef" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="evRule" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="evMultiplier" Type="System.Double" DbType="Float" />
+    <Parameter Name="modelCode" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="commission" Type="System.Double" DbType="Float" />
+    <Parameter Name="realizedPNL" Type="System.Double" DbType="Float" />
+    <Parameter Name="yield" Type="System.Double" DbType="Float" />
+    <Parameter Name="yieldRedemptionDate" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.usp_StrategyFolder_Upsert" Method="usp_StrategyFolder_Upsert">
+    <Parameter Name="account" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="asofdate" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="permId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SID" Parameter="sID" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="fund" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="strategy" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="folder" Type="System.String" DbType="VarChar(200)" />
+    <Return Type="System.Int32" />
+  </Function>
+</Database>

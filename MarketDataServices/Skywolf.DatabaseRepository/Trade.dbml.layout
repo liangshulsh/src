@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 12.75" name="Trade">
+  <DataContextMoniker Name="/TradeDataContext" />
+  <nestedChildShapes>
+    <classShape Id="990c776d-f1f2-44af-8344-912da204ee15" absoluteBounds="0.625, 0.5, 2, 11.962872721354165">
+      <DataClassMoniker Name="/TradeDataContext/vw_Order" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bdf42ef0-cce0-4eda-8f78-3afaebf751ef" absoluteBounds="0.64000000000000012, 0.96, 1.9700000000000002, 11.402872721354166" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="735e6f42-48d1-4846-84ac-8a25cfaaffe2" absoluteBounds="3.375, 0.5, 2, 7.3476383463541657">
+      <DataClassMoniker Name="/TradeDataContext/vw_Trade" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3fc1dcc5-49f2-4630-942e-36db055bf303" absoluteBounds="3.3899999999999997, 0.96, 1.9700000000000002, 6.7876383463541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

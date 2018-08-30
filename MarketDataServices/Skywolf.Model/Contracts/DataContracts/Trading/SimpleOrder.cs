@@ -14,6 +14,15 @@ namespace Skywolf.Contracts.DataContracts.Trading
     public class SimpleOrder
     {
         [DataMember]
+        public string Fund { get; set; }
+
+        [DataMember]
+        public string Strategy { get; set; }
+
+        [DataMember]
+        public string Folder { get; set; }
+
+        [DataMember]
         public string UserName { get; set; }
 
         [DataMember]

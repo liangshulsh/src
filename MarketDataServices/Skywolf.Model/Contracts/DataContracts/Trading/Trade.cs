@@ -11,7 +11,19 @@ namespace Skywolf.Contracts.DataContracts.Trading
     public class Trade
     {
         [DataMember]
+        public string Fund { get; set; }
+
+        [DataMember]
+        public string Strategy { get; set; }
+
+        [DataMember]
+        public string Folder { get; set; }
+
+        [DataMember]
         public Contract Contract { get; set; }
+
+        [DataMember]
+        public string AsOfDate { get; set; }
 
         [DataMember]
         public int OrderId { get; set; }

@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace Skywolf.Contracts.DataContracts.Trading
 {
     [DataContract(Namespace = Constants.NAMESPACE)]
-    [KnownType(typeof(PositionPortfolio))]
-    public class Position
+    public class PortfolioBase
     {
         [DataMember]
         public string Fund { get; set; }
@@ -21,15 +20,9 @@ namespace Skywolf.Contracts.DataContracts.Trading
         public string Folder { get; set; }
 
         [DataMember]
-        public Contract Contract { get; set; }
+        public long SID { get; set; }
 
         [DataMember]
-        public string Account { get; set; }
-
-        [DataMember]
-        public double Quantity { get; set; }
-
-        [DataMember]
-        public double AverageCost { get; set; }
+        public string SecurityName { get; set; }
     }
 }

@@ -54,6 +54,7 @@
     <Compile Include="Contracts\DataContracts\MarketData\TimeSeriesDataOutput.cs" />
     <Compile Include="Contracts\DataContracts\Trading\AccountSummary.cs" />
     <Compile Include="Contracts\DataContracts\Trading\Contract.cs" />
+    <Compile Include="Contracts\DataContracts\Trading\PortfolioBase.cs" />
     <Compile Include="Contracts\DataContracts\Trading\PositionPortfolio.cs" />
     <Compile Include="Contracts\DataContracts\Trading\SimpleOrder.cs" />
     <Compile Include="Contracts\DataContracts\Trading\Order.cs" />

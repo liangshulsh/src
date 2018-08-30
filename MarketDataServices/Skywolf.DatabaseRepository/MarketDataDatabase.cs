@@ -50,6 +50,15 @@ namespace Skywolf.DatabaseRepository
             }
         }
 
+        public IDictionary<long, string> GetSIDToNameMapping()
+        {
+            using (MarketDataDataContext marketData = new MarketDataDataContext())
+            {
+                Dictionary<long, string> map = marketData.vw_InstrumentNames.ToDictionary(k => k.SID, v => v.Name);
+                return map;
+            }
+        }
+
         public IDictionary<string, long> GetSIDFromName(IEnumerable<string> names)
         {
             List<string[]> batches = new List<string[]>();

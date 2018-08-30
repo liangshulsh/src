@@ -23,7 +23,7 @@ namespace Skywolf.CommandLineHost
 
                 svcHosts = new ServiceHost[]
                 {
-                    new ServiceHost( typeof(Skywolf.MarketDataService.MarketDataService))
+                    new ServiceHost( typeof(Skywolf.MarketDataService.Restful.MarketDataRfService))
                 };
 
                 foreach (ServiceHost host in svcHosts)

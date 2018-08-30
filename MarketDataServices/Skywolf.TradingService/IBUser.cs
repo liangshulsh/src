@@ -303,6 +303,7 @@ namespace Skywolf.TradingService
         {
             lock (_executionLockObj)
             {
+                UpdateExecutionMessageToDatabase(message);
                 List<ExecutionMessage> executions;
                 if (_requestExecutions.ContainsKey(message.ReqId))
                 {
@@ -325,6 +326,22 @@ namespace Skywolf.TradingService
             }
         }
 
+        private void UpdateExecutionMessageToDatabase(ExecutionMessage executionMessage)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    new DatabaseRepository.TradeDatabase().Trade_Upsert(IBTradingService.ConvertExecutionToTrade(executionMessage));
+                }
+                catch (Exception ex)
+                {
+                    _log.Error(ex.Message);
+                    _log.Error(ex.StackTrace);
+                }
+            });
+        }
+
         private void ibClient_HandleOrderStatus(OrderStatusMessage statusMessage)
         {
             lock (_openOrderLockObj)
@@ -334,26 +351,44 @@ namespace Skywolf.TradingService
                     if (_openOrders[i].Order.PermId == statusMessage.PermId)
                     {
                         _openOrders[i].OrderStatus = statusMessage;
+                        UpdateOrderMessageToDatabase(_openOrders[i]);
                         return;
                     }
                 }
             }
         }
 
-        private void UpdateLiveOrders(OpenOrderMessage orderMesage)
+        private void UpdateLiveOrders(OpenOrderMessage orderMessage)
         {
             lock (_openOrderLockObj)
             {
+                UpdateOrderMessageToDatabase(orderMessage);
                 for (int i = 0; i < _openOrders.Count; i++)
                 {
-                    if (_openOrders[i].Order.OrderId == orderMesage.OrderId)
+                    if (_openOrders[i].Order.OrderId == orderMessage.OrderId)
                     {
-                        _openOrders[i] = orderMesage;
+                        _openOrders[i] = orderMessage;
                         return;
                     }
                 }
-                _openOrders.Add(orderMesage);
+                _openOrders.Add(orderMessage);
             }
+        }
+
+        private void UpdateOrderMessageToDatabase(OpenOrderMessage orderMessage)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    new DatabaseRepository.TradeDatabase().Order_Upsert(IBTradingService.ConvertOpenOrderMessageToOrder(orderMessage));
+                }
+                catch (Exception ex)
+                {
+                    _log.Error(ex.Message);
+                    _log.Error(ex.StackTrace);
+                }
+            });
         }
 
         #endregion

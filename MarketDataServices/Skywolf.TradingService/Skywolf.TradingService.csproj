@@ -113,6 +113,10 @@
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Skywolf.DatabaseRepository\Skywolf.DatabaseRepository.csproj">
+      <Project>{f8d28071-4042-484a-8f20-dd6bbba68e08}</Project>
+      <Name>Skywolf.DatabaseRepository</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Skywolf.IBAPI\Skywolf.IBAPI.csproj">
       <Project>{5bce5453-8a61-4337-a0f9-80be6f7cf609}</Project>
       <Name>Skywolf.IBAPI</Name>

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Skywolf.Contracts.DataContracts.Instrument;
 using Skywolf.Contracts.DataContracts.Trading;
 using Trading = Skywolf.Contracts.DataContracts.Trading;
+using Skywolf.DatabaseRepository;
 using Skywolf.IBApi;
 using System.Linq;
 
@@ -21,10 +22,68 @@ namespace Skywolf.TradingService
     {
         private static ILog _Logger;
         private static IBUserManager _userManager;
+        private static ConcurrentDictionary<string, long> _nameToSIDCache = new ConcurrentDictionary<string, long>();
+
         static IBTradingService()
         {
             _Logger = LogManager.GetLogger(typeof(IBTradingService));
             _userManager = new IBUserManager();
+            InitializeNameToSIDCache();
+
+        }
+
+        private static void InitializeNameToSIDCache()
+        {
+            try
+            {
+                IDictionary<long, string> map = new MarketDataDatabase().GetSIDToNameMapping();
+                foreach (var pair in map)
+                {
+                    if (!string.IsNullOrWhiteSpace(pair.Value))
+                    {
+                        _nameToSIDCache[pair.Value] = pair.Key;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+            }
+        }
+
+        public static long GetSIDFromName(string name)
+        {
+            try
+            {
+                long SID = 0;
+                if (!_nameToSIDCache.TryGetValue(name, out SID))
+                {
+                    var nameToSID = new MarketDataDatabase().GetSIDFromName(new string[] { name });
+
+                    if (nameToSID != null && nameToSID.Count > 0)
+                    {
+                        foreach (var pair in nameToSID)
+                        {
+                            if (!string.IsNullOrWhiteSpace(pair.Key))
+                            {
+                                _nameToSIDCache[pair.Key] = pair.Value;
+                            }
+                        }
+                    }
+
+                    if (!_nameToSIDCache.TryGetValue(name, out SID))
+                    {
+                        SID = -1;
+                    }
+                }
+
+                return SID;
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
         }
 
         public bool CreateUser(string username, string account, string host, int port)
@@ -126,13 +185,14 @@ namespace Skywolf.TradingService
                 contract.TradingClass = contractIB.TradingClass;
                 contract.SecIdType = contractIB.SecIdType;
                 contract.SecId = contractIB.SecId;
+                contract.SID = GetSIDFromName(contract.Symbol);
                 return contract;
             }
 
             return null;
         }
 
-        private static Trading.Order ConvertOpenOrderMessageToOrder(Messages.OpenOrderMessage openOrder)
+        public static Trading.Order ConvertOpenOrderMessageToOrder(Messages.OpenOrderMessage openOrder)
         {
             if (openOrder != null)
             {

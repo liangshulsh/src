@@ -10,6 +10,7 @@ using ServiceStack.Text;
 using Skywolf.Utility;
 using System.Data;
 using Skywolf.Contracts.DataContracts.MarketData;
+using Skywolf.MarketDataService;
 
 namespace MarketDataGrabberTest
 {
@@ -17,7 +18,7 @@ namespace MarketDataGrabberTest
     {
         static void Main(string[] args)
         {
-            testAVBatchQuote();
+            testAVStore();
  
         }
 
@@ -560,6 +561,25 @@ namespace MarketDataGrabberTest
             Quote[] quotes = av.StockBatchQuote(_stockList);
             Console.Write(quotes);
             
+        }
+
+        static void testAVStore()
+        {
+            try
+            {
+                MarketDataService service = new MarketDataService();
+                TimeSeriesDataInput input = new TimeSeriesDataInput();
+                input.Frequency = BarFrequency.Minute1;
+                input.IsAdjustedValue = false;
+                input.Symbol = "DNO";
+                input.OutputCount = -1;
+                TimeSeriesDataOutput output = service.GetTimeSeriesData(input, "av");
+                service.VA_StorePrices(200000003, BarFrequency.Minute1, false, output.Data);
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+            }
         }
     }
 }

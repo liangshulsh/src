@@ -33,5 +33,16 @@ namespace Skywolf.DatabaseRepository.Properties {
                 return ((string)(this["MarketDataConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-N2OTR2I1\\SKYWOLFDB;Initial Catalog=Trade;Integrated Security=T" +
+            "rue")]
+        public string TradeConnectionString {
+            get {
+                return ((string)(this["TradeConnectionString"]));
+            }
+        }
     }
 }

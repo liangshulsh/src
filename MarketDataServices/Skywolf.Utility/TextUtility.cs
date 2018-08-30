@@ -65,31 +65,38 @@ namespace Skywolf.Utility
             {
                 if (!DateTime.TryParseExact(strDate, "yyyyMMdd", null, DateTimeStyles.None, out date))
                 {
-                    if (!DateTime.TryParse(strDate, System.Threading.Thread.CurrentThread.CurrentCulture, DateTimeStyles.None, out date))
+                    if (!DateTime.TryParseExact(strDate, "yyyyMMdd hh:mm:ss", null, DateTimeStyles.None, out date))
                     {
-                        double dateValue;
-                        if (double.TryParse(strDate, out dateValue) && !strDate.ToLower().Contains('e'))
+                        if (!DateTime.TryParse(strDate, System.Threading.Thread.CurrentThread.CurrentCulture, DateTimeStyles.None, out date))
                         {
-                            date = DateTime.FromOADate(dateValue);
-
-                            if (date < new DateTime(1900, 1, 1))
+                            double dateValue;
+                            if (double.TryParse(strDate, out dateValue) && !strDate.ToLower().Contains('e'))
                             {
-                                date = date.AddDays(1);
-                            }
+                                date = DateTime.FromOADate(dateValue);
 
-                            if (date > DateDownLimit && date < DateUpLimit)
-                            {
-                                bResult = true;
+                                if (date < new DateTime(1900, 1, 1))
+                                {
+                                    date = date.AddDays(1);
+                                }
+
+                                if (date > DateDownLimit && date < DateUpLimit)
+                                {
+                                    bResult = true;
+                                }
+                                else
+                                {
+                                    bResult = false;
+                                }
                             }
                             else
                             {
+                                date = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
                                 bResult = false;
                             }
                         }
                         else
                         {
-                            date = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day);
-                            bResult = false;
+                            bResult = true;
                         }
                     }
                     else
