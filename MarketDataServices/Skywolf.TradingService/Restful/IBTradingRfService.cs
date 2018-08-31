@@ -224,7 +224,7 @@ namespace Skywolf.TradingService.Restful
             }
         }
 
-        public string PlaceSimpleOrder(string username, string orderid, string securitytype, string symbol, string currency, string quantity, string ordertype, string action, string limitprice, string stopprice)
+        public string PlaceSimpleOrder(string username, string orderid, string securitytype, string symbol, string currency, string quantity, string ordertype, string action, string limitprice, string stopprice, string fund, string strategy, string folder)
         {
             try
             {
@@ -272,7 +272,7 @@ namespace Skywolf.TradingService.Restful
                 
                 switch (securitytype)
                 {
-                    case "CASH":
+                    case "FX":
                         order.SecurityType = TradeSecurityType.FX;
                         break;
                     case "STK":
@@ -282,6 +282,21 @@ namespace Skywolf.TradingService.Restful
 
                 order.Symbol = symbol;
                 order.UserName = username;
+
+                if (!string.IsNullOrEmpty(fund))
+                {
+                    order.Fund = fund;
+                }
+
+                if (!string.IsNullOrEmpty(strategy))
+                {
+                    order.Strategy = strategy;
+                }
+
+                if (!string.IsNullOrEmpty(folder))
+                {
+                    order.Folder = folder;
+                }
 
                 int retOrderId = new IBTradingService().PlaceSimpleOrder(order);
                 return retOrderId.ToString();

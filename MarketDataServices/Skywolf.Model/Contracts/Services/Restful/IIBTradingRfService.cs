@@ -20,8 +20,8 @@ namespace Skywolf.Contracts.Services.Restful
         string RemoveUser(string username);
 
         [OperationContract]
-        [WebGet(UriTemplate = "placesimpleorder?username={username}&orderid={orderid}&securitytype={securitytype}&symbol={symbol}&currency={currency}&quantity={quantity}&ordertype={ordertype}&action={action}&limitprice={limitprice}&stopprice={stopprice}")]
-        string PlaceSimpleOrder(string username, string orderid, string securitytype, string symbol, string currency, string quantity, string ordertype, string action, string limitprice, string stopprice);
+        [WebGet(UriTemplate = "placesimpleorder?username={username}&orderid={orderid}&securitytype={securitytype}&symbol={symbol}&currency={currency}&quantity={quantity}&ordertype={ordertype}&action={action}&limitprice={limitprice}&stopprice={stopprice}&fund={fund}&strategy={strategy}&folder={folder}")]
+        string PlaceSimpleOrder(string username, string orderid, string securitytype, string symbol, string currency, string quantity, string ordertype, string action, string limitprice, string stopprice, string fund, string strategy, string folder);
 
         [OperationContract]
         [WebGet(UriTemplate = "cancelorder?username={username}&orderid={orderid}")]
