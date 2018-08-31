@@ -1,0 +1,4 @@
+http://localhost:8065/Skywolf_DEV/IBTradingRfService/createuser?username=ying0806&account=&host=127.0.0.1&port=4002
+http://localhost:8065/Skywolf_DEV/IBTradingRfService/getaccountsummary?username=ying0806
+http://localhost:8065/Skywolf_DEV/IBTradingRfService/getpositions?username=ying0806
+http://localhost:8065/Skywolf_DEV/IBTradingRfService/placesimpleorder?username=ying0806&orderid=0&securitytype=FX&symbol=EUR&currency=USD&quantity=10000&ordertype=MKT&action=BUY&limitprice=&stopprice=&fund=FX&strategy=FXHedge&folder=EUR
