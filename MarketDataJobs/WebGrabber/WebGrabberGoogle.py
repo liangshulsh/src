@@ -1,5 +1,5 @@
 import pandas as pd
-import pandas_datareader as web
+#import pandas_datareader as web
 
 class WebGrabberGoogle(object):
     sourceId = 2

@@ -3,8 +3,8 @@ from DataModelBase import DataModelBase
 import datetime
 
 class MarketData(DataModelBase):
-    #MarketDataConnectionString = 'DRIVER={SQL Server Native Client 11.0};SERVER=LAPTOP-N2OTR2I1\\SKYWOLFDB;DATABASE=MarketData;UID=liangshu;PWD=optimus'
-    MarketDataConnectionString = 'DRIVER={SQL Server Native Client 11.0};SERVER=SKYWOLFSERVER1;DATABASE=MarketData;UID=liangshu;PWD=optimus'
+    MarketDataConnectionString = 'DRIVER={SQL Server Native Client 11.0};SERVER=LAPTOP-N2OTR2I1\\SKYWOLFDB;DATABASE=MarketData;UID=liangshu;PWD=optimus'
+    #MarketDataConnectionString = 'DRIVER={SQL Server Native Client 11.0};SERVER=SKYWOLFSERVER1;DATABASE=MarketData;UID=liangshu;PWD=optimus'
 
     def __init__(self):
         super(MarketData, self).__init__(self.MarketDataConnectionString)
