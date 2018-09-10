@@ -325,4 +325,53 @@
       <Column Name="BatchId" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="tvc.SymbolList" Member="TVC_SymbolLists">
+    <Type Name="TVC_SymbolList">
+      <Column Name="Name" Type="System.String" DbType="VarChar(200) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="exchange_traded" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="exchange_listed" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="timezone" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="minmov" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="minmov2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="pricescale" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="pointvalue" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="has_intraday" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="has_no_volume" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="volume_precision" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="tvc_ticker" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="type" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="has_daily" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="has_weekly_and_monthly" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="supported_resolutions" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="intraday_multipliers" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="session" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="data_status" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Usr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="tvc.usp_SymbolList_Upsert" Method="usp_SymbolList_Upsert">
+    <Parameter Name="name" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="exchange_traded" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="exchange_listed" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="timezone" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="minmov" Type="System.Double" DbType="Float" />
+    <Parameter Name="minmov2" Type="System.Double" DbType="Float" />
+    <Parameter Name="pricescale" Type="System.Double" DbType="Float" />
+    <Parameter Name="pointvalue" Type="System.Double" DbType="Float" />
+    <Parameter Name="has_intraday" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="has_no_volume" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="volume_precision" Type="System.Double" DbType="Float" />
+    <Parameter Name="tvc_ticker" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="description" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="type" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="has_daily" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="has_weekly_and_monthly" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="supported_resolutions" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="intraday_multipliers" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="session" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="data_status" Type="System.String" DbType="VarChar(100)" />
+    <Return Type="System.Int32" />
+  </Function>
 </Database>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Skywolf.Contracts.DataContracts.MarketData;
+using tvc = Skywolf.Contracts.DataContracts.MarketData.TVC;
 using Skywolf.Contracts.DataContracts.Instrument;
 using System.Collections.Concurrent;
 using System.Data;
@@ -17,6 +18,101 @@ namespace Skywolf.DatabaseRepository
         public static readonly DateTime DB_Min_Date = new DateTime(1900, 1, 1);
         
         protected static object _storeLockObj = new object();
+
+        public tvc.TVCSymbolResponse[] TVC_GetSymbolList(IEnumerable<string> symbols)
+        {
+            List<tvc.TVCSymbolResponse> symbolResponses = new List<tvc.TVCSymbolResponse>();
+            if (symbols != null && symbols.Count() > 0)
+            {
+                List<string> symbolpool = symbols.ToList();
+                while (symbolpool.Count() > 0)
+                {
+                    var symbolbatch = symbolpool.Take(2000).ToList();
+                    symbolpool = symbolpool.Skip(2000).ToList();
+                    var symbolbatchresponse = _TVC_GetSymbolList(symbolbatch);
+                    if (symbolbatchresponse != null && symbolbatchresponse.Count() > 0)
+                    {
+                        symbolResponses.AddRange(symbolbatchresponse.AsEnumerable());
+                    }
+                }
+            }
+
+            return symbolResponses.ToArray();
+        }
+
+        public void TVC_StoreSymbolList(IEnumerable<tvc.TVCSymbolResponse> symbolInfos)
+        {
+            if (symbolInfos != null)
+            {
+                using (MarketDataDataContext market = new MarketDataDataContext())
+                {
+                    foreach (var symbolInfo in symbolInfos)
+                    {
+                        string supported_resolutions = string.Empty;
+                        string intraday_multipliers = string.Empty;
+                        if (symbolInfo.supported_resolutions != null && symbolInfo.supported_resolutions.Count > 0)
+                        {
+                            supported_resolutions = string.Join(",", symbolInfo.supported_resolutions);
+                        }
+
+                        if (symbolInfo.intraday_multipliers != null && symbolInfo.intraday_multipliers.Count > 0)
+                        {
+                            intraday_multipliers = string.Join(",", symbolInfo.intraday_multipliers);
+                        }
+
+                        market.usp_SymbolList_Upsert(symbolInfo.name, symbolInfo.exchange_traded, symbolInfo.exchange_listed, symbolInfo.timezone, symbolInfo.minmov, symbolInfo.minmov2, symbolInfo.pricescale, symbolInfo.pointvalue, symbolInfo.has_intraday, symbolInfo.has_no_volume, symbolInfo.volume_precision,
+                                                     symbolInfo.ticker, symbolInfo.description, symbolInfo.type, symbolInfo.has_daily, symbolInfo.has_weekly_and_monthly, supported_resolutions, intraday_multipliers, symbolInfo.session, symbolInfo.data_status);
+                    }
+                }
+            }
+        }
+
+        private tvc.TVCSymbolResponse[] _TVC_GetSymbolList(IEnumerable<string> symbols)
+        {
+            using (MarketDataDataContext market = new MarketDataDataContext())
+            {
+                var symbolLists = (from p in market.TVC_SymbolLists
+                                   where symbols.Contains(p.Name)
+                                   select p).Select(p => ConvertTVCSymbolListToTVCSymbolResponse(p)).ToArray();
+
+                return symbolLists;
+            }
+        }
+
+        public static tvc.TVCSymbolResponse ConvertTVCSymbolListToTVCSymbolResponse(TVC_SymbolList symbol)
+        {
+            if (symbol != null)
+            {
+                tvc.TVCSymbolResponse response = new tvc.TVCSymbolResponse()
+                {
+                    data_status = symbol.data_status,
+                    description = symbol.description,
+                    exchange_listed = symbol.exchange_listed,
+                    exchange_traded = symbol.exchange_traded,
+                    has_daily = symbol.has_daily ?? false,
+                    has_intraday = symbol.has_intraday ?? false,
+                    has_no_volume = symbol.has_no_volume ?? false,
+                    has_weekly_and_monthly = symbol.has_weekly_and_monthly ?? false,
+                    intraday_multipliers = symbol.intraday_multipliers != null ? symbol.intraday_multipliers.Split(new char[] { ',' }).ToList() : null,
+                    minmov = symbol.minmov ?? 0,
+                    minmov2 = symbol.minmov2 ?? 0,
+                    name = symbol.Name,
+                    pointvalue = symbol.pointvalue ?? 0,
+                    pricescale = symbol.pricescale ?? 0,
+                    s = "ok",
+                    session = symbol.session,
+                    supported_resolutions = symbol.supported_resolutions != null ? symbol.supported_resolutions.Split(new char[] { ',' }).ToList() : null,
+                    ticker = symbol.tvc_ticker,
+                    timezone = symbol.timezone,
+                    type = symbol.type,
+                    volume_precision = symbol.volume_precision ?? 0
+                };
+
+                return response;
+            }
+
+            return null;
+        }
 
         public PricingRule[] GetPricingRules(string datasource, bool active)
         {

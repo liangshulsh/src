@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using Skywolf.Contracts.DataContracts.MarketData;
 using Skywolf.Contracts.DataContracts.MarketData.TVC;
+
 using Skywolf.Utility;
 using System.Data;
 using log4net;
@@ -12,6 +13,9 @@ using System.Linq;
 
 namespace Skywolf.MarketDataGrabber
 {
+    public delegate Dictionary<string, TVCSymbolResponse> GetTVCSymbols(IEnumerable<string> symbols);
+    public delegate void UpdateTVCSymbols(IEnumerable<TVCSymbolResponse> tvcSymbols);
+
     public class TVCMarketDataGrabber : BaseMarketDataGrabber
     {
         const string TVC_URL = @"https://tvc4.forexpros.com/";
@@ -19,6 +23,11 @@ namespace Skywolf.MarketDataGrabber
         const string TVC_URL_HISTORY = @"history?symbol={0}&resolution={1}&from={2}&to={3}";
         const string TVC_URL_QUOTES = @"quotes?symbols={0}";
         const string TVC_URL_SYMBOLS = @"symbols?symbol={0}";
+        const string TVC_URL_SEARCH = @"search?limit={0}&query={1}&type={2}&exchange={3}";
+
+        public static ConcurrentDictionary<string, TVCSymbolResponse> _SymbolToSymbolInfo = new ConcurrentDictionary<string, TVCSymbolResponse>();
+        public GetTVCSymbols _getTVCSymbolsHandler;
+        public UpdateTVCSymbols _updateTVCSymbolesHandler;
 
         public override TimeSeriesDataOutput GetTimeSeriesData(TimeSeriesDataInput input)
         {
@@ -242,7 +251,8 @@ namespace Skywolf.MarketDataGrabber
 
                 foreach (List<string> current in symbolBatchList)
                 {
-                    string joinedsymbols = string.Join(",", current);
+                    string[] covertedSymbols = ConvertSymbolFormat(current);
+                    string joinedsymbols = string.Join(",", covertedSymbols);
                     string result = TVCHttpGet(string.Format(TVC_URL_QUOTES, joinedsymbols));
                     TVCQuotesResponse quotes = JsonConvert.DeserializeObject<TVCQuotesResponse>(result);
                     if (quotes != null && quotes.d != null)
@@ -264,11 +274,127 @@ namespace Skywolf.MarketDataGrabber
             return null;
         }
 
+        public string[] ConvertSymbolFormat(IEnumerable<string> symbols)
+        {
+            List<string> results = new List<string>();
+            List<string> symbolRemain = new List<string>();
+            if (symbols != null && symbols.Count() > 0)
+            {
+                foreach (string symbol in symbols)
+                {
+                    if (symbol.Contains(":"))
+                    {
+                        results.Add(symbol);
+                    }
+                    else
+                    {
+                        symbolRemain.Add(symbol);
+                    }
+                }
+
+                if (symbolRemain.Count > 0)
+                {
+                    List<string> symbolRemainTemp = new List<string>();
+                    foreach (string symbol in symbolRemain)
+                    {
+                        TVCSymbolResponse response;
+                        if (_SymbolToSymbolInfo.TryGetValue(symbol, out response))
+                        {
+                            if (!string.IsNullOrEmpty(response.exchange_traded))
+                            {
+                                results.Add(response.exchange_traded + ":" + symbol);
+                            }
+                            else
+                            {
+                                results.Add(symbol);
+                            }
+                        }
+                        else
+                        {
+                            symbolRemainTemp.Add(symbol);
+                        }
+                    }
+
+                    symbolRemain = symbolRemainTemp;
+                }
+
+                if (symbolRemain.Count > 0)
+                {
+                    List<string> symbolRemainTemp = new List<string>();
+                    if (_getTVCSymbolsHandler != null)
+                    {
+                        Dictionary<string, TVCSymbolResponse> symbolToTVCSymbol =  _getTVCSymbolsHandler(symbolRemain);
+                        if (symbolToTVCSymbol != null)
+                        {
+                            foreach (string symbol in symbolRemain)
+                            {
+                                TVCSymbolResponse response;
+                                if (symbolToTVCSymbol.TryGetValue(symbol, out response))
+                                {
+                                    _SymbolToSymbolInfo[symbol] = response;
+                                    if (!string.IsNullOrEmpty(response.exchange_traded))
+                                    {
+                                        results.Add(response.exchange_traded + ":" + symbol);
+                                    }
+                                    else
+                                    {
+                                        results.Add(symbol);
+                                    }
+                                }
+                                else
+                                {
+                                    symbolRemainTemp.Add(symbol);
+                                }
+                            }
+
+                            symbolRemain = symbolRemainTemp;
+                        }
+                    }
+                }
+
+                if (symbolRemain.Count > 0)
+                {
+                    List<TVCSymbolResponse> newResponses = new List<TVCSymbolResponse>();
+                    foreach (string symbol in symbolRemain)
+                    {
+                        TVCSymbolResponse response = GetSymbolInfo(symbol);
+
+                        if (response != null && !string.IsNullOrEmpty(response.name))
+                        {
+                            newResponses.Add(response);
+                            _SymbolToSymbolInfo[symbol] = response;
+                            if (!string.IsNullOrEmpty(response.exchange_traded))
+                            {
+                                results.Add(response.exchange_traded + ":" + symbol);
+                            }
+                            else
+                            {
+                                results.Add(symbol);
+                            }
+                        }
+                    }
+
+                    _updateTVCSymbolesHandler?.Invoke(newResponses);
+                }
+            }
+
+            return results.ToArray();
+        }
+
         public TVCSymbolResponse GetSymbolInfo(string symbol)
         {
             string result = TVCHttpGet(string.Format(TVC_URL_SYMBOLS, symbol));
-            TVCSymbolResponse symbolResponse = JsonConvert.DeserializeObject<TVCSymbolResponse>(result);
-            return symbolResponse;
+
+            try
+            {
+                TVCSymbolResponse symbolResponse = JsonConvert.DeserializeObject<TVCSymbolResponse>(result);
+                return symbolResponse;
+            }
+            catch (Exception)
+            {
+            }
+
+            return null;
         }
 
         protected static object _TVCHttpGetObj = new object();
@@ -321,7 +447,7 @@ namespace Skywolf.MarketDataGrabber
 
                 string result = string.Empty;
                 int i = 0;
-                while (string.IsNullOrEmpty(result) || result.StartsWith("["))
+                while (string.IsNullOrEmpty(result) || (result.StartsWith("[") && result.Length < 50 && result != "[]"))
                 {
                     if (i > 0)
                     {

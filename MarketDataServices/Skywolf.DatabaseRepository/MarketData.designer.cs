@@ -99,6 +99,9 @@ namespace Skywolf.DatabaseRepository
     partial void InsertVA_APIKeyList(VA_APIKeyList instance);
     partial void UpdateVA_APIKeyList(VA_APIKeyList instance);
     partial void DeleteVA_APIKeyList(VA_APIKeyList instance);
+    partial void InsertTVC_SymbolList(TVC_SymbolList instance);
+    partial void UpdateTVC_SymbolList(TVC_SymbolList instance);
+    partial void DeleteTVC_SymbolList(TVC_SymbolList instance);
     #endregion
 		
 		public MarketDataDataContext() : 
@@ -329,6 +332,41 @@ namespace Skywolf.DatabaseRepository
 			{
 				return this.GetTable<VA_APIKeyList>();
 			}
+		}
+		
+		public System.Data.Linq.Table<TVC_SymbolList> TVC_SymbolLists
+		{
+			get
+			{
+				return this.GetTable<TVC_SymbolList>();
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tvc.usp_SymbolList_Upsert")]
+		public int usp_SymbolList_Upsert(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string name, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string exchange_traded, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string exchange_listed, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string timezone, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> minmov, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> minmov2, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> pricescale, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> pointvalue, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> has_intraday, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> has_no_volume, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> volume_precision, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string tvc_ticker, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string description, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string type, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> has_daily, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Bit")] System.Nullable<bool> has_weekly_and_monthly, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string supported_resolutions, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string intraday_multipliers, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string session, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string data_status)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name, exchange_traded, exchange_listed, timezone, minmov, minmov2, pricescale, pointvalue, has_intraday, has_no_volume, volume_precision, tvc_ticker, description, type, has_daily, has_weekly_and_monthly, supported_resolutions, intraday_multipliers, session, data_status);
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -6533,6 +6571,572 @@ namespace Skywolf.DatabaseRepository
 					this._BatchId = value;
 					this.SendPropertyChanged("BatchId");
 					this.OnBatchIdChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="tvc.SymbolList")]
+	public partial class TVC_SymbolList : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Name;
+		
+		private string _exchange_traded;
+		
+		private string _exchange_listed;
+		
+		private string _timezone;
+		
+		private System.Nullable<double> _minmov;
+		
+		private System.Nullable<double> _minmov2;
+		
+		private System.Nullable<double> _pricescale;
+		
+		private System.Nullable<double> _pointvalue;
+		
+		private System.Nullable<bool> _has_intraday;
+		
+		private System.Nullable<bool> _has_no_volume;
+		
+		private System.Nullable<double> _volume_precision;
+		
+		private string _tvc_ticker;
+		
+		private string _description;
+		
+		private string _type;
+		
+		private System.Nullable<bool> _has_daily;
+		
+		private System.Nullable<bool> _has_weekly_and_monthly;
+		
+		private string _supported_resolutions;
+		
+		private string _intraday_multipliers;
+		
+		private string _session;
+		
+		private string _data_status;
+		
+		private string _Usr;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void Onexchange_tradedChanging(string value);
+    partial void Onexchange_tradedChanged();
+    partial void Onexchange_listedChanging(string value);
+    partial void Onexchange_listedChanged();
+    partial void OntimezoneChanging(string value);
+    partial void OntimezoneChanged();
+    partial void OnminmovChanging(System.Nullable<double> value);
+    partial void OnminmovChanged();
+    partial void Onminmov2Changing(System.Nullable<double> value);
+    partial void Onminmov2Changed();
+    partial void OnpricescaleChanging(System.Nullable<double> value);
+    partial void OnpricescaleChanged();
+    partial void OnpointvalueChanging(System.Nullable<double> value);
+    partial void OnpointvalueChanged();
+    partial void Onhas_intradayChanging(System.Nullable<bool> value);
+    partial void Onhas_intradayChanged();
+    partial void Onhas_no_volumeChanging(System.Nullable<bool> value);
+    partial void Onhas_no_volumeChanged();
+    partial void Onvolume_precisionChanging(System.Nullable<double> value);
+    partial void Onvolume_precisionChanged();
+    partial void Ontvc_tickerChanging(string value);
+    partial void Ontvc_tickerChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OntypeChanging(string value);
+    partial void OntypeChanged();
+    partial void Onhas_dailyChanging(System.Nullable<bool> value);
+    partial void Onhas_dailyChanged();
+    partial void Onhas_weekly_and_monthlyChanging(System.Nullable<bool> value);
+    partial void Onhas_weekly_and_monthlyChanged();
+    partial void Onsupported_resolutionsChanging(string value);
+    partial void Onsupported_resolutionsChanged();
+    partial void Onintraday_multipliersChanging(string value);
+    partial void Onintraday_multipliersChanged();
+    partial void OnsessionChanging(string value);
+    partial void OnsessionChanged();
+    partial void Ondata_statusChanging(string value);
+    partial void Ondata_statusChanged();
+    partial void OnUsrChanging(string value);
+    partial void OnUsrChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    #endregion
+		
+		public TVC_SymbolList()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(200) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_exchange_traded", DbType="VarChar(50)")]
+		public string exchange_traded
+		{
+			get
+			{
+				return this._exchange_traded;
+			}
+			set
+			{
+				if ((this._exchange_traded != value))
+				{
+					this.Onexchange_tradedChanging(value);
+					this.SendPropertyChanging();
+					this._exchange_traded = value;
+					this.SendPropertyChanged("exchange_traded");
+					this.Onexchange_tradedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_exchange_listed", DbType="VarChar(50)")]
+		public string exchange_listed
+		{
+			get
+			{
+				return this._exchange_listed;
+			}
+			set
+			{
+				if ((this._exchange_listed != value))
+				{
+					this.Onexchange_listedChanging(value);
+					this.SendPropertyChanging();
+					this._exchange_listed = value;
+					this.SendPropertyChanged("exchange_listed");
+					this.Onexchange_listedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timezone", DbType="VarChar(50)")]
+		public string timezone
+		{
+			get
+			{
+				return this._timezone;
+			}
+			set
+			{
+				if ((this._timezone != value))
+				{
+					this.OntimezoneChanging(value);
+					this.SendPropertyChanging();
+					this._timezone = value;
+					this.SendPropertyChanged("timezone");
+					this.OntimezoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_minmov", DbType="Float")]
+		public System.Nullable<double> minmov
+		{
+			get
+			{
+				return this._minmov;
+			}
+			set
+			{
+				if ((this._minmov != value))
+				{
+					this.OnminmovChanging(value);
+					this.SendPropertyChanging();
+					this._minmov = value;
+					this.SendPropertyChanged("minmov");
+					this.OnminmovChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_minmov2", DbType="Float")]
+		public System.Nullable<double> minmov2
+		{
+			get
+			{
+				return this._minmov2;
+			}
+			set
+			{
+				if ((this._minmov2 != value))
+				{
+					this.Onminmov2Changing(value);
+					this.SendPropertyChanging();
+					this._minmov2 = value;
+					this.SendPropertyChanged("minmov2");
+					this.Onminmov2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pricescale", DbType="Float")]
+		public System.Nullable<double> pricescale
+		{
+			get
+			{
+				return this._pricescale;
+			}
+			set
+			{
+				if ((this._pricescale != value))
+				{
+					this.OnpricescaleChanging(value);
+					this.SendPropertyChanging();
+					this._pricescale = value;
+					this.SendPropertyChanged("pricescale");
+					this.OnpricescaleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pointvalue", DbType="Float")]
+		public System.Nullable<double> pointvalue
+		{
+			get
+			{
+				return this._pointvalue;
+			}
+			set
+			{
+				if ((this._pointvalue != value))
+				{
+					this.OnpointvalueChanging(value);
+					this.SendPropertyChanging();
+					this._pointvalue = value;
+					this.SendPropertyChanged("pointvalue");
+					this.OnpointvalueChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_has_intraday", DbType="Bit")]
+		public System.Nullable<bool> has_intraday
+		{
+			get
+			{
+				return this._has_intraday;
+			}
+			set
+			{
+				if ((this._has_intraday != value))
+				{
+					this.Onhas_intradayChanging(value);
+					this.SendPropertyChanging();
+					this._has_intraday = value;
+					this.SendPropertyChanged("has_intraday");
+					this.Onhas_intradayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_has_no_volume", DbType="Bit")]
+		public System.Nullable<bool> has_no_volume
+		{
+			get
+			{
+				return this._has_no_volume;
+			}
+			set
+			{
+				if ((this._has_no_volume != value))
+				{
+					this.Onhas_no_volumeChanging(value);
+					this.SendPropertyChanging();
+					this._has_no_volume = value;
+					this.SendPropertyChanged("has_no_volume");
+					this.Onhas_no_volumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_volume_precision", DbType="Float")]
+		public System.Nullable<double> volume_precision
+		{
+			get
+			{
+				return this._volume_precision;
+			}
+			set
+			{
+				if ((this._volume_precision != value))
+				{
+					this.Onvolume_precisionChanging(value);
+					this.SendPropertyChanging();
+					this._volume_precision = value;
+					this.SendPropertyChanged("volume_precision");
+					this.Onvolume_precisionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tvc_ticker", DbType="VarChar(50)")]
+		public string tvc_ticker
+		{
+			get
+			{
+				return this._tvc_ticker;
+			}
+			set
+			{
+				if ((this._tvc_ticker != value))
+				{
+					this.Ontvc_tickerChanging(value);
+					this.SendPropertyChanging();
+					this._tvc_ticker = value;
+					this.SendPropertyChanged("tvc_ticker");
+					this.Ontvc_tickerChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="VarChar(200)")]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type", DbType="VarChar(50)")]
+		public string type
+		{
+			get
+			{
+				return this._type;
+			}
+			set
+			{
+				if ((this._type != value))
+				{
+					this.OntypeChanging(value);
+					this.SendPropertyChanging();
+					this._type = value;
+					this.SendPropertyChanged("type");
+					this.OntypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_has_daily", DbType="Bit")]
+		public System.Nullable<bool> has_daily
+		{
+			get
+			{
+				return this._has_daily;
+			}
+			set
+			{
+				if ((this._has_daily != value))
+				{
+					this.Onhas_dailyChanging(value);
+					this.SendPropertyChanging();
+					this._has_daily = value;
+					this.SendPropertyChanged("has_daily");
+					this.Onhas_dailyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_has_weekly_and_monthly", DbType="Bit")]
+		public System.Nullable<bool> has_weekly_and_monthly
+		{
+			get
+			{
+				return this._has_weekly_and_monthly;
+			}
+			set
+			{
+				if ((this._has_weekly_and_monthly != value))
+				{
+					this.Onhas_weekly_and_monthlyChanging(value);
+					this.SendPropertyChanging();
+					this._has_weekly_and_monthly = value;
+					this.SendPropertyChanged("has_weekly_and_monthly");
+					this.Onhas_weekly_and_monthlyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_supported_resolutions", DbType="VarChar(200)")]
+		public string supported_resolutions
+		{
+			get
+			{
+				return this._supported_resolutions;
+			}
+			set
+			{
+				if ((this._supported_resolutions != value))
+				{
+					this.Onsupported_resolutionsChanging(value);
+					this.SendPropertyChanging();
+					this._supported_resolutions = value;
+					this.SendPropertyChanged("supported_resolutions");
+					this.Onsupported_resolutionsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_intraday_multipliers", DbType="VarChar(200)")]
+		public string intraday_multipliers
+		{
+			get
+			{
+				return this._intraday_multipliers;
+			}
+			set
+			{
+				if ((this._intraday_multipliers != value))
+				{
+					this.Onintraday_multipliersChanging(value);
+					this.SendPropertyChanging();
+					this._intraday_multipliers = value;
+					this.SendPropertyChanged("intraday_multipliers");
+					this.Onintraday_multipliersChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_session", DbType="VarChar(200)")]
+		public string session
+		{
+			get
+			{
+				return this._session;
+			}
+			set
+			{
+				if ((this._session != value))
+				{
+					this.OnsessionChanging(value);
+					this.SendPropertyChanging();
+					this._session = value;
+					this.SendPropertyChanged("session");
+					this.OnsessionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_data_status", DbType="VarChar(100)")]
+		public string data_status
+		{
+			get
+			{
+				return this._data_status;
+			}
+			set
+			{
+				if ((this._data_status != value))
+				{
+					this.Ondata_statusChanging(value);
+					this.SendPropertyChanging();
+					this._data_status = value;
+					this.SendPropertyChanged("data_status");
+					this.Ondata_statusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usr", DbType="VarChar(200)")]
+		public string Usr
+		{
+			get
+			{
+				return this._Usr;
+			}
+			set
+			{
+				if ((this._Usr != value))
+				{
+					this.OnUsrChanging(value);
+					this.SendPropertyChanging();
+					this._Usr = value;
+					this.SendPropertyChanged("Usr");
+					this.OnUsrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
 				}
 			}
 		}

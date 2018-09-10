@@ -152,5 +152,11 @@
         <elementListCompartment Id="03e5e316-c71b-4912-8e39-582bc71a0646" absoluteBounds="0.64000000000000012, 0.96, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="db246d67-0c67-4876-93f4-be562b3481cf" isExpanded="false" absoluteBounds="3, 5.5, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/TVC_SymbolList" />
+      <nestedChildShapes>
+        <elementListCompartment Id="325ff792-e002-4f5a-bb95-634de38c7b6c" absoluteBounds="3.0149999999999997, 5.96, 1.9700000000000002, 4.4800211588541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
