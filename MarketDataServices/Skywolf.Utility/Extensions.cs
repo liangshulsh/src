@@ -6,6 +6,16 @@ namespace Skywolf.Utility
 {
     public static class Extensions
     {
+        public static int ToUnixDateTime(this DateTime dt)
+        {
+            return Convert.ToInt32((dt - new DateTime(1970, 1, 1)).TotalSeconds);
+        }
+
+        public static DateTime FromUnixDateTime(this DateTime dt, int unixDateTime)
+        {
+            return new DateTime(1970, 1, 1).AddSeconds(unixDateTime);
+        }
+
         public static DateTime ToUnspecifiedDateTime(this DateTime dt)
         {
             return new DateTime(dt.Year, dt.Month, dt.Day, 15, 0, 0, DateTimeKind.Unspecified);

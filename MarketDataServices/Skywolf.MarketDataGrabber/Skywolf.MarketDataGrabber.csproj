@@ -37,6 +37,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLib\log4net-2.0.8\4.5\release\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Text, Version=5.0.0.0, Culture=neutral, PublicKeyToken=02c12cbda47e6587, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ExternalLib\ServiceStack.Text\ServiceStack.Text.dll</HintPath>
@@ -58,6 +61,7 @@
     <Compile Include="BaseMarketDataGrabber.cs" />
     <Compile Include="IMarketDataGrabber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TVCMarketDataGrabber.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

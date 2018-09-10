@@ -340,19 +340,7 @@ namespace Skywolf.TradingService
             //{
             try
             {
-                var trade = IBTradingService.ConvertExecutionToTrade(executionMessage);
-                if (executionMessage != null && executionMessage.Execution != null)
-                {
-                    int orderId = executionMessage.Execution.OrderId;
-                    Tuple<string, string, string> portfolio = null;
-                    if (_orderIdToPortfolio.TryGetValue(orderId, out portfolio))
-                    {
-                        trade.Fund = portfolio.Item1;
-                        trade.Strategy = portfolio.Item2;
-                        trade.Folder = portfolio.Item3;
-                    }
-                }
-
+                var trade = IBTradingService.ConvertExecutionToTrade(executionMessage, this);
                 new DatabaseRepository.TradeDatabase().Trade_Upsert(trade);
             }
             catch (Exception ex)
@@ -396,25 +384,24 @@ namespace Skywolf.TradingService
             }
         }
 
+        public Tuple<string, string, string> GetPortfolioFromOrderId(int orderId)
+        {
+            Tuple<string, string, string> portfolio = null;
+            if (_orderIdToPortfolio.TryGetValue(orderId, out portfolio))
+            {
+                return portfolio;
+            }
+
+            return null;
+        }
+
         private void UpdateOrderMessageToDatabase(OpenOrderMessage orderMessage)
         {
             //Task.Factory.StartNew(() =>
             //{
             try
             {
-                var order = IBTradingService.ConvertOpenOrderMessageToOrder(orderMessage);
-                if (orderMessage != null)
-                {
-                    int orderId = orderMessage.OrderId;
-                    Tuple<string, string, string> portfolio = null;
-                    if (_orderIdToPortfolio.TryGetValue(orderId, out portfolio))
-                    {
-                        order.Fund = portfolio.Item1;
-                        order.Strategy = portfolio.Item2;
-                        order.Folder = portfolio.Item3;
-                    }
-                }
-
+                var order = IBTradingService.ConvertOpenOrderMessageToOrder(orderMessage, this);
                 new DatabaseRepository.TradeDatabase().Order_Upsert(order);
             }
             catch (Exception ex)

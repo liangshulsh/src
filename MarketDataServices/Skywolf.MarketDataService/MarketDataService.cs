@@ -20,6 +20,7 @@ namespace Skywolf.MarketDataService
     public class MarketDataService : EchoService, IMarketDataService
     {
         public const string DATASOURCE_ALPHAVANTAGE = "av";
+        public const string DATASOURCE_TVC = "tvc";
         public const string DATASOURCE_DEFAULT = "av";
         private static int _AVKeyBatchId = 1;
         private static ILog _Logger;
@@ -42,6 +43,7 @@ namespace Skywolf.MarketDataService
             {
                 _dataGrabber[DATASOURCE_ALPHAVANTAGE] = new AVMarketDataGrabber();
                 new AVMarketDataGrabber().UpdateAPIKeys(new MarketDataDatabase().VA_GetAvailableAPIKey(_AVKeyBatchId));
+                _dataGrabber[DATASOURCE_TVC] = new TVCMarketDataGrabber();
             }
             catch (Exception ex)
             {

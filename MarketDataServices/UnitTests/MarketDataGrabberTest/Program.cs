@@ -11,6 +11,8 @@ using Skywolf.Utility;
 using System.Data;
 using Skywolf.Contracts.DataContracts.MarketData;
 using Skywolf.MarketDataService;
+using Newtonsoft.Json;
+using Skywolf.Contracts.DataContracts.MarketData.TVC;
 
 namespace MarketDataGrabberTest
 {
@@ -18,8 +20,79 @@ namespace MarketDataGrabberTest
     {
         static void Main(string[] args)
         {
-            testAVStore();
- 
+            //testDateTime();
+            //testTVCHttpGet();
+            testTVCGrabber();
+
+
+        }
+        static void testDateTime()
+        {
+            DateTime start = new DateTime(1970, 1, 1);
+            DateTime currentDate = start.AddSeconds(728265600);
+            double seconds = (currentDate - start).TotalSeconds;
+            Console.Write(seconds);
+            Console.Write(currentDate);
+        }
+
+        static void testTVCGrabber()
+        {
+            TVCMarketDataGrabber marketData = new TVCMarketDataGrabber();
+
+            //string[] symbols = new string[] { "A", "AABA", "AAL", "AAOI", "AAP", "AAPL", "ABBV", "ABC", "ABT", "ACN", "ADBE", "ADI", "ADM", "ADP", "ADS", "ADSK", "AEP", "AET", "AFL", "AGN", "AIG", "AKAM", "AKRX", "AKS", "ALB", "ALGN", "ALK", "ALL", "ALLY", "ALXN", "AMAT", "AMD", "AMGN", "AMP", "AMT", "AMTD", "AMZN", "ANDV", "ANET", "ANTM", "AON", "APA", "APC", "APD", "ARNC", "ATVI", "AVB", "AVGO", "AXP", "AYI", "AZO", "BA", "BAC", "BAX", "BBBY", "BBT", "BBY", "BCR", "BDX", "BEN", "BG", "BIIB", "BK", "BLK", "BLL", "BLUE", "BMRN", "BMY", "BRK_B", "BSX", "BURL", "BWA", "C", "CA", "CAG", "CAH", "CAR", "CAT", "CB", "CBI", "CBS", "CC", "CCI", "CCL", "CELG", "CERN", "CF", "CFG", "CHK", "CHKP", "CHRW", "CHTR", "CI", "CIEN", "CIT", "CL", "CLF", "CLR", "CLVS", "CLX", "CMA", "CMCS_A", "CME", "CMG", "CMI", "CMS", "CNC", "COF", "COG", "COH", "COL", "COMM", "COP", "COST", "COTY", "CPB", "CPN", "CRM", "CSCO", "CSX", "CTL", "CTSH", "CTXS", "CVS", "CVX", "CXO", "CY", "D", "DAL", "DE", "DFS", "DG", "DGX", "DHI", "DHR", "DIS", "DISC_A", "DISH", "DKS", "DLPH", "DLR", "DLTR", "DOV", "DPS", "DPZ", "DRI", "DUK", "DVA", "DVN", "DXC", "DXCM", "EA", "EBAY", "ECL", "ED", "EFX", "EIX", "EL", "EMN", "EMR", "ENDP", "EOG", "EQIX", "EQR", "EQT", "ESRX", "ESV", "ETFC", "ETN", "EVHC", "EW", "EXAS", "EXC", "EXEL", "EXPE", "F", "FANG", "FAST", "FB", "FCX", "FDX", "FE", "FEYE", "FFIV", "FIS", "FISV", "FITB", "FL", "FLT", "FMC", "FNSR", "FOXA", "FRC", "FSLR", "GD", "GE", "GGP", "GILD", "GIS", "GLW", "GM", "GOOG_L", "GPN", "GPS", "GRUB", "GS", "GT", "GWW", "HAL", "HAS", "HBAN", "HBI", "HCA", "HCN", "HCP", "HD", "HDS", "HES", "HFC", "HIG", "HLT", "HOG", "HOLX", "HON", "HP", "HPE", "HPQ", "HST", "HSY", "HTZ", "HUM", "HUN", "IBM", "ICE", "IDXX", "ILMN", "INCY", "INFO", "INTC", "INTU", "IP", "IPG", "IR", "ISRG", "ITW", "IVZ", "JBHT", "JBLU", "JCI", "JCP", "JNJ", "JNPR", "JPM", "JWN", "K", "KEY", "KHC", "KIM", "KITE", "KLAC", "KMB", "KMI", "KMX", "KO", "KORS", "KR", "KSS", "KSU", "LB", "LBTY_A", "LEA", "LEN", "LH", "LITE", "LLY", "LMT", "LNC", "LNG", "LOW", "LRCX", "LULU", "LUV", "LVLT", "LVS", "LYB", "M", "MA", "MAR", "MAS", "MAT", "MCD", "MCHP", "MCK", "MCO", "MDLZ", "MDT", "MELI", "MET", "MGM", "MHK", "MLM", "MMC", "MMM", "MNK", "MNST", "MO", "MON", "MOS", "MPC", "MRK", "MRO", "MRVL", "MS", "MSFT", "MSI", "MTB", "MU", "MXIM", "MYL", "NBL", "NBR", "NCLH", "NEE", "NEM", "NFLX", "NFX", "NKE", "NLSN", "NLY", "NOC", "NOV", "NOW", "NRG", "NSC", "NTAP", "NTRS", "NUE", "NVDA", "NWL", "NXPI", "O", "OAS", "OCLR", "OKE", "OMC", "ON", "ORCL", "ORLY", "OXY", "P", "PANW", "PAYX", "PCAR", "PCG", "PCLN", "PE", "PEG", "PEP", "PFE", "PG", "PGR", "PH", "PHM", "PLD", "PM", "PNC", "PPG", "PPL", "PRGO", "PRU", "PSA", "PSX", "PTEN", "PVH", "PX", "PXD", "PYPL", "Q", "QCOM", "QRVO", "RAD", "RCL", "REGN", "RF", "RH", "RHT", "RICE", "RIG", "RL", "ROK", "ROST", "RRC", "RTN", "S", "SBAC", "SBUX", "SCHW", "SEE", "SHOP", "SHW", "SIG", "SINA", "SIRI", "SJM", "SLB", "SLCA", "SM", "SNA", "SNI", "SO", "SPG", "SPGI", "SPLK", "SRC", "SRE", "SRPT", "STI", "STLD", "STT", "STX", "STZ", "SWK", "SWKS", "SWN", "SYF", "SYK", "SYMC", "SYY", "T", "TAP", "TDG", "TEL", "TER", "TGT", "TIF", "TJX", "TMO", "TMUS", "TRGP", "TRIP", "TROW", "TRV", "TSCO", "TSLA", "TSN", "TSRO", "TTWO", "TWTR", "TWX", "TXN", "UAA", "UAL", "UHS", "ULTA", "UNH", "UNP", "UPS", "URI", "USB", "UTX", "V", "VFC", "VLO", "VMC", "VMW", "VNTV", "VRTX", "VTR", "VZ", "W", "WBA", "WDAY", "WDC", "WEC", "WFC", "WFT", "WHR", "WLL", "WLTW", "WM", "WMB", "WMT", "WPX", "WSM", "WU", "WY", "WYN", "WYNN", "X", "XEC", "XEL", "XLNX", "XOM", "XPO", "XRAY", "YELP", "YUM", "ZBH", "ZION", "ZTS" };
+            string[] symbols = new string[] { "NASDAQ:AAPL" };
+            Quote[] quotes_output = marketData.StockBatchQuote(symbols);
+
+            Console.Write(quotes_output);
+
+            TimeSeriesDataOutput output = marketData.GetTimeSeriesData(new TimeSeriesDataInput()
+            {
+                Frequency = BarFrequency.Day1,
+                IsAdjustedValue = false,
+                OutputCount = 10,
+                Symbol = "MSFT"
+            });
+
+            Console.Write(output);
+
+            TVCHistoryResponse history = marketData.GetHistoricalPrices("AAPL", BarFrequency.Month1, new DateTime(1980, 1, 1), new DateTime(2018, 9, 6));
+            TVCQuotesResponse quotes = marketData.GetQuotes(new string[] { "shanghai:601988", "shanghai: 603088" });
+            TVCSymbolResponse symbol = marketData.GetSymbolInfo("AAPL");
+            Console.Write(history);
+            Console.Write(quotes);
+            Console.Write(symbol);
+
+        }
+
+        static void testTVCHttpGet()
+        {
+            BaseMarketDataGrabber marketData = new TVCMarketDataGrabber();
+            string result = marketData.HttpGet("https://tvc4.forexpros.com/");
+            string keyword_carrier = "carrier=";
+            string keyword_time = "time=";
+            
+            int carrierIdx = result.IndexOf(keyword_carrier);
+            int andIdx = result.IndexOf("&", carrierIdx);
+            string carrier = result.Substring(carrierIdx + keyword_carrier.Length, andIdx-(carrierIdx+keyword_carrier.Length));
+
+            int timeIdx = result.IndexOf(keyword_time, carrierIdx);
+            andIdx = result.IndexOf("&", timeIdx);
+            string time = result.Substring(timeIdx + keyword_time.Length, andIdx-(timeIdx+keyword_time.Length));
+
+            string prices = marketData.HttpGet(string.Format("https://tvc4.forexpros.com/{0}/{1}/1/1/8/history?symbol=AAPL&resolution=M&from=603015941&to=1536136001", carrier, time));
+            string quote = marketData.HttpGet(string.Format("https://tvc4.forexpros.com/{0}/{1}/1/1/8/quotes?symbols=shanghai:601988,shanghai:603088", carrier, time));
+            string symbol = marketData.HttpGet(string.Format("https://tvc4.forexpros.com/{0}/{1}/1/1/8/symbols?symbol=aapl", carrier, time));
+
+            TVCHistoryResponse priceObj = JsonConvert.DeserializeObject<TVCHistoryResponse>(prices);
+            TVCQuotesResponse quotesObj = JsonConvert.DeserializeObject<TVCQuotesResponse>(quote);
+            TVCSymbolResponse symbolObj = JsonConvert.DeserializeObject<TVCSymbolResponse>(symbol);
+            // resolution=M|W|D|60|10|5|1
+            Console.Write(carrier);
+            Console.Write(time);
+            Console.Write(priceObj);
+            Console.Write(quotesObj);
+            Console.Write(symbolObj);
+            Console.Write(result);
         }
 
         static void testHttpGet()

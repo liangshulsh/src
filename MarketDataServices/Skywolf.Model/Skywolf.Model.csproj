@@ -52,6 +52,12 @@
     <Compile Include="Contracts\DataContracts\MarketData\Quote.cs" />
     <Compile Include="Contracts\DataContracts\MarketData\TimeSeriesDataInput.cs" />
     <Compile Include="Contracts\DataContracts\MarketData\TimeSeriesDataOutput.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\TVC\TVCHistoryResponse.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\TVC\TVCQuote.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\TVC\TVCQuoteResponse.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\TVC\TVCQuotesResponse.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\TVC\TVCResponse.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\TVC\TVCSymbolResponse.cs" />
     <Compile Include="Contracts\DataContracts\Trading\AccountSummary.cs" />
     <Compile Include="Contracts\DataContracts\Trading\Contract.cs" />
     <Compile Include="Contracts\DataContracts\Trading\PortfolioBase.cs" />

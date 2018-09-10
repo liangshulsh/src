@@ -192,7 +192,7 @@ namespace Skywolf.TradingService
             return null;
         }
 
-        public static Trading.Order ConvertOpenOrderMessageToOrder(Messages.OpenOrderMessage openOrder)
+        public static Trading.Order ConvertOpenOrderMessageToOrder(Messages.OpenOrderMessage openOrder, IBUser user)
         {
             if (openOrder != null)
             {
@@ -255,13 +255,24 @@ namespace Skywolf.TradingService
                     order.WhyHeld = openOrder.OrderStatus.WhyHeld;
                 }
 
+                if (user != null)
+                {
+                    var portfolio = user.GetPortfolioFromOrderId(order.OrderId);
+                    if (portfolio != null)
+                    {
+                        order.Fund = portfolio.Item1;
+                        order.Strategy = portfolio.Item2;
+                        order.Folder = portfolio.Item3;
+                    }
+                }
+
                 return order;
             }
 
             return null;
         }
 
-        public static Trading.Trade ConvertExecutionToTrade(Messages.ExecutionMessage execution)
+        public static Trading.Trade ConvertExecutionToTrade(Messages.ExecutionMessage execution, IBUser user)
         {
             if (execution != null)
             {
@@ -297,6 +308,18 @@ namespace Skywolf.TradingService
                     trade.RealizedPNL = execution.Commission.RealizedPNL;
                     trade.Yield = execution.Commission.Yield;
                     trade.YieldRedemptionDate = execution.Commission.YieldRedemptionDate;
+                }
+
+                if (execution.Execution != null && user != null)
+                {
+                    int orderId = execution.Execution.OrderId;
+                    Tuple<string, string, string> portfolio = user.GetPortfolioFromOrderId(orderId);
+                    if (portfolio != null)
+                    {
+                        trade.Fund = portfolio.Item1;
+                        trade.Strategy = portfolio.Item2;
+                        trade.Folder = portfolio.Item3;
+                    }
                 }
 
                 return trade;
@@ -350,7 +373,8 @@ namespace Skywolf.TradingService
                     Messages.OpenOrderMessage openOrder = user.GetOpenOrderMessage(orderId, user.ClientId);
                     if (openOrder != null)
                     {
-                        return ConvertOpenOrderMessageToOrder(openOrder);
+                        var order = ConvertOpenOrderMessageToOrder(openOrder, user);
+
                     }
                 }
 
@@ -374,7 +398,7 @@ namespace Skywolf.TradingService
                     Messages.OpenOrderMessage[] openOrders = user.GetAllOpenOrders();
                     if (openOrders != null)
                     {
-                        return openOrders.Select(p => ConvertOpenOrderMessageToOrder(p)).ToArray();
+                        return openOrders.Select(p => ConvertOpenOrderMessageToOrder(p, user)).ToArray();
                     }
                 }
 
@@ -398,7 +422,7 @@ namespace Skywolf.TradingService
                     Messages.OpenOrderMessage[] openOrders = user.RefreshAllOpenOrders();
                     if (openOrders != null)
                     {
-                        return openOrders.Select(p => ConvertOpenOrderMessageToOrder(p)).ToArray();
+                        return openOrders.Select(p => ConvertOpenOrderMessageToOrder(p, user)).ToArray();
                     }
                 }
 
@@ -539,7 +563,7 @@ namespace Skywolf.TradingService
                     Messages.ExecutionMessage[] executions = user.GetAllExecutions();
                     if (executions != null)
                     {
-                        return executions.Select(p => ConvertExecutionToTrade(p)).ToArray();
+                        return executions.Select(p => ConvertExecutionToTrade(p, user)).ToArray();
                     }
                 }
 
@@ -563,7 +587,7 @@ namespace Skywolf.TradingService
                     Messages.ExecutionMessage[] executions = user.FilterExecutions(filter);
                     if (executions != null)
                     {
-                        return executions.Select(p => ConvertExecutionToTrade(p)).ToArray();
+                        return executions.Select(p => ConvertExecutionToTrade(p, user)).ToArray();
                     }
                 }
 
