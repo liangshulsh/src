@@ -19,6 +19,154 @@ namespace Skywolf.DatabaseRepository
         
         protected static object _storeLockObj = new object();
 
+        public void TVC_StoreQuotes(IEnumerable<tvc.TVCQuoteResponse> quotes)
+        {
+            if (quotes != null)
+            {
+                using (MarketDataDataContext market = new MarketDataDataContext())
+                {
+                    foreach (var quote in quotes)
+                    {
+                        if (quote.v == null)
+                        {
+                            continue;
+                        }
+
+                        DateTime asofdate = DateTime.Today;
+                        string name = null;
+                        double? ch = null;
+                        double? chp = null;
+                        string short_name = quote.v.short_name;
+                        string exchange = quote.v.exchange;
+                        string description = quote.v.description;
+                        double? lp = null;
+                        double? ask = null;
+                        double? bid = null;
+                        double? spread = null;
+                        double? open_price = null;
+                        double? high_price = null;
+                        double? low_price = null;
+                        double? prev_close_price = null;
+                        double? volume = null;
+
+                        if (!string.IsNullOrEmpty(quote.n))
+                        {
+                            if (quote.n.Contains(":"))
+                            {
+                                name = quote.n.Split(new char[] { ':' })[1];
+                            }
+                            else
+                            {
+                                name = quote.n;
+                            }
+                        }
+
+                        try
+                        {
+                            ch = Convert.ToDouble(quote.v.ch);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        try
+                        {
+                            chp = Convert.ToDouble(quote.v.chp);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        try
+                        {
+                            lp = Convert.ToDouble(quote.v.lp);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        try
+                        {
+                            ask = Convert.ToDouble(quote.v.ask);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        try
+                        {
+                            bid = Convert.ToDouble(quote.v.bid);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        try
+                        {
+                            spread = quote.v.spread;
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        try
+                        {
+                            open_price = Convert.ToDouble(quote.v.open_price);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        try
+                        {
+                            high_price = Convert.ToDouble(quote.v.high_price);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        try
+                        {
+                            low_price = Convert.ToDouble(quote.v.low_price);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        try
+                        {
+                            prev_close_price = Convert.ToDouble(quote.v.prev_close_price);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        try
+                        {
+                            volume = Convert.ToDouble(quote.v.volume);
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+
+                        market.usp_Quotes_Upsert(asofdate, name, ch, chp, short_name, exchange, description, lp, ask, bid, spread, open_price, high_price, low_price, prev_close_price, volume);
+                    }
+                }
+            }
+
+        }
+
         public tvc.TVCSymbolResponse[] TVC_GetSymbolList(IEnumerable<string> symbols)
         {
             List<tvc.TVCSymbolResponse> symbolResponses = new List<tvc.TVCSymbolResponse>();

@@ -351,6 +351,28 @@
       <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="tvc.Quotes" Member="TVC_Quotes">
+    <Type Name="TVC_Quote">
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(200) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ch" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="chp" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="short_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="exchange" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="description" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="lp" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ask" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="bid" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="spread" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="open_price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="high_price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="low_price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="prev_close_price" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="volume" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Usr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="tvc.usp_SymbolList_Upsert" Method="usp_SymbolList_Upsert">
     <Parameter Name="name" Type="System.String" DbType="VarChar(200)" />
     <Parameter Name="exchange_traded" Type="System.String" DbType="VarChar(50)" />
@@ -372,6 +394,25 @@
     <Parameter Name="intraday_multipliers" Type="System.String" DbType="VarChar(200)" />
     <Parameter Name="session" Type="System.String" DbType="VarChar(200)" />
     <Parameter Name="data_status" Type="System.String" DbType="VarChar(100)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="tvc.usp_Quotes_Upsert" Method="usp_Quotes_Upsert">
+    <Parameter Name="asofdate" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="name" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="ch" Type="System.Double" DbType="Float" />
+    <Parameter Name="chp" Type="System.Double" DbType="Float" />
+    <Parameter Name="short_name" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="exchange" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="description" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="lp" Type="System.Double" DbType="Float" />
+    <Parameter Name="ask" Type="System.Double" DbType="Float" />
+    <Parameter Name="bid" Type="System.Double" DbType="Float" />
+    <Parameter Name="spread" Type="System.Double" DbType="Float" />
+    <Parameter Name="open_price" Type="System.Double" DbType="Float" />
+    <Parameter Name="high_price" Type="System.Double" DbType="Float" />
+    <Parameter Name="low_price" Type="System.Double" DbType="Float" />
+    <Parameter Name="prev_close_price" Type="System.Double" DbType="Float" />
+    <Parameter Name="volume" Type="System.Double" DbType="Float" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

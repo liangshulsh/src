@@ -102,6 +102,9 @@ namespace Skywolf.DatabaseRepository
     partial void InsertTVC_SymbolList(TVC_SymbolList instance);
     partial void UpdateTVC_SymbolList(TVC_SymbolList instance);
     partial void DeleteTVC_SymbolList(TVC_SymbolList instance);
+    partial void InsertTVC_Quote(TVC_Quote instance);
+    partial void UpdateTVC_Quote(TVC_Quote instance);
+    partial void DeleteTVC_Quote(TVC_Quote instance);
     #endregion
 		
 		public MarketDataDataContext() : 
@@ -342,6 +345,14 @@ namespace Skywolf.DatabaseRepository
 			}
 		}
 		
+		public System.Data.Linq.Table<TVC_Quote> TVC_Quotes
+		{
+			get
+			{
+				return this.GetTable<TVC_Quote>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tvc.usp_SymbolList_Upsert")]
 		public int usp_SymbolList_Upsert(
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string name, 
@@ -366,6 +377,29 @@ namespace Skywolf.DatabaseRepository
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string data_status)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), name, exchange_traded, exchange_listed, timezone, minmov, minmov2, pricescale, pointvalue, has_intraday, has_no_volume, volume_precision, tvc_ticker, description, type, has_daily, has_weekly_and_monthly, supported_resolutions, intraday_multipliers, session, data_status);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tvc.usp_Quotes_Upsert")]
+		public int usp_Quotes_Upsert(
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> asofdate, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string name, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> ch, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> chp, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string short_name, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string exchange, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string description, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> lp, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> ask, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> bid, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> spread, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> open_price, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> high_price, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> low_price, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> prev_close_price, 
+					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> volume)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), asofdate, name, ch, chp, short_name, exchange, description, lp, ask, bid, spread, open_price, high_price, low_price, prev_close_price, volume);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -7097,6 +7131,476 @@ namespace Skywolf.DatabaseRepository
 					this._data_status = value;
 					this.SendPropertyChanged("data_status");
 					this.Ondata_statusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usr", DbType="VarChar(200)")]
+		public string Usr
+		{
+			get
+			{
+				return this._Usr;
+			}
+			set
+			{
+				if ((this._Usr != value))
+				{
+					this.OnUsrChanging(value);
+					this.SendPropertyChanging();
+					this._Usr = value;
+					this.SendPropertyChanged("Usr");
+					this.OnUsrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="tvc.Quotes")]
+	public partial class TVC_Quote : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.DateTime _AsOfDate;
+		
+		private string _Name;
+		
+		private System.Nullable<double> _ch;
+		
+		private System.Nullable<double> _chp;
+		
+		private string _short_name;
+		
+		private string _exchange;
+		
+		private string _description;
+		
+		private System.Nullable<double> _lp;
+		
+		private System.Nullable<double> _ask;
+		
+		private System.Nullable<double> _bid;
+		
+		private System.Nullable<double> _spread;
+		
+		private System.Nullable<double> _open_price;
+		
+		private System.Nullable<double> _high_price;
+		
+		private System.Nullable<double> _low_price;
+		
+		private System.Nullable<double> _prev_close_price;
+		
+		private System.Nullable<double> _volume;
+		
+		private string _Usr;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    partial void OnchChanging(System.Nullable<double> value);
+    partial void OnchChanged();
+    partial void OnchpChanging(System.Nullable<double> value);
+    partial void OnchpChanged();
+    partial void Onshort_nameChanging(string value);
+    partial void Onshort_nameChanged();
+    partial void OnexchangeChanging(string value);
+    partial void OnexchangeChanged();
+    partial void OndescriptionChanging(string value);
+    partial void OndescriptionChanged();
+    partial void OnlpChanging(System.Nullable<double> value);
+    partial void OnlpChanged();
+    partial void OnaskChanging(System.Nullable<double> value);
+    partial void OnaskChanged();
+    partial void OnbidChanging(System.Nullable<double> value);
+    partial void OnbidChanged();
+    partial void OnspreadChanging(System.Nullable<double> value);
+    partial void OnspreadChanged();
+    partial void Onopen_priceChanging(System.Nullable<double> value);
+    partial void Onopen_priceChanged();
+    partial void Onhigh_priceChanging(System.Nullable<double> value);
+    partial void Onhigh_priceChanged();
+    partial void Onlow_priceChanging(System.Nullable<double> value);
+    partial void Onlow_priceChanged();
+    partial void Onprev_close_priceChanging(System.Nullable<double> value);
+    partial void Onprev_close_priceChanged();
+    partial void OnvolumeChanging(System.Nullable<double> value);
+    partial void OnvolumeChanged();
+    partial void OnUsrChanging(string value);
+    partial void OnUsrChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    #endregion
+		
+		public TVC_Quote()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="Date NOT NULL", IsPrimaryKey=true)]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="VarChar(200) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ch", DbType="Float")]
+		public System.Nullable<double> ch
+		{
+			get
+			{
+				return this._ch;
+			}
+			set
+			{
+				if ((this._ch != value))
+				{
+					this.OnchChanging(value);
+					this.SendPropertyChanging();
+					this._ch = value;
+					this.SendPropertyChanged("ch");
+					this.OnchChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_chp", DbType="Float")]
+		public System.Nullable<double> chp
+		{
+			get
+			{
+				return this._chp;
+			}
+			set
+			{
+				if ((this._chp != value))
+				{
+					this.OnchpChanging(value);
+					this.SendPropertyChanging();
+					this._chp = value;
+					this.SendPropertyChanged("chp");
+					this.OnchpChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_short_name", DbType="VarChar(100)")]
+		public string short_name
+		{
+			get
+			{
+				return this._short_name;
+			}
+			set
+			{
+				if ((this._short_name != value))
+				{
+					this.Onshort_nameChanging(value);
+					this.SendPropertyChanging();
+					this._short_name = value;
+					this.SendPropertyChanged("short_name");
+					this.Onshort_nameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_exchange", DbType="VarChar(100)")]
+		public string exchange
+		{
+			get
+			{
+				return this._exchange;
+			}
+			set
+			{
+				if ((this._exchange != value))
+				{
+					this.OnexchangeChanging(value);
+					this.SendPropertyChanging();
+					this._exchange = value;
+					this.SendPropertyChanged("exchange");
+					this.OnexchangeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="VarChar(200)")]
+		public string description
+		{
+			get
+			{
+				return this._description;
+			}
+			set
+			{
+				if ((this._description != value))
+				{
+					this.OndescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._description = value;
+					this.SendPropertyChanged("description");
+					this.OndescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_lp", DbType="Float")]
+		public System.Nullable<double> lp
+		{
+			get
+			{
+				return this._lp;
+			}
+			set
+			{
+				if ((this._lp != value))
+				{
+					this.OnlpChanging(value);
+					this.SendPropertyChanging();
+					this._lp = value;
+					this.SendPropertyChanged("lp");
+					this.OnlpChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ask", DbType="Float")]
+		public System.Nullable<double> ask
+		{
+			get
+			{
+				return this._ask;
+			}
+			set
+			{
+				if ((this._ask != value))
+				{
+					this.OnaskChanging(value);
+					this.SendPropertyChanging();
+					this._ask = value;
+					this.SendPropertyChanged("ask");
+					this.OnaskChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_bid", DbType="Float")]
+		public System.Nullable<double> bid
+		{
+			get
+			{
+				return this._bid;
+			}
+			set
+			{
+				if ((this._bid != value))
+				{
+					this.OnbidChanging(value);
+					this.SendPropertyChanging();
+					this._bid = value;
+					this.SendPropertyChanged("bid");
+					this.OnbidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_spread", DbType="Float")]
+		public System.Nullable<double> spread
+		{
+			get
+			{
+				return this._spread;
+			}
+			set
+			{
+				if ((this._spread != value))
+				{
+					this.OnspreadChanging(value);
+					this.SendPropertyChanging();
+					this._spread = value;
+					this.SendPropertyChanged("spread");
+					this.OnspreadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_open_price", DbType="Float")]
+		public System.Nullable<double> open_price
+		{
+			get
+			{
+				return this._open_price;
+			}
+			set
+			{
+				if ((this._open_price != value))
+				{
+					this.Onopen_priceChanging(value);
+					this.SendPropertyChanging();
+					this._open_price = value;
+					this.SendPropertyChanged("open_price");
+					this.Onopen_priceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_high_price", DbType="Float")]
+		public System.Nullable<double> high_price
+		{
+			get
+			{
+				return this._high_price;
+			}
+			set
+			{
+				if ((this._high_price != value))
+				{
+					this.Onhigh_priceChanging(value);
+					this.SendPropertyChanging();
+					this._high_price = value;
+					this.SendPropertyChanged("high_price");
+					this.Onhigh_priceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_low_price", DbType="Float")]
+		public System.Nullable<double> low_price
+		{
+			get
+			{
+				return this._low_price;
+			}
+			set
+			{
+				if ((this._low_price != value))
+				{
+					this.Onlow_priceChanging(value);
+					this.SendPropertyChanging();
+					this._low_price = value;
+					this.SendPropertyChanged("low_price");
+					this.Onlow_priceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_prev_close_price", DbType="Float")]
+		public System.Nullable<double> prev_close_price
+		{
+			get
+			{
+				return this._prev_close_price;
+			}
+			set
+			{
+				if ((this._prev_close_price != value))
+				{
+					this.Onprev_close_priceChanging(value);
+					this.SendPropertyChanging();
+					this._prev_close_price = value;
+					this.SendPropertyChanged("prev_close_price");
+					this.Onprev_close_priceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_volume", DbType="Float")]
+		public System.Nullable<double> volume
+		{
+			get
+			{
+				return this._volume;
+			}
+			set
+			{
+				if ((this._volume != value))
+				{
+					this.OnvolumeChanging(value);
+					this.SendPropertyChanging();
+					this._volume = value;
+					this.SendPropertyChanged("volume");
+					this.OnvolumeChanged();
 				}
 			}
 		}

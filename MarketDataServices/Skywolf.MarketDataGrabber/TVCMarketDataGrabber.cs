@@ -10,11 +10,13 @@ using System.Threading;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Skywolf.MarketDataGrabber
 {
     public delegate Dictionary<string, TVCSymbolResponse> GetTVCSymbols(IEnumerable<string> symbols);
     public delegate void UpdateTVCSymbols(IEnumerable<TVCSymbolResponse> tvcSymbols);
+    public delegate void UpdateTVCQuotes(IEnumerable<TVCQuoteResponse> tvcQuotes);
 
     public class TVCMarketDataGrabber : BaseMarketDataGrabber
     {
@@ -28,6 +30,7 @@ namespace Skywolf.MarketDataGrabber
         public static ConcurrentDictionary<string, TVCSymbolResponse> _SymbolToSymbolInfo = new ConcurrentDictionary<string, TVCSymbolResponse>();
         public GetTVCSymbols _getTVCSymbolsHandler;
         public UpdateTVCSymbols _updateTVCSymbolesHandler;
+        public UpdateTVCQuotes _updateTVCQuotesHandler;
 
         public override TimeSeriesDataOutput GetTimeSeriesData(TimeSeriesDataInput input)
         {
@@ -267,6 +270,8 @@ namespace Skywolf.MarketDataGrabber
                         }
                     }
                 }
+
+                _updateTVCQuotesHandler?.Invoke(totalQuotes.d);
 
                 return totalQuotes;
             }

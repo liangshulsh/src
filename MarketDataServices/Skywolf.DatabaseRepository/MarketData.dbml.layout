@@ -158,5 +158,11 @@
         <elementListCompartment Id="325ff792-e002-4f5a-bb95-634de38c7b6c" absoluteBounds="3.0149999999999997, 5.96, 1.9700000000000002, 4.4800211588541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="b64dfb5e-1c31-4ec2-812c-a5a4db994019" isExpanded="false" absoluteBounds="3, 6.125, 2, 0.45">
+      <DataClassMoniker Name="/MarketDataDataContext/TVC_Quote" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b8716272-da4d-47ac-ab8b-635979ae204e" absoluteBounds="3.015, 6.585, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
