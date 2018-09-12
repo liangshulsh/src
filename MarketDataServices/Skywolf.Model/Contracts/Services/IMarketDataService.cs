@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.ServiceModel.Web;
+using Skywolf.Contracts.DataContracts.MarketData.TVC;
 
 namespace Skywolf.Contracts.Services
 {
@@ -52,5 +53,17 @@ namespace Skywolf.Contracts.Services
 
         [OperationContract]
         void AV_UpdateAPIKeys(string[] apiKeys);
+
+        [OperationContract]
+        TVCHistoryResponse TVC_GetHistoricalPrices(string symbol, BarFrequency frequency, DateTime from, DateTime to);
+
+        [OperationContract]
+        TVCQuotesResponse TVC_GetQuotes(IEnumerable<string> symbols);
+
+        [OperationContract]
+        TVCSymbolResponse TVC_GetSymbolInfo(string symbol);
+
+        [OperationContract]
+        TVCSearchResponse[] TVC_GetSymbolSearch(string query, string type, string exchange, int limit = 30);
     }
 }

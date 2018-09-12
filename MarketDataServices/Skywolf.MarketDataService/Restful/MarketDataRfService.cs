@@ -12,6 +12,8 @@ using Skywolf.Contracts.DataContracts.MarketData;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Skywolf.Contracts.DataContracts.MarketData.TVC;
+using Newtonsoft.Json;
 
 namespace Skywolf.MarketDataService.Restful
 {
@@ -390,6 +392,90 @@ namespace Skywolf.MarketDataService.Restful
                 string[] keys = apiKeys.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
                 new MarketDataService().AV_UpdateAPIKeys(keys);
                 return "OK";
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        public string TVC_GetHistoricalPrices(string symbol, string frequency, string from, string to)
+        {
+            BarFrequency freq = RestfulHelper.ConvertStringToBarFrequency(frequency);
+
+            DateTime startDate = DateTime.MinValue;
+            if (!string.IsNullOrWhiteSpace(from))
+            {
+                try
+                {
+                    startDate = Convert.ToDateTime(from);
+                }
+                catch (Exception)
+                {
+                    return "Error:from";
+                }
+            }
+            DateTime endDate = DateTime.Today;
+            if (!string.IsNullOrWhiteSpace(to))
+            {
+                try
+                {
+                    endDate = Convert.ToDateTime(to);
+                }
+                catch (Exception)
+                {
+                    return "Error:to";
+                }
+            }
+
+            try
+            {
+                TVCHistoryResponse response = new MarketDataService().TVC_GetHistoricalPrices(symbol, freq, startDate, endDate);
+                return JsonConvert.SerializeObject(response);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        public string TVC_GetQuotes(string symbols)
+        {
+            try
+            {
+                string[] symbolarray = symbols.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                TVCQuotesResponse response = new MarketDataService().TVC_GetQuotes(symbolarray);
+                return JsonConvert.SerializeObject(response);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        public string TVC_GetSymbolInfo(string symbol)
+        {
+            try
+            {
+                TVCSymbolResponse response = new MarketDataService().TVC_GetSymbolInfo(symbol);
+                return JsonConvert.SerializeObject(response);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        public string TVC_GetSymbolSearch(string query, string type, string exchange, string limit)
+        {
+            try
+            {
+                TVCSearchResponse[] response = new MarketDataService().TVC_GetSymbolSearch(query, type, exchange, Convert.ToInt32(limit));
+                return JsonConvert.SerializeObject(response);
             }
             catch (Exception ex)
             {

@@ -53,5 +53,21 @@ namespace Skywolf.Contracts.Services.Restful
         [OperationContract]
         [WebGet(UriTemplate = "va_updateapikeys?apikeys={apikeys}")]
         string AV_UpdateAPIKeys(string apikeys);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "tvc_gethistoricalprices?symbol={symbol}&frequency={frequency}&from={from}&to={to}")]
+        string TVC_GetHistoricalPrices(string symbol, string frequency, string from, string to);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "tvc_getquotes?symbols={symbols}")]
+        string TVC_GetQuotes(string symbols);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "tvc_getsymbolinfo?symbol={symbol}")]
+        string TVC_GetSymbolInfo(string symbol);
+
+        [OperationContract]
+        [WebGet(UriTemplate = "tvc_getsymbolsearch?query={query}&type={type}&exchange={exchange}&limit={limit}")]
+        string TVC_GetSymbolSearch(string query, string type, string exchange, string limit);
     }
 }

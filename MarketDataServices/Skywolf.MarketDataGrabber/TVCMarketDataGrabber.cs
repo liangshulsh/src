@@ -386,6 +386,22 @@ namespace Skywolf.MarketDataGrabber
             return results.ToArray();
         }
 
+        public TVCSearchResponse[] GetSymbolSearch(string query, string type = "", string exchange = "", int limit = 30)
+        {
+            string result = TVCHttpGet(string.Format(TVC_URL_SEARCH, limit.ToString(), query, type, exchange));
+            try
+            {
+                TVCSearchResponse[] searchResponse = JsonConvert.DeserializeObject<TVCSearchResponse[]>(result);
+                return searchResponse;
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return null;
+        }
+
         public TVCSymbolResponse GetSymbolInfo(string symbol)
         {
             string result = TVCHttpGet(string.Format(TVC_URL_SYMBOLS, symbol));

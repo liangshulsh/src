@@ -13,6 +13,9 @@ using Skywolf.DatabaseRepository;
 using System.Collections.Generic;
 using Skywolf.Contracts.DataContracts.Instrument;
 using System.Configuration;
+using Skywolf.Contracts.DataContracts.MarketData.TVC;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Skywolf.MarketDataService
 {
@@ -43,7 +46,11 @@ namespace Skywolf.MarketDataService
             {
                 _dataGrabber[DATASOURCE_ALPHAVANTAGE] = new AVMarketDataGrabber();
                 new AVMarketDataGrabber().UpdateAPIKeys(new MarketDataDatabase().VA_GetAvailableAPIKey(_AVKeyBatchId));
-                _dataGrabber[DATASOURCE_TVC] = new TVCMarketDataGrabber();
+                TVCMarketDataGrabber tvc = new TVCMarketDataGrabber();
+                tvc._getTVCSymbolsHandler = new GetTVCSymbols(GetTVCSymbols);
+                tvc._updateTVCSymbolesHandler = new UpdateTVCSymbols(StoreTVCSymbols);
+                tvc._updateTVCQuotesHandler = new UpdateTVCQuotes(StoreTVCQuotes);
+                _dataGrabber[DATASOURCE_TVC] = tvc;
             }
             catch (Exception ex)
             {
@@ -52,6 +59,51 @@ namespace Skywolf.MarketDataService
             }
         }
 
+        static void StoreTVCQuotes(IEnumerable<TVCQuoteResponse> quotes)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    MarketDataDatabase marketData = new MarketDataDatabase();
+                    marketData.TVC_StoreQuotes(quotes);
+                }
+                catch (Exception ex)
+                {
+                    _Logger.Error(ex);
+                }
+            });
+        }
+
+        static void StoreTVCSymbols(IEnumerable<TVCSymbolResponse> symbols)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    MarketDataDatabase marketData = new MarketDataDatabase();
+                    marketData.TVC_StoreSymbolList(symbols);
+                }
+                catch (Exception ex)
+                {
+                    _Logger.Error(ex);
+                }
+            });
+        }
+
+        static Dictionary<string, TVCSymbolResponse> GetTVCSymbols(IEnumerable<string> symbols)
+        {
+            MarketDataDatabase marketData = new MarketDataDatabase();
+            TVCSymbolResponse[] responses = marketData.TVC_GetSymbolList(symbols);
+            if (responses != null)
+            {
+                return responses.ToDictionary(k => k.name, v => v);
+            }
+            else
+            {
+                return new Dictionary<string, TVCSymbolResponse>();
+            }
+        }
 
         public IDictionary<string, long> GetSIDFromName(string[] names)
         {
@@ -335,6 +387,62 @@ namespace Skywolf.MarketDataService
             try
             {
                 return new MarketDataDatabase().VA_StorePrices(SID, frequency, isAdjustedValue, bars);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        #endregion
+
+        #region TVC functions
+
+        public TVCHistoryResponse TVC_GetHistoricalPrices(string symbol, BarFrequency frequency, DateTime from, DateTime to)
+        {
+            try
+            {
+                return (_dataGrabber[DATASOURCE_TVC] as TVCMarketDataGrabber).GetHistoricalPrices(symbol, frequency, from, to);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        public TVCQuotesResponse TVC_GetQuotes(IEnumerable<string> symbols)
+        {
+            try
+            {
+                return (_dataGrabber[DATASOURCE_TVC] as TVCMarketDataGrabber).GetQuotes(symbols);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        public TVCSymbolResponse TVC_GetSymbolInfo(string symbol)
+        {
+            try
+            {
+                return (_dataGrabber[DATASOURCE_TVC] as TVCMarketDataGrabber).GetSymbolInfo(symbol);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        public TVCSearchResponse[] TVC_GetSymbolSearch(string query, string type = "", string exchange = "", int limit = 30)
+        {
+            try
+            {
+                return (_dataGrabber[DATASOURCE_TVC] as TVCMarketDataGrabber).GetSymbolSearch(query, type, exchange, limit);
             }
             catch (Exception ex)
             {
