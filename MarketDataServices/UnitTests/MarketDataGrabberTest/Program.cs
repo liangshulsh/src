@@ -71,7 +71,7 @@ namespace MarketDataGrabberTest
             marketData._updateTVCSymbolesHandler = new Skywolf.MarketDataGrabber.UpdateTVCSymbols(StoreTVCSymbols);
             marketData._updateTVCQuotesHandler = new Skywolf.MarketDataGrabber.UpdateTVCQuotes(StoreTVCQuotes);
 
-            var searchresult = marketData.GetSymbolSearch("AA");
+             searchresult = marketData.GetSymbolSearch("AA");
 
             Console.Write(searchresult);
 

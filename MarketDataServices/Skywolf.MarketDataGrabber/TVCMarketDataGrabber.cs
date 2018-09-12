@@ -144,7 +144,18 @@ namespace Skywolf.MarketDataGrabber
             if (tvc != null && tvc.v != null)
             {
                 Quote quote = new Quote();
-                quote.Symbol = tvc.n;
+                if (!string.IsNullOrEmpty(tvc.n))
+                {
+                    if (tvc.n.Contains(":"))
+                    {
+                        quote.Symbol = tvc.n.Split(new char[] { ':' })[1];
+                    }
+                    else
+                    {
+                        quote.Symbol = tvc.n;
+                    }
+                }
+                
                 quote.TimeZone = "UTC";
                 quote.TimeStamp = DateTime.UtcNow;
                 
