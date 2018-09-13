@@ -105,6 +105,9 @@ namespace Skywolf.DatabaseRepository
     partial void InsertTVC_Quote(TVC_Quote instance);
     partial void UpdateTVC_Quote(TVC_Quote instance);
     partial void DeleteTVC_Quote(TVC_Quote instance);
+    partial void InsertTVC_Holiday(TVC_Holiday instance);
+    partial void UpdateTVC_Holiday(TVC_Holiday instance);
+    partial void DeleteTVC_Holiday(TVC_Holiday instance);
     #endregion
 		
 		public MarketDataDataContext() : 
@@ -353,6 +356,14 @@ namespace Skywolf.DatabaseRepository
 			}
 		}
 		
+		public System.Data.Linq.Table<TVC_Holiday> TVC_Holidays
+		{
+			get
+			{
+				return this.GetTable<TVC_Holiday>();
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tvc.usp_SymbolList_Upsert")]
 		public int usp_SymbolList_Upsert(
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(200)")] string name, 
@@ -400,6 +411,13 @@ namespace Skywolf.DatabaseRepository
 					[global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Float")] System.Nullable<double> volume)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), asofdate, name, ch, chp, short_name, exchange, description, lp, ask, bid, spread, open_price, high_price, low_price, prev_close_price, volume);
+			return ((int)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tvc.usp_Holiday_Upsert")]
+		public int usp_Holiday_Upsert([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> asofdate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string country, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(150)")] string exchange, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(150)")] string holiday)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), asofdate, country, exchange, holiday);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -7601,6 +7619,188 @@ namespace Skywolf.DatabaseRepository
 					this._volume = value;
 					this.SendPropertyChanged("volume");
 					this.OnvolumeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usr", DbType="VarChar(200)")]
+		public string Usr
+		{
+			get
+			{
+				return this._Usr;
+			}
+			set
+			{
+				if ((this._Usr != value))
+				{
+					this.OnUsrChanging(value);
+					this.SendPropertyChanging();
+					this._Usr = value;
+					this.SendPropertyChanged("Usr");
+					this.OnUsrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TS", DbType="DateTime")]
+		public System.Nullable<System.DateTime> TS
+		{
+			get
+			{
+				return this._TS;
+			}
+			set
+			{
+				if ((this._TS != value))
+				{
+					this.OnTSChanging(value);
+					this.SendPropertyChanging();
+					this._TS = value;
+					this.SendPropertyChanged("TS");
+					this.OnTSChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="tvc.Holiday")]
+	public partial class TVC_Holiday : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.DateTime _AsOfDate;
+		
+		private string _Country;
+		
+		private string _Exchange;
+		
+		private string _Holiday1;
+		
+		private string _Usr;
+		
+		private System.Nullable<System.DateTime> _TS;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnAsOfDateChanging(System.DateTime value);
+    partial void OnAsOfDateChanged();
+    partial void OnCountryChanging(string value);
+    partial void OnCountryChanged();
+    partial void OnExchangeChanging(string value);
+    partial void OnExchangeChanged();
+    partial void OnHoliday1Changing(string value);
+    partial void OnHoliday1Changed();
+    partial void OnUsrChanging(string value);
+    partial void OnUsrChanged();
+    partial void OnTSChanging(System.Nullable<System.DateTime> value);
+    partial void OnTSChanged();
+    #endregion
+		
+		public TVC_Holiday()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AsOfDate", DbType="Date NOT NULL", IsPrimaryKey=true)]
+		public System.DateTime AsOfDate
+		{
+			get
+			{
+				return this._AsOfDate;
+			}
+			set
+			{
+				if ((this._AsOfDate != value))
+				{
+					this.OnAsOfDateChanging(value);
+					this.SendPropertyChanging();
+					this._AsOfDate = value;
+					this.SendPropertyChanged("AsOfDate");
+					this.OnAsOfDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Country", DbType="VarChar(50) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Country
+		{
+			get
+			{
+				return this._Country;
+			}
+			set
+			{
+				if ((this._Country != value))
+				{
+					this.OnCountryChanging(value);
+					this.SendPropertyChanging();
+					this._Country = value;
+					this.SendPropertyChanged("Country");
+					this.OnCountryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Exchange", DbType="VarChar(150) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Exchange
+		{
+			get
+			{
+				return this._Exchange;
+			}
+			set
+			{
+				if ((this._Exchange != value))
+				{
+					this.OnExchangeChanging(value);
+					this.SendPropertyChanging();
+					this._Exchange = value;
+					this.SendPropertyChanged("Exchange");
+					this.OnExchangeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Holiday", Storage="_Holiday1", DbType="VarChar(150)")]
+		public string Holiday1
+		{
+			get
+			{
+				return this._Holiday1;
+			}
+			set
+			{
+				if ((this._Holiday1 != value))
+				{
+					this.OnHoliday1Changing(value);
+					this.SendPropertyChanging();
+					this._Holiday1 = value;
+					this.SendPropertyChanged("Holiday1");
+					this.OnHoliday1Changed();
 				}
 			}
 		}

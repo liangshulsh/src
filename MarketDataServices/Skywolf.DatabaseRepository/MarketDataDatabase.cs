@@ -19,6 +19,21 @@ namespace Skywolf.DatabaseRepository
         
         protected static object _storeLockObj = new object();
 
+        public void TVC_StoreHolidays(IEnumerable<tvc.TVCCalendar> holidays)
+        {
+            if (holidays != null && holidays.Count() > 0)
+            {
+                using (MarketDataDataContext market = new MarketDataDataContext())
+                {
+                    foreach (var holiday in holidays)
+                    {
+                        market.usp_Holiday_Upsert(holiday.AsOfDate, holiday.Country, holiday.Exchange, holiday.Holiday);
+                    }
+                }
+            }
+        }
+
+
         public void TVC_StoreQuotes(IEnumerable<tvc.TVCQuoteResponse> quotes)
         {
             if (quotes != null)

@@ -65,5 +65,17 @@ namespace Skywolf.Contracts.Services
 
         [OperationContract]
         TVCSearchResponse[] TVC_GetSymbolSearch(string query, string type, string exchange, int limit = 30);
+
+        [OperationContract]
+        TVCCalendar[] TVC_GetCalendars(DateTime fromDate, DateTime toDate, string country = "", string currentTab = "custom");
+
+        [OperationContract]
+        void TVC_StoreHolidays(IEnumerable<TVCCalendar> holidays);
+
+        [OperationContract]
+        void TVC_StoreQuotes(IEnumerable<TVCQuoteResponse> quotes);
+
+        [OperationContract]
+        void TVC_StoreSymbols(IEnumerable<TVCSymbolResponse> symbols);
     }
 }

@@ -373,6 +373,16 @@
       <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="tvc.Holiday" Member="TVC_Holidays">
+    <Type Name="TVC_Holiday">
+      <Column Name="AsOfDate" Type="System.DateTime" DbType="Date NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Country" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Exchange" Type="System.String" DbType="VarChar(150) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Holiday" Member="Holiday1" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Usr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </Type>
+  </Table>
   <Function Name="tvc.usp_SymbolList_Upsert" Method="usp_SymbolList_Upsert">
     <Parameter Name="name" Type="System.String" DbType="VarChar(200)" />
     <Parameter Name="exchange_traded" Type="System.String" DbType="VarChar(50)" />
@@ -413,6 +423,13 @@
     <Parameter Name="low_price" Type="System.Double" DbType="Float" />
     <Parameter Name="prev_close_price" Type="System.Double" DbType="Float" />
     <Parameter Name="volume" Type="System.Double" DbType="Float" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="tvc.usp_Holiday_Upsert" Method="usp_Holiday_Upsert">
+    <Parameter Name="asofdate" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="country" Type="System.String" DbType="VarChar(50)" />
+    <Parameter Name="exchange" Type="System.String" DbType="VarChar(150)" />
+    <Parameter Name="holiday" Type="System.String" DbType="VarChar(150)" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

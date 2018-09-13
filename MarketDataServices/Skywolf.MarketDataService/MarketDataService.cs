@@ -47,7 +47,7 @@ namespace Skywolf.MarketDataService
                 _dataGrabber[DATASOURCE_ALPHAVANTAGE] = new AVMarketDataGrabber();
                 new AVMarketDataGrabber().UpdateAPIKeys(new MarketDataDatabase().VA_GetAvailableAPIKey(_AVKeyBatchId));
                 TVCMarketDataGrabber tvc = new TVCMarketDataGrabber();
-                tvc._getTVCSymbolsHandler = new GetTVCSymbols(GetTVCSymbols);
+                tvc._getTVCSymbolsHandler = new GetTVCSymbols(GetTVCSymbolsFromDB);
                 tvc._updateTVCSymbolesHandler = new UpdateTVCSymbols(StoreTVCSymbols);
                 tvc._updateTVCQuotesHandler = new UpdateTVCQuotes(StoreTVCQuotes);
                 _dataGrabber[DATASOURCE_TVC] = tvc;
@@ -91,7 +91,7 @@ namespace Skywolf.MarketDataService
             });
         }
 
-        static Dictionary<string, TVCSymbolResponse> GetTVCSymbols(IEnumerable<string> symbols)
+        static Dictionary<string, TVCSymbolResponse> GetTVCSymbolsFromDB(IEnumerable<string> symbols)
         {
             MarketDataDatabase marketData = new MarketDataDatabase();
             TVCSymbolResponse[] responses = marketData.TVC_GetSymbolList(symbols);
@@ -449,6 +449,42 @@ namespace Skywolf.MarketDataService
                 _Logger.Error(ex);
                 throw ex;
             }
+        }
+
+        public TVCCalendar[] TVC_GetCalendars(DateTime fromDate, DateTime toDate, string country = "", string currentTab = "custom")
+        {
+            try
+            {
+                return (_dataGrabber[DATASOURCE_TVC] as TVCMarketDataGrabber).GetCalendars(fromDate, toDate, country, currentTab);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        public void TVC_StoreHolidays(IEnumerable<TVCCalendar> holidays)
+        {
+            try
+            {
+                new MarketDataDatabase().TVC_StoreHolidays(holidays);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex);
+                throw ex;
+            }
+        }
+
+        public void TVC_StoreQuotes(IEnumerable<TVCQuoteResponse> quotes)
+        {
+            StoreTVCQuotes(quotes);
+        }
+
+        public void TVC_StoreSymbols(IEnumerable<TVCSymbolResponse> symbols)
+        {
+            StoreTVCSymbols(symbols);
         }
 
         #endregion

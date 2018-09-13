@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using Skywolf.Contracts.DataContracts.MarketData;
 using Skywolf.Contracts.DataContracts.MarketData.TVC;
-
+using HtmlAgilityPack;
 using Skywolf.Utility;
 using System.Data;
 using log4net;
@@ -26,6 +26,7 @@ namespace Skywolf.MarketDataGrabber
         const string TVC_URL_QUOTES = @"quotes?symbols={0}";
         const string TVC_URL_SYMBOLS = @"symbols?symbol={0}";
         const string TVC_URL_SEARCH = @"search?limit={0}&query={1}&type={2}&exchange={3}";
+        const string TVC_URL_CALENDAR = @"https://www.investing.com/holiday-calendar/Service/getCalendarFilteredData";
 
         public static ConcurrentDictionary<string, TVCSymbolResponse> _SymbolToSymbolInfo = new ConcurrentDictionary<string, TVCSymbolResponse>();
         public GetTVCSymbols _getTVCSymbolsHandler;
@@ -238,7 +239,160 @@ namespace Skywolf.MarketDataGrabber
 
             return freq;
         }
-       
+
+        public TVCCalendar[] GetCalendars(DateTime fromDate, DateTime toDate, string country="", string currentTab="custom")
+        {
+            List<TVCCalendarResponse> responses = new List<TVCCalendarResponse>();
+
+            TVCCalendarResponse response = RequestCalendar(fromDate, toDate, country, currentTab);
+
+            if (response != null)
+            {
+                responses.Add(response);
+
+                int limit_from = 1;
+                while (response != null && response.bind_scroll_handler)
+                {
+                    response = RequestCalendar(fromDate, toDate, country, currentTab, limit_from, true, 0, response.last_time_scope, true);
+                    if (response != null)
+                    {
+                        responses.Add(response);
+                        limit_from++;
+                    }
+                }
+            }
+
+            if (responses.Count > 0)
+            {
+                List<TVCCalendar> calendarList = new List<TVCCalendar>();
+                foreach (TVCCalendarResponse calendarResponse in responses)
+                {
+                    TVCCalendar[] calendars = ConvertTVCCalendarResponseToTVCCalendar(calendarResponse);
+                    if (calendars != null)
+                    {
+                        calendarList.AddRange(calendars);
+                    }
+                }
+
+                return calendarList.ToArray();
+            }
+
+            return null;
+        }
+
+        public static TVCCalendar[] ConvertTVCCalendarResponseToTVCCalendar(TVCCalendarResponse response)
+        {
+            if (response != null && !string.IsNullOrEmpty(response.data))
+            {
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(response.data);
+                HtmlNodeCollection trs = doc.DocumentNode.SelectNodes("tr");
+                List<TVCCalendar> calendars = new List<TVCCalendar>();
+                string lastdate = string.Empty;
+                foreach (HtmlNode tr in trs)
+                {
+                    HtmlNodeCollection tds = tr.SelectNodes("td");
+                    string date;
+                    string country;
+                    string exchange;
+                    string holiday;
+                    TVCCalendar calendar = new TVCCalendar();
+                    HtmlNodeCollection aNodes = tds[0].SelectNodes("a");
+                    if (aNodes != null && aNodes.Count > 0)
+                    {
+                        date = aNodes[0].InnerText;
+                    }
+                    else
+                    {
+                        date = tds[0].InnerText;
+                    }
+
+                    aNodes = tds[1].SelectNodes("a");
+                    if (aNodes != null && aNodes.Count > 0)
+                    {
+                        country = aNodes[0].InnerText;
+                    }
+                    else
+                    {
+                        country = tds[1].InnerText;
+                    }
+
+                    if (country != null && country.Contains(";"))
+                    {
+                        country = country.Split(new char[] { ';' })[1];
+                    }
+
+                    aNodes = tds[2].SelectNodes("a");
+                    if (aNodes != null && aNodes.Count > 0)
+                    {
+                        exchange = aNodes[0].InnerText;
+                    }
+                    else
+                    {
+                        exchange = tds[2].InnerText;
+                    }
+
+                    aNodes = tds[3].SelectNodes("a");
+                    if (aNodes != null && aNodes.Count > 0)
+                    {
+                        holiday = aNodes[0].InnerText;
+                    }
+                    else
+                    {
+                        holiday = tds[3].InnerText;
+                    }
+
+                    if (string.IsNullOrEmpty(date))
+                    {
+                        date = lastdate;
+                    }
+                    else
+                    {
+                        lastdate = date;
+                    }
+
+                    calendar.AsOfDate = Convert.ToDateTime(date);
+                    calendar.Country = country;
+                    calendar.Exchange = exchange;
+                    calendar.Holiday = holiday;
+                    calendars.Add(calendar);
+                }
+
+                return calendars.ToArray();
+            }
+
+            return null;
+        }
+
+        public TVCCalendarResponse RequestCalendar(DateTime fromDate, DateTime toDate, string country="", string currentTab="custom", int limit_from=0, bool showMore = false, int submitFilters = 0, int last_time_scope = 0, bool byHandler = false)
+        {
+            Dictionary<string, string> headers = new Dictionary<string, string>();
+            headers.Add("Accept", "*/*");
+            //headers.Add("Accept-Encoding", "gzip, deflate, br");
+            headers.Add("Accept-Language", "zh-CN,zh;q=0.9");
+            headers.Add("Host", "www.investing.com");
+            headers.Add("Origin", "https://www.investing.com");
+            headers.Add("Referer", "https://www.investing.com/holiday-calendar/");
+            headers.Add("User-Agent", "Mozilla / 5.0(Windows NT 10.0; Win64; x64) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 68.0.3440.106 Safari / 537.36");
+            headers.Add("X-Requested-With", "XMLHttpRequest");
+
+            string parameters = string.Empty;
+
+            if (byHandler)
+            {
+                parameters = string.Format("dateFrom={0}&dateTo={1}&country={2}&currentTab={3}&limit_from={4}&showMore={5}&submitFilters={6}&last_time_scope={7}&byHandler={8}", fromDate.ToString("yyyy-MM-dd"), toDate.ToString("yyyy-MM-dd"), country, currentTab, limit_from, showMore, submitFilters, last_time_scope, byHandler);
+            }
+            else
+            {
+                parameters = string.Format("dateFrom={0}&dateTo={1}&country={2}&currentTab={3}&limit_from={4}", fromDate.ToString("yyyy-MM-dd"), toDate.ToString("yyyy-MM-dd"), country, currentTab, limit_from);
+            }
+
+            string result = HttpPost(TVC_URL_CALENDAR, parameters, "application/x-www-form-urlencoded", headers);
+            TVCCalendarResponse calendar = JsonConvert.DeserializeObject<TVCCalendarResponse>(result);
+            return calendar;
+        }
+
+
         public TVCHistoryResponse GetHistoricalPrices(string symbol, BarFrequency frequency, DateTime from, DateTime to)
         {
             string freq = ConvertBarFrequencyToTVCResolution(frequency);
