@@ -23,6 +23,10 @@ namespace Skywolf.Contracts.Services.Restful
         string GetStockBatchQuote(string symbols, string datasource);
 
         [OperationContract]
+        [WebGet(UriTemplate = "getstockbatchquotedict?symbols={symbols}&datasource={datasource}")]
+        string GetStockBatchQuoteDict(string symbols, string datasource);
+
+        [OperationContract]
         [WebGet(UriTemplate = "getstockhistoryprices?symbols={symbols}&frequency={frequency}&startdate={startdate}&enddate={enddate}&outputcount={outputcount}&isadjustedvalue={isadjustedvalue}&datasource={datasource}")]
         string GetStockHistoryPrices(string symbols, string frequency, string startdate, string enddate, string outputcount, string isadjustedvalue, string datasource);
 

@@ -49,6 +49,7 @@
     <Compile Include="Contracts\DataContracts\MarketData\BarFrequency.cs" />
     <Compile Include="Contracts\DataContracts\MarketData\CryptoTimeSeriesDataInput.cs" />
     <Compile Include="Contracts\DataContracts\MarketData\CryptoTimeSeriesDataOutput.cs" />
+    <Compile Include="Contracts\DataContracts\MarketData\MarketSession.cs" />
     <Compile Include="Contracts\DataContracts\MarketData\Quote.cs" />
     <Compile Include="Contracts\DataContracts\MarketData\TimeSeriesDataInput.cs" />
     <Compile Include="Contracts\DataContracts\MarketData\TimeSeriesDataOutput.cs" />

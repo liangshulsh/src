@@ -355,6 +355,15 @@ namespace Skywolf.MarketDataGrabber
                     calendar.Country = country;
                     calendar.Exchange = exchange;
                     calendar.Holiday = holiday;
+
+                    if (!string.IsNullOrEmpty(holiday) && holiday.Contains("Early close at"))
+                    {
+                        string[] closetimes = holiday.Split(new string[] { "Early close at" }, StringSplitOptions.RemoveEmptyEntries);
+                        if (closetimes != null && closetimes.Count() > 1)
+                        {
+                            calendar.EarlyClose = closetimes[1].Trim();
+                        }
+                    }
                     calendars.Add(calendar);
                 }
 

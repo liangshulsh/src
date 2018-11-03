@@ -19,6 +19,24 @@ namespace Skywolf.DatabaseRepository
         
         protected static object _storeLockObj = new object();
 
+        public Dictionary<string, tvc.TVCCalendar[]> TVC_GetHolidays(string[] countries, DateTime? fromDate, DateTime? toDate)
+        {
+            using (MarketDataDataContext marketData = new MarketDataDataContext())
+            {
+                return (from p in marketData.TVC_Holidays
+                        where countries.Contains(p.Country) && ((fromDate.HasValue && p.AsOfDate >= fromDate.Value) || (fromDate.HasValue == false)) &&
+                        ((toDate.HasValue && p.AsOfDate <= toDate.Value) || toDate.HasValue == false)
+                        select new tvc.TVCCalendar()
+                        {
+                            AsOfDate = p.AsOfDate,
+                            Country = p.Country,
+                            EarlyClose = p.EarlyClose,
+                            Exchange = p.Exchange,
+                            Holiday = p.Holiday1
+                        }).GroupBy(k => k.Country).ToDictionary(k => k.Key, v => v.ToArray());
+            }
+        }
+
         public void TVC_StoreHolidays(IEnumerable<tvc.TVCCalendar> holidays)
         {
             if (holidays != null && holidays.Count() > 0)
@@ -27,7 +45,7 @@ namespace Skywolf.DatabaseRepository
                 {
                     foreach (var holiday in holidays)
                     {
-                        market.usp_Holiday_Upsert(holiday.AsOfDate, holiday.Country, holiday.Exchange, holiday.Holiday);
+                        market.usp_Holiday_Upsert(holiday.AsOfDate, holiday.Country, holiday.Exchange, holiday.Holiday, holiday.EarlyClose);
                     }
                 }
             }

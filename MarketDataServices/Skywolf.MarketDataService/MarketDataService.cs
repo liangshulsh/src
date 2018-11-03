@@ -488,5 +488,16 @@ namespace Skywolf.MarketDataService
         }
 
         #endregion
+
+        #region History Function
+        
+        public DataTable GetHistory(string now, string country, IEnumerable<string> symbols, string field, BarFrequency freq, int count)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        #endregion
     }
 }

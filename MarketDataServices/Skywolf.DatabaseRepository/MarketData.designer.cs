@@ -415,9 +415,9 @@ namespace Skywolf.DatabaseRepository
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="tvc.usp_Holiday_Upsert")]
-		public int usp_Holiday_Upsert([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> asofdate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string country, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(150)")] string exchange, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(150)")] string holiday)
+		public int usp_Holiday_Upsert([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Date")] System.Nullable<System.DateTime> asofdate, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(50)")] string country, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(150)")] string exchange, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(150)")] string holiday, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="VarChar(100)")] string earlyclose)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), asofdate, country, exchange, holiday);
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), asofdate, country, exchange, holiday, earlyclose);
 			return ((int)(result.ReturnValue));
 		}
 	}
@@ -7698,6 +7698,8 @@ namespace Skywolf.DatabaseRepository
 		
 		private string _Holiday1;
 		
+		private string _EarlyClose;
+		
 		private string _Usr;
 		
 		private System.Nullable<System.DateTime> _TS;
@@ -7714,6 +7716,8 @@ namespace Skywolf.DatabaseRepository
     partial void OnExchangeChanged();
     partial void OnHoliday1Changing(string value);
     partial void OnHoliday1Changed();
+    partial void OnEarlyCloseChanging(string value);
+    partial void OnEarlyCloseChanged();
     partial void OnUsrChanging(string value);
     partial void OnUsrChanged();
     partial void OnTSChanging(System.Nullable<System.DateTime> value);
@@ -7801,6 +7805,26 @@ namespace Skywolf.DatabaseRepository
 					this._Holiday1 = value;
 					this.SendPropertyChanged("Holiday1");
 					this.OnHoliday1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EarlyClose", DbType="VarChar(100)")]
+		public string EarlyClose
+		{
+			get
+			{
+				return this._EarlyClose;
+			}
+			set
+			{
+				if ((this._EarlyClose != value))
+				{
+					this.OnEarlyCloseChanging(value);
+					this.SendPropertyChanging();
+					this._EarlyClose = value;
+					this.SendPropertyChanged("EarlyClose");
+					this.OnEarlyCloseChanged();
 				}
 			}
 		}

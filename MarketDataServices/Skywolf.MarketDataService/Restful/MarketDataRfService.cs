@@ -124,6 +124,30 @@ namespace Skywolf.MarketDataService.Restful
             }
         }
 
+        public string GetStockBatchQuoteDict(string symbols, string datasource)
+        {
+            string[] symbolList = symbols.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            Quote[] quotes = new MarketDataService().GetStockBatchQuote(symbolList.ToArray(), datasource);
+
+            StringBuilder quoteBuilder = new StringBuilder();
+
+            quoteBuilder.Append("{ ");
+            if (quotes != null && quotes.Count() > 0)
+            {
+                List<string> quoteLists = new List<string>();
+                foreach (Quote quote in quotes)
+                {
+                    quoteLists.Add(string.Format(" '{0}':{1}", quote.Symbol.Contains(":") ? quote.Symbol.Split(new char[] { ':' })[1] : quote.Symbol, quote.Price));                    
+                }
+
+                quoteBuilder.Append(string.Join(",", quoteLists));
+            }
+
+            quoteBuilder.Append("}");
+
+            return quoteBuilder.ToString();
+        }
+
         public string GetStockHistoryPrices(string symbols, string frequency, string startdate, string enddate, string outputcount, string isadjustedvalue, string datasource)
         {
             try

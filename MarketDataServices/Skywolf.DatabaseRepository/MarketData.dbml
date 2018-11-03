@@ -379,6 +379,7 @@
       <Column Name="Country" Type="System.String" DbType="VarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Exchange" Type="System.String" DbType="VarChar(150) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Holiday" Member="Holiday1" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="EarlyClose" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="Usr" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
       <Column Name="TS" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
     </Type>
@@ -430,6 +431,7 @@
     <Parameter Name="country" Type="System.String" DbType="VarChar(50)" />
     <Parameter Name="exchange" Type="System.String" DbType="VarChar(150)" />
     <Parameter Name="holiday" Type="System.String" DbType="VarChar(150)" />
+    <Parameter Name="earlyclose" Type="System.String" DbType="VarChar(100)" />
     <Return Type="System.Int32" />
   </Function>
 </Database>

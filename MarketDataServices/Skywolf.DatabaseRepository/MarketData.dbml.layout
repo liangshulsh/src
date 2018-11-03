@@ -164,10 +164,10 @@
         <elementListCompartment Id="b8716272-da4d-47ac-ab8b-635979ae204e" absoluteBounds="3.015, 6.585, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="75d79dd7-084d-488f-be92-89d90c6f6197" absoluteBounds="3, 6.75, 2, 1.9631982421875">
+    <classShape Id="1e2bd55e-3d2b-41f0-871f-5fd2b85d35f9" absoluteBounds="3, 6.875, 2, 2.1554996744791666">
       <DataClassMoniker Name="/MarketDataDataContext/TVC_Holiday" />
       <nestedChildShapes>
-        <elementListCompartment Id="e50cd179-b654-4947-be7e-579834cdf81f" absoluteBounds="3.015, 7.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a7e9a01d-d5d2-4c1b-a838-9dcad5aae32a" absoluteBounds="3.015, 7.3350000000000009, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

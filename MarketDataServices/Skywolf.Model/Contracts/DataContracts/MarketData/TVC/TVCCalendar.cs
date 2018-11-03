@@ -17,5 +17,8 @@ namespace Skywolf.Contracts.DataContracts.MarketData.TVC
 
         [DataMember]
         public string Holiday { get; set; }
+
+        [DataMember]
+        public string EarlyClose { get; set; }
     }
 }
