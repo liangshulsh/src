@@ -1,9 +1,8 @@
 <chart>
-id=131853577584890335
-comment=53:51
-symbol=GBPUSD
+id=131429036334672860
+symbol=EURUSD
 period=60
-leftpos=10143
+leftpos=55551
 digits=5
 scale=8
 graph=1
@@ -20,10 +19,10 @@ days=1
 descriptions=0
 shift_size=20
 fixed_pos=0
-window_left=64
-window_top=64
-window_right=1254
-window_bottom=422
+window_left=0
+window_top=0
+window_right=864
+window_bottom=357
 window_type=3
 background_color=0
 foreground_color=16777215
@@ -42,27 +41,12 @@ height=100
 fixed_height=0
 <indicator>
 name=main
-<object>
-type=0
-object_name=Vertical Line 38753
-period_flags=0
-create_time=1540921185
-color=255
-style=0
-weight=1
-background=0
-filling=0
-selectable=1
-hidden=0
-zorder=0
-time_0=1535558400
-</object>
 </indicator>
 <indicator>
 name=Bollinger Bands
 period=20
 shift=0
-deviations=2.000000
+deviations=1.618000
 apply=0
 color=7451452
 style=0
@@ -111,6 +95,54 @@ draw_0=0
 color_0=65535
 style_0=0
 weight_0=0
+period_flags=0
+show_data=1
+</indicator>
+<indicator>
+name=Moving Average
+period=80
+shift=0
+method=0
+apply=0
+color=16776960
+style=0
+weight=2
+period_flags=0
+show_data=1
+</indicator>
+<indicator>
+name=Bollinger Bands
+period=80
+shift=0
+deviations=1.618000
+apply=0
+color=12180223
+style=1
+weight=1
+period_flags=0
+show_data=1
+</indicator>
+<indicator>
+name=Bollinger Bands
+period=400
+shift=0
+deviations=1.618000
+apply=0
+color=65535
+style=1
+weight=1
+period_flags=0
+show_data=1
+</indicator>
+<indicator>
+name=Moving Average
+period=400
+shift=0
+method=0
+apply=0
+color=65535
+style=0
+weight=1
 period_flags=0
 show_data=1
 </indicator>
@@ -176,11 +208,5 @@ period_flags=0
 show_data=1
 </indicator>
 </window>
-
-<expert>
-name=KClock
-flags=275
-window_num=0
-</expert>
 </chart>
 
