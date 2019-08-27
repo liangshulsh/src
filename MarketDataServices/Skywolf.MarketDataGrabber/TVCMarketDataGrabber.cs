@@ -20,8 +20,8 @@ namespace Skywolf.MarketDataGrabber
 
     public class TVCMarketDataGrabber : BaseMarketDataGrabber
     {
-        const string TVC_URL = @"https://tvc4.forexpros.com/";
-        const string TVC_URL_BASE = @"https://tvc4.forexpros.com/{0}/{1}/1/1/8/";
+        const string TVC_URL = @"http://tvc4.forexpros.com/";
+        const string TVC_URL_BASE = @"http://tvc4.forexpros.com/{0}/{1}/1/1/8/";
         const string TVC_URL_HISTORY = @"history?symbol={0}&resolution={1}&from={2}&to={3}";
         const string TVC_URL_QUOTES = @"quotes?symbols={0}";
         const string TVC_URL_SYMBOLS = @"symbols?symbol={0}";
