@@ -481,7 +481,7 @@ namespace Skywolf.MarketDataGrabber
                         {
                             if (!string.IsNullOrEmpty(response.exchange_traded))
                             {
-                                results.Add(response.exchange_traded + ":" + symbol);
+                                results.Add(response.exchange_traded + "%3A" + symbol);
                             }
                             else
                             {
@@ -513,7 +513,7 @@ namespace Skywolf.MarketDataGrabber
                                     _SymbolToSymbolInfo[symbol] = response;
                                     if (!string.IsNullOrEmpty(response.exchange_traded))
                                     {
-                                        results.Add(response.exchange_traded + ":" + symbol);
+                                        results.Add(response.exchange_traded + "%3A" + symbol);
                                     }
                                     else
                                     {
@@ -544,7 +544,7 @@ namespace Skywolf.MarketDataGrabber
                             _SymbolToSymbolInfo[symbol] = response;
                             if (!string.IsNullOrEmpty(response.exchange_traded))
                             {
-                                results.Add(response.exchange_traded + ":" + symbol);
+                                results.Add(response.exchange_traded + "%3A" + symbol);
                             }
                             else
                             {
