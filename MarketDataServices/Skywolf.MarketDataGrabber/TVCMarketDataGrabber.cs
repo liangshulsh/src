@@ -420,8 +420,8 @@ namespace Skywolf.MarketDataGrabber
 
                 while (symbolList.Count > 0)
                 {
-                    symbolBatchList.Add(symbolList.Take(200).ToList());
-                    symbolList = symbolList.Skip(200).ToList();
+                    symbolBatchList.Add(symbolList.Take(50).ToList());
+                    symbolList = symbolList.Skip(50).ToList();
                 }
 
                 TVCQuotesResponse totalQuotes = null;
