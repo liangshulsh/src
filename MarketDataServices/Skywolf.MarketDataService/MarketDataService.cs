@@ -30,10 +30,17 @@ namespace Skywolf.MarketDataService
         protected static ConcurrentDictionary<string, IMarketDataGrabber> _dataGrabber = new ConcurrentDictionary<string, IMarketDataGrabber>();
         static MarketDataService()
         {
-            string AVKeyBatchId = ConfigurationManager.AppSettings["AVKeyBatchId"];
-            if (!string.IsNullOrWhiteSpace(AVKeyBatchId))
+            try
             {
-                _AVKeyBatchId = Convert.ToInt32(AVKeyBatchId);
+                string AVKeyBatchId = ConfigurationManager.AppSettings["AVKeyBatchId"];
+                if (!string.IsNullOrWhiteSpace(AVKeyBatchId))
+                {
+                    _AVKeyBatchId = Convert.ToInt32(AVKeyBatchId);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
             }
 
             _Logger = LogManager.GetLogger(typeof(MarketDataService));
