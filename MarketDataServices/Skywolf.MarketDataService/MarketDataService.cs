@@ -24,6 +24,7 @@ namespace Skywolf.MarketDataService
     {
         public const string DATASOURCE_ALPHAVANTAGE = "av";
         public const string DATASOURCE_TVC = "tvc";
+        public const string DATASOURCE_SINA = "sina";
         public const string DATASOURCE_DEFAULT = "av";
         private static int _AVKeyBatchId = 1;
         private static ILog _Logger;
@@ -58,6 +59,7 @@ namespace Skywolf.MarketDataService
                 tvc._updateTVCSymbolesHandler = new UpdateTVCSymbols(StoreTVCSymbols);
                 tvc._updateTVCQuotesHandler = new UpdateTVCQuotes(StoreTVCQuotes);
                 _dataGrabber[DATASOURCE_TVC] = tvc;
+                _dataGrabber[DATASOURCE_SINA] = new SinaMarketDataGrabber();
             }
             catch (Exception ex)
             {

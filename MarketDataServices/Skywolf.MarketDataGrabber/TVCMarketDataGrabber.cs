@@ -536,8 +536,8 @@ namespace Skywolf.MarketDataGrabber
                     List<TVCSymbolResponse> newResponses = new List<TVCSymbolResponse>();
                     foreach (string symbol in symbolRemain)
                     {
-                        TVCSymbolResponse response = GetSymbolInfo(symbol);
-
+                        //TVCSymbolResponse response = GetSymbolInfo(symbol);
+                        TVCSymbolResponse response = null;
                         if (response != null && !string.IsNullOrEmpty(response.name))
                         {
                             newResponses.Add(response);

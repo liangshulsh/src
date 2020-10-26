@@ -62,6 +62,7 @@
     <Compile Include="BaseMarketDataGrabber.cs" />
     <Compile Include="IMarketDataGrabber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SinaMarketDataGrabber.cs" />
     <Compile Include="TVCMarketDataGrabber.cs" />
   </ItemGroup>
   <ItemGroup>
