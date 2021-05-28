@@ -18,6 +18,41 @@ namespace Skywolf.MarketDataGrabber
     {
         const string SINA_URL = @"https://hq.sinajs.cn/?list=";
 
+        //var hq_str_gb_aapl = 
+        //                   "苹果," +   name
+        //                   "127.9000," + close price
+        //                     "1.34," + price change percent
+        //                     "2021-04-08 16:23:43," + beijing update time
+        //                     "1.6900," + price change value
+        //                     "125.8300," + open price
+        //                     "127.9200," + high price
+        //                    "125.1400," + low price
+        //                     "515.1400," + 52w high price
+        //                     "103.1000," + 52w low price
+        //                     "83466716," + volume
+        //                     "89363871," + 10 day average volume
+        //                     "2147197478400," + market value
+        //                     "5.70," +     earning per stock
+        //                     "22.440000," + PE
+        //                     "0.00," +
+        //                    "0.00," +
+        //                    "0.20," +     dividend
+        //                     "0.00," +
+        //                     "16788096000," + total shares
+        //                     "63," +
+        //                     "128.7900," + pre-market price
+        //                     "0.70," + pre-market price change percent
+        //                     "0.89," + pre-market price change value
+        //                     "Apr 08 04:23AM EDT," + US East Time(After Market Close)
+        //                     "Apr 07 04:00PM EDT," + US East Time(Market Close)
+        //                     "126.2100," + last day close price
+        //                     "34432," + pre-mareket volume
+        //                     "1," + 
+        //                     "2021," +
+        //                     "10608796580.4435," +
+        //                     "128.9000," +
+        //                     "128.5000," +
+        //                     "4432757.1700";
         public override TimeSeriesDataOutput GetTimeSeriesData(TimeSeriesDataInput input)
         {
             throw new NotImplementedException();
